@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  background-color: #f9fafb;
+  color: #0f172a;
+}
+
+.font-kurenaido-force {
+  font-family: "Zen Kurenaido", "Hiragino Maru Gothic ProN", cursive !important;
+  font-weight: 700 !important;
+  font-synthesis: weight;
+  -webkit-text-stroke: 0.2px currentColor;
+  text-shadow:
+    0.25px 0 currentColor,
+    -0.25px 0 currentColor,
+    0 0.25px currentColor,
+    0 -0.25px currentColor;
+}
+
+@media (max-width: 639px) {
+  @keyframes hero-slide-pan-mobile {
+    0% {
+      transform: translateX(-5%) scale(1.14);
+    }
+    100% {
+      transform: translateX(5%) scale(1.14);
+    }
+  }
+
+  .hero-slide-pan-mobile {
+    animation: hero-slide-pan-mobile 4.5s linear forwards;
+    will-change: transform;
+    transform-origin: center;
+  }
+}
+
