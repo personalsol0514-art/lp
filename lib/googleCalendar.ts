@@ -84,18 +84,34 @@ export async function createCalendarReservation(params: {
   slotStartIso: string;
   slotEndIso: string;
 }) {
-  const auth = getOAuthClient();
-  const calendar = google.calendar({ version: "v3", auth });
+  console.log("GOOGLE_CLIENT_ID exists:", !!process.env.GOOGLE_CLIENT_ID);
+  console.log(
+    "GOOGLE_CLIENT_SECRET exists:",
+    !!process.env.GOOGLE_CLIENT_SECRET,
+  );
+  console.log(
+    "GOOGLE_REFRESH_TOKEN exists:",
+    !!process.env.GOOGLE_REFRESH_TOKEN,
+  );
+  console.log("GOOGLE_CALENDAR_ID:", process.env.GOOGLE_CALENDAR_ID);
 
-  await calendar.events.insert({
-    calendarId: getCalendarId(),
-    requestBody: {
-      summary: `【体験予約】${params.name}`,
-      description: `メール: ${params.email || "未入力"}\n電話番号: ${
-        params.phone || "未入力"
-      }\n相談内容: ${params.note || "未入力"}`,
-      start: { dateTime: params.slotStartIso, timeZone: TIME_ZONE },
-      end: { dateTime: params.slotEndIso, timeZone: TIME_ZONE },
-    },
-  });
+  try {
+    const auth = getOAuthClient();
+    const calendar = google.calendar({ version: "v3", auth });
+
+    await calendar.events.insert({
+      calendarId: getCalendarId(),
+      requestBody: {
+        summary: `【体験予約】${params.name}`,
+        description: `メール: ${params.email || "未入力"}\n電話番号: ${
+          params.phone || "未入力"
+        }\n相談内容: ${params.note || "未入力"}`,
+        start: { dateTime: params.slotStartIso, timeZone: TIME_ZONE },
+        end: { dateTime: params.slotEndIso, timeZone: TIME_ZONE },
+      },
+    });
+  } catch (error) {
+    console.error("Google calendar error:", error);
+    throw error;
+  }
 }
