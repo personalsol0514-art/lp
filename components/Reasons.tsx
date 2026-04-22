@@ -86,7 +86,7 @@ export function Reasons() {
       <div className="relative z-10 mx-auto max-w-6xl">
         <header className="mx-auto max-w-2xl text-center">
           <h2 className="font-kurenaido-force inline-block -rotate-[6.5deg] border-b-2 border-[#E07A3A] pb-1 text-[2rem] leading-[1.08] tracking-tight text-[#E07A3A] sm:pb-1.5 sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem]">
-            選ばれる理由
+            初心者でも続けられる理由
           </h2>
           <p className="font-sans mt-1 inline-block -rotate-[6.5deg] text-[1.35rem] font-bold leading-tight tracking-tight text-[#2c2825] sm:mt-1.5 sm:text-[1.65rem] md:text-[1.85rem]">
             続けられるから、変わっていく。
