@@ -152,7 +152,7 @@ export function ReserveForm() {
       setSelectedDate("");
       setSelectedSlotStart("");
       setSelectedSlotEnd("");
-      window.location.assign(`${window.location.origin}/reserve/thanks`);
+      window.location.assign(`${window.location.origin}/thanks`);
     } catch (error) {
       setStatus("error");
       setMessage(

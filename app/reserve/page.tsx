@@ -9,10 +9,10 @@ export default function ReservePage() {
       <div className="mx-auto max-w-2xl">
         <div className="mb-6">
           <Link
-            href="/"
+            href="/lp"
             className="text-body-sm font-semibold text-[#B86E3C] underline decoration-[#B86E3C]/40 underline-offset-4"
           >
-            トップに戻る
+            LPに戻る
           </Link>
         </div>
 
