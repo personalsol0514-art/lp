@@ -31,10 +31,6 @@ const slides: Array<{ src: string; alt: string }> = [
     src: "/solution-daily.png",
     alt: "リラックスして身体と向き合えるプライベートな雰囲気のイメージ",
   },
-  {
-    src: "/worries-character.png",
-    alt: "やわらかなトーンのスタジオイメージ",
-  },
 ];
 
 function MarqueeTrack({ animationClass }: { animationClass: string }) {
