@@ -24,8 +24,7 @@ export default function ReservePage() {
             体験予約フォーム
           </h1>
           <p className="mt-3 text-body text-slate-600">
-            60分枠（11:00〜20:00）の空き状況を Googleカレンダー連携で表示しています。
-            ●の時間を選んでご予約ください。
+            60分枠（11:00〜20:00）からご希望の時間を選んでご予約ください。
           </p>
 
           <div className="mt-7">
