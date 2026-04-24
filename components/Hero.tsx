@@ -50,9 +50,9 @@ export function Hero() {
         <div className="w-full">
           <div className="mt-4 ml-auto max-w-[min(88vw,37rem)] text-right md:mt-5 md:max-w-[34rem]">
             <h1 className="font-sans text-[clamp(2rem,6.2vw,4.6rem)] font-black leading-[1.08] tracking-[0.01em] text-white drop-shadow-[0_8px_24px_rgba(32,23,58,0.35)]">
-              岡崎で
+              わたしらしく
               <br />
-              無理なく変われるパーソナルジム
+              無理なく整う
             </h1>
           </div>
 

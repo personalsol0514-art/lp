@@ -44,19 +44,6 @@ export default function LpPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <Hero />
-      <section className="bg-[#fafaf8] px-4 py-10 sm:py-12">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-heading font-bold text-slate-900 sm:text-heading-lg">
-            岡崎でパーソナルジムをお探しの方へ
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-body leading-relaxed text-slate-700">
-            「岡崎 パーソナルジム」で検索して比較している方に向けて、THE natural
-            fitnessは女性が無理なく続けられるサポートを提供しています。
-            初心者の方でも安心して始められるよう、岡崎 パーソナルジムとして体調や生活リズムに合わせたプログラムをご提案します。
-            ダイエットや姿勢改善を目指す方にも、岡崎 パーソナルジムとして一人ひとりに合わせて伴走します。
-          </p>
-        </div>
-      </section>
       <WorriesSection />
       <SectionWithTopWave fillClassName="text-[#F3EBE3]">
         <h2 className="sr-only">女性のためのダイエット特化プログラム</h2>
