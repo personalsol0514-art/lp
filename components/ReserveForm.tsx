@@ -14,6 +14,10 @@ type DayAvailability = {
   date: string;
   slots: Slot[];
 };
+type ReserveApiResponse = {
+  success?: boolean;
+  message?: string;
+};
 
 const TIME_LABELS = Array.from({ length: 9 }, (_, index) => {
   const hour = 11 + index;
@@ -141,9 +145,29 @@ export function ReserveForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await response.json()) as { message?: string };
+
+      const rawBody = await response.text();
+      console.log("reserve API status:", response.status);
+      console.log("reserve API body:", rawBody);
+
+      let data: ReserveApiResponse | null = null;
+      try {
+        data = JSON.parse(rawBody) as ReserveApiResponse;
+      } catch {
+        data = null;
+      }
+
       if (!response.ok) {
-        throw new Error(data.message ?? "送信に失敗しました。");
+        throw new Error(
+          data?.message ??
+            "送信に失敗しました。サーバーから不正なレスポンスが返されました。",
+        );
+      }
+
+      if (!data || data.success !== true) {
+        throw new Error(
+          data?.message ?? "予約処理が完了していないため送信を中止しました。",
+        );
       }
 
       setStatus("success");

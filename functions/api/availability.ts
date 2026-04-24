@@ -56,6 +56,7 @@ export async function onRequestGet(context: {
   request: Request;
   env: Env;
 }) {
+  console.log("availability function called");
   console.log("availability API called");
   console.log("GOOGLE_CLIENT_ID exists:", !!context.env.GOOGLE_CLIENT_ID);
   console.log("GOOGLE_CLIENT_SECRET exists:", !!context.env.GOOGLE_CLIENT_SECRET);

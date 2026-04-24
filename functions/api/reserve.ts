@@ -179,6 +179,7 @@ export async function onRequestPost(context: {
   request: Request;
   env: Env;
 }) {
+  console.log("reserve function called");
   console.log("reserve API called");
 
   try {
@@ -201,7 +202,7 @@ export async function onRequestPost(context: {
     ) {
       console.log("reserve API response:", { status: 400, message: "必須項目不足" });
       return Response.json(
-        { message: "お名前・メールアドレス・電話番号・予約日時は必須です。" },
+        { success: false, message: "お名前・メールアドレス・電話番号・予約日時は必須です。" },
         { status: 400 },
       );
     }
@@ -307,12 +308,12 @@ THE natural fitness`;
     }
 
     console.log("reserve API response:", { status: 200, message: "送信に成功しました。" });
-    return Response.json({ message: "送信に成功しました。" });
+    return Response.json({ success: true, message: "送信に成功しました。" });
   } catch (error) {
     console.error("reserve API error:", error);
     const message =
       error instanceof Error ? `送信エラー: ${error.message}` : "送信に失敗しました。";
     console.log("reserve API response:", { status: 500, message });
-    return Response.json({ message }, { status: 500 });
+    return Response.json({ success: false, message }, { status: 500 });
   }
 }
