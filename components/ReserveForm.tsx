@@ -20,22 +20,6 @@ const TIME_LABELS = Array.from({ length: 9 }, (_, index) => {
   return `${String(hour).padStart(2, "0")}:00`;
 });
 
-function createFallbackSlots(dateKey: string): Slot[] {
-  return TIME_LABELS.map((label, index) => {
-    const startHour = 11 + index;
-    const endHour = startHour + 1;
-    const startIso = `${dateKey}T${String(startHour).padStart(2, "0")}:00:00+09:00`;
-    const endIso = `${dateKey}T${String(endHour).padStart(2, "0")}:00:00+09:00`;
-
-    return {
-      label,
-      startIso,
-      endIso,
-      available: true,
-    };
-  });
-}
-
 function formatDateKey(date: Date) {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -76,34 +60,105 @@ export function ReserveForm() {
   }, [baseDate, weekOffset]);
 
   useEffect(() => {
-    setSlotLoading(true);
-    setMessage("");
-    const fallback = weekDates.map((dateObj) => {
-      const dateKey = formatDateKey(dateObj);
-      return { date: dateKey, slots: createFallbackSlots(dateKey) };
-    });
-    setDayAvailabilities(fallback);
-    const stillValid = fallback.some((day) =>
-      day.slots.some((slot) => slot.startIso === selectedSlotStart && slot.available),
-    );
-    if (!stillValid) {
-      setSelectedDate("");
-      setSelectedSlotStart("");
-      setSelectedSlotEnd("");
+    let cancelled = false;
+
+    async function loadSlotsByWeek() {
+      setSlotLoading(true);
+      setMessage("");
+      try {
+        const responses = await Promise.all(
+          weekDates.map(async (dateObj) => {
+            const dateKey = formatDateKey(dateObj);
+            const response = await fetch(
+              `/api/availability?date=${encodeURIComponent(dateKey)}`,
+            );
+            const data = (await response.json()) as {
+              slots?: Slot[];
+              message?: string;
+            };
+            if (!response.ok) {
+              throw new Error(data.message ?? "空き時間の取得に失敗しました。");
+            }
+            return { date: dateKey, slots: data.slots ?? [] };
+          }),
+        );
+
+        if (!cancelled) {
+          setDayAvailabilities(responses);
+          const stillValid = responses.some((day) =>
+            day.slots.some((slot) => slot.startIso === selectedSlotStart && slot.available),
+          );
+          if (!stillValid) {
+            setSelectedDate("");
+            setSelectedSlotStart("");
+            setSelectedSlotEnd("");
+          }
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setDayAvailabilities([]);
+          setSelectedSlotStart("");
+          setSelectedSlotEnd("");
+          setMessage(
+            error instanceof Error
+              ? error.message
+              : "空き時間の取得に失敗しました。",
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setSlotLoading(false);
+        }
+      }
     }
-    setSlotLoading(false);
+
+    void loadSlotsByWeek();
+    return () => {
+      cancelled = true;
+    };
   }, [weekDates, selectedSlotStart]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     setStatus("submitting");
     setMessage("");
 
-    setStatus("success");
-    setSelectedDate("");
-    setSelectedSlotStart("");
-    setSelectedSlotEnd("");
-    window.location.assign(`${window.location.origin}/thanks`);
+    const formData = new FormData(form);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      selectedDate: String(formData.get("selectedDate") ?? ""),
+      slotStartIso: String(formData.get("slotStartIso") ?? ""),
+      slotEndIso: String(formData.get("slotEndIso") ?? ""),
+      note: String(formData.get("note") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/reserve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await response.json()) as { message?: string };
+      if (!response.ok) {
+        throw new Error(data.message ?? "送信に失敗しました。");
+      }
+
+      setStatus("success");
+      setSelectedDate("");
+      setSelectedSlotStart("");
+      setSelectedSlotEnd("");
+      window.location.assign(`${window.location.origin}/thanks`);
+    } catch (error) {
+      setStatus("error");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "送信に失敗しました。時間をおいて再度お試しください。",
+      );
+    }
   }
 
   return (
