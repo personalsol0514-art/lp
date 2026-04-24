@@ -32,12 +32,12 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 top-16 z-0">
         {heroSlides.map((slideSrc, index) => (
           <Image
-            key={`${slideSrc}-${activeSlide === index ? activeSlide : "idle"}`}
+            key={slideSrc}
             src={slideSrc}
             alt="パーソナルジムのトレーニング風景"
             fill
             priority={index === 0}
-            className={`hero-slide-pan-mobile object-cover object-[56%_34%] transition-opacity duration-1000 sm:object-[28%_34%] ${
+            className={`hero-slide-pan-mobile object-cover object-[56%_34%] transition-opacity duration-700 ease-linear sm:object-[28%_34%] ${
               index === activeSlide ? "opacity-100" : "opacity-0"
             }`}
           />

@@ -301,32 +301,31 @@ export function ReserveForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="text-body-sm font-semibold text-slate-700">
-            メールアドレス
+            メールアドレス <span className="text-[#E07A3A]">必須</span>
           </label>
           <input
             id="email"
             name="email"
             type="email"
+            required
             className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
             placeholder="example@email.com"
           />
         </div>
         <div>
           <label htmlFor="phone" className="text-body-sm font-semibold text-slate-700">
-            電話番号
+            電話番号 <span className="text-[#E07A3A]">必須</span>
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
+            required
             className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
             placeholder="090-1234-5678"
           />
         </div>
       </div>
-      <p className="-mt-2 text-body-sm text-slate-500">
-        ※メールアドレスまたは電話番号のどちらかを入力してください。
-      </p>
 
       <div>
         <label htmlFor="note" className="text-body-sm font-semibold text-slate-700">

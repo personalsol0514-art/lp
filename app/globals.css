@@ -27,15 +27,15 @@ body {
 @media (max-width: 639px) {
   @keyframes hero-slide-pan-mobile {
     0% {
-      transform: translateX(-5%) scale(1.14);
+      transform: translateX(-4%) scale(1.18);
     }
     100% {
-      transform: translateX(5%) scale(1.14);
+      transform: translateX(4%) scale(1.18);
     }
   }
 
   .hero-slide-pan-mobile {
-    animation: hero-slide-pan-mobile 4.5s linear forwards;
+    animation: hero-slide-pan-mobile 7s ease-in-out infinite alternate;
     will-change: transform;
     transform-origin: center;
   }

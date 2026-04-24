@@ -38,18 +38,14 @@ export async function POST(request: Request) {
 
   if (
     isBlank(name) ||
+    isBlank(email) ||
+    isBlank(phone) ||
     isBlank(selectedDate) ||
     isBlank(slotStartIso) ||
     isBlank(slotEndIso)
   ) {
     return Response.json(
-      { message: "お名前・予約日時は必須です。" },
-      { status: 400 },
-    );
-  }
-  if (isBlank(email) && isBlank(phone)) {
-    return Response.json(
-      { message: "メールアドレスまたは電話番号を入力してください。" },
+      { message: "お名前・メールアドレス・電話番号・予約日時は必須です。" },
       { status: 400 },
     );
   }

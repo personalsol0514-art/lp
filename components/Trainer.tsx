@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { InstagramEmbeds } from "./InstagramEmbeds";
 
 export function Trainer() {
   return (
@@ -32,6 +33,9 @@ export function Trainer() {
           これまで忙しくて自分のことを後回しにしてきた女性が、「自分のための時間」を取り戻せるように。
           その日の体調や気分に合わせて、無理のないメニューを一緒に考えます。
         </p>
+        <div className="mt-10">
+          <InstagramEmbeds />
+        </div>
       </div>
     </section>
   );

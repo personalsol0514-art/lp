@@ -70,11 +70,11 @@ export default function LpPage() {
         <h2 className="sr-only">姿勢改善・脚やせにも対応</h2>
         <BeforeAfter />
       </SectionWithTopWave>
-      <SectionWithTopWave fillClassName="text-white">
-        <Studio />
-      </SectionWithTopWave>
       <SectionWithTopWave fillClassName="text-[#efe8df]">
         <Trainer />
+      </SectionWithTopWave>
+      <SectionWithTopWave fillClassName="text-white">
+        <Studio />
       </SectionWithTopWave>
       <SectionWithTopWave fillClassName="text-white">
         <Pricing />
