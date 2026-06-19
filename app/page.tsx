@@ -1,3 +1,5 @@
+import { ReserveLink } from "../components/ReserveLink";
+
 export default function HomePage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
@@ -18,12 +20,13 @@ export default function HomePage() {
           >
             LPを見る
           </a>
-          <a
+          <ReserveLink
             href="/reserve"
+            eventLabel="home_prepare_reserve"
             className="inline-flex min-w-[160px] items-center justify-center rounded-full bg-[#E07A3A] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#cf6d34]"
           >
             体験予約へ
-          </a>
+          </ReserveLink>
         </div>
       </section>
     </main>

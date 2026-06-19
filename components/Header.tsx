@@ -1,3 +1,5 @@
+import { ReserveLink } from "./ReserveLink";
+
 const navItems = [
   { label: "特徴", href: "#features" },
   { label: "変化イメージ", href: "#changes" },
@@ -19,12 +21,13 @@ export function Header() {
           </a>
 
           <div className="flex items-center gap-2">
-            <a
+            <ReserveLink
               href="/reserve"
+              eventLabel="header_desktop_reserve"
               className="hidden rounded-full bg-[#E07A3A] px-4 py-2 text-body-sm font-semibold text-white shadow-sm shadow-[#F3C9A9]/70 transition hover:bg-[#C9682F] sm:inline-flex"
             >
               体験予約
-            </a>
+            </ReserveLink>
 
             <details className="relative">
               <summary className="list-none">
@@ -48,12 +51,13 @@ export function Header() {
                       {item.label}
                     </a>
                   ))}
-                  <a
+                  <ReserveLink
                     href="/reserve"
+                    eventLabel="header_menu_reserve"
                     className="mt-1 inline-flex items-center justify-center rounded-xl bg-emerald-500 px-3 py-2.5 text-body font-semibold text-white shadow-sm shadow-emerald-200/60"
                   >
                     体験予約
-                  </a>
+                  </ReserveLink>
                 </div>
               </div>
             </details>
@@ -63,4 +67,3 @@ export function Header() {
     </header>
   );
 }
-

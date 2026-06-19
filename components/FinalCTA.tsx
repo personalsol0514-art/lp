@@ -1,3 +1,5 @@
+import { ReserveLink } from "./ReserveLink";
+
 const SHOP_ADDRESS_SINGLE_LINE =
   "〒444-0051 愛知県岡崎市本町通２丁目３ 鳥居ビル 1F";
 
@@ -96,18 +98,20 @@ export function FinalCTA() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-3 border-t border-[#E07A3A]/15 pt-8 sm:flex-row sm:justify-center">
-          <a
+          <ReserveLink
             href="/reserve"
+            eventLabel="final_cta_reserve"
             className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-[#E07A3A] px-6 py-2.5 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
           >
             体験予約
-          </a>
-          <a
+          </ReserveLink>
+          <ReserveLink
             href="/reserve"
+            eventLabel="final_cta_consult"
             className="inline-flex min-w-[180px] items-center justify-center rounded-full border-2 border-[#E07A3A]/50 bg-white px-6 py-2.5 text-body font-semibold text-[#c45a28] transition hover:border-[#E07A3A] hover:bg-[#fff5ef]"
           >
             LINEで相談
-          </a>
+          </ReserveLink>
         </div>
       </div>
     </section>
