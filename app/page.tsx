@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import BlogNewsPreviewClient from "../components/BlogNewsPreviewClient";
+import { ReserveLink } from "../components/ReserveLink";
 import { WorriesSection } from "../components/WorriesSection";
 import { blogPosts } from "../lib/blog-posts";
 
@@ -308,12 +309,13 @@ export default function TestPage() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a
+            <ReserveLink
               href="/reserve"
+              eventLabel="home_header_reserve"
               className="hidden rounded-full bg-[#E86F23] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)] transition hover:bg-[#cf5f1c] sm:inline-flex"
             >
               体験予約
-            </a>
+            </ReserveLink>
             <details className="group relative lg:hidden">
               <summary className="list-none">
                 <span className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#EADCCF] bg-white text-sm font-black text-[#E86F23] shadow-sm sm:h-11 sm:w-auto sm:px-4">
@@ -335,12 +337,13 @@ export default function TestPage() {
                     {label}
                   </a>
                 ))}
-                <a
+                <ReserveLink
                   href="/reserve"
+                  eventLabel="home_menu_reserve"
                   className="mt-2 flex items-center justify-center rounded-xl bg-[#E86F23] px-4 py-3 text-sm font-black text-white"
                 >
                   体験予約
-                </a>
+                </ReserveLink>
               </div>
             </details>
           </div>
@@ -404,15 +407,16 @@ export default function TestPage() {
                 <br className="hidden sm:block" />
                 無理なくサポート
               </p>
-              <a
+              <ReserveLink
                 href="/reserve"
+                eventLabel="home_hero_reserve"
                 className="nf-cta-breathe mt-6 inline-flex min-h-13 w-full max-w-[430px] items-center justify-center rounded-full bg-[#E86F23] px-8 py-4 text-base font-black text-white shadow-[0_16px_34px_rgba(232,111,35,0.26)] transition hover:bg-[#cf5f1c] sm:mt-8 sm:min-h-16 sm:py-0"
               >
                 体験予約する
                 <span className="ml-5 grid h-7 w-7 place-items-center rounded-full bg-white text-[#E86F23]">
                   ›
                 </span>
-              </a>
+              </ReserveLink>
             </div>
           </div>
         </div>
@@ -901,12 +905,13 @@ export default function TestPage() {
                     <dd>タカラパーキング / 駐車場サービス券あり</dd>
                   </div>
                 </dl>
-                <a
+                <ReserveLink
                   href="/reserve"
+                  eventLabel="home_access_reserve"
                   className="mt-6 inline-flex rounded-lg bg-[#7B9257] px-7 py-3 text-sm font-black text-white transition hover:bg-[#677b49]"
                 >
                   アクセス詳細を見る ›
-                </a>
+                </ReserveLink>
               </div>
             </div>
             <div className="min-h-[360px] overflow-hidden rounded-2xl border border-[#EADCCF] bg-[#F5EFE7]">
@@ -964,13 +969,14 @@ export default function TestPage() {
               岡崎市でパーソナルジムをお探しの方は、NATURAL FITNESSへお気軽にご相談ください。
             </p>
           </div>
-          <a
+          <ReserveLink
             href="/reserve"
+            eventLabel="home_final_reserve"
             className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-white px-8 text-base font-black text-[#E86F23] transition hover:bg-[#FFF4EA] sm:w-auto"
           >
             体験予約する
             <span className="ml-4">›</span>
-          </a>
+          </ReserveLink>
         </div>
       </section>
 
@@ -1014,12 +1020,13 @@ export default function TestPage() {
                 </a>
               ))}
             </nav>
-            <a
+            <ReserveLink
               href="/reserve"
+              eventLabel="home_footer_reserve"
               className="mt-6 inline-flex rounded-full bg-[#E86F23] px-6 py-3 text-sm font-black text-white transition hover:bg-[#cf5f1c]"
             >
               体験予約する
-            </a>
+            </ReserveLink>
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 border-t border-white/12 pt-6 text-xs text-white/52 sm:flex-row sm:items-center sm:justify-between">
