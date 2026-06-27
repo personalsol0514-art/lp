@@ -7,6 +7,8 @@ type ReservationMailParams = {
   time: string;
 };
 
+const DEFAULT_RESERVE_FROM_EMAIL = "send@natural-fitness-gym.jp";
+
 export function formatReservationMailDateTime(
   selectedDate: string,
   slotStartIso: string,
@@ -49,18 +51,25 @@ export async function sendReservationMail({
     throw new Error("RESEND_API_KEY is not set");
   }
 
-  if (!process.env.RESERVE_FROM_EMAIL) {
-    throw new Error("RESERVE_FROM_EMAIL is not set");
+  const fromEmail = process.env.RESERVE_FROM_EMAIL || DEFAULT_RESERVE_FROM_EMAIL;
+  const toEmail = email.trim();
+
+  if (!toEmail) {
+    throw new Error("Reservation recipient email is empty");
+  }
+
+  if (toEmail.toLowerCase() === fromEmail.trim().toLowerCase()) {
+    throw new Error(`${fromEmail} must not be used as a recipient email`);
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const subject =
-    "【予約完了】ご予約ありがとうございます｜THE natural fitness";
+    "【予約完了】ご予約ありがとうございます｜NATURAL FITNESS";
 
   const text = `${name}様
 
-この度は「THE natural fitness」へのご予約ありがとうございます。
+この度は「NATURAL FITNESS」へのご予約ありがとうございます。
 以下の内容でご予約を承りました。
 
 ――――――――――――――――
@@ -89,14 +98,14 @@ https://share.google/mGZNxrMdQfTS8wx2b
 それではお会いできることを楽しみにしております。
 
 ――――――――――――――――
-THE natural fitness`;
+NATURAL FITNESS`;
 
   const html = `
     <div style="font-family: sans-serif; line-height: 1.8; color: #222;">
       <p>${escapeHtml(name)}様</p>
 
       <p>
-        この度は「THE natural fitness」へのご予約ありがとうございます。<br />
+        この度は「NATURAL FITNESS」へのご予約ありがとうございます。<br />
         以下の内容でご予約を承りました。
       </p>
 
@@ -126,13 +135,13 @@ THE natural fitness`;
       <p>それではお会いできることを楽しみにしております。</p>
 
       <hr style="border: none; border-top: 1px solid #ddd; margin: 24px 0;" />
-      <p>THE natural fitness</p>
+      <p>NATURAL FITNESS</p>
     </div>
   `;
 
   const result = await resend.emails.send({
-    from: process.env.RESERVE_FROM_EMAIL,
-    to: email,
+    from: fromEmail,
+    to: toEmail,
     subject,
     text,
     html,

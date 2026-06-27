@@ -2,6 +2,8 @@ type Env = {
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
   GOOGLE_REFRESH_TOKEN?: string;
+  GOOGLE_SERVICE_ACCOUNT_EMAIL?: string;
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?: string;
   GOOGLE_CALENDAR_ID?: string;
 };
 
@@ -21,10 +23,94 @@ function getCalendarId(env: Env) {
   return env.GOOGLE_CALENDAR_ID || "personal.sol0514@gmail.com";
 }
 
+function base64UrlEncode(input: string | ArrayBuffer) {
+  const bytes =
+    typeof input === "string" ? new TextEncoder().encode(input) : new Uint8Array(input);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function pemToArrayBuffer(pem: string) {
+  const normalized = pem.replace(/\\n/g, "\n");
+  const base64 = normalized
+    .replace(/-----BEGIN PRIVATE KEY-----/g, "")
+    .replace(/-----END PRIVATE KEY-----/g, "")
+    .replace(/\s/g, "");
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+async function getServiceAccountAccessToken(env: Env) {
+  if (!env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+    throw new Error(
+      "Googleサービスアカウント設定が不足しています。GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY を設定してください。",
+    );
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", typ: "JWT" };
+  const claim = {
+    iss: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    scope: "https://www.googleapis.com/auth/calendar",
+    aud: "https://oauth2.googleapis.com/token",
+    iat: now,
+    exp: now + 3600,
+  };
+  const unsignedToken = `${base64UrlEncode(JSON.stringify(header))}.${base64UrlEncode(
+    JSON.stringify(claim),
+  )}`;
+
+  const key = await crypto.subtle.importKey(
+    "pkcs8",
+    pemToArrayBuffer(env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY),
+    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign(
+    "RSASSA-PKCS1-v1_5",
+    key,
+    new TextEncoder().encode(unsignedToken),
+  );
+  const assertion = `${unsignedToken}.${base64UrlEncode(signature)}`;
+
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion,
+    }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Googleサービスアカウントtoken取得失敗: ${response.status} ${detail}`);
+  }
+
+  const data = (await response.json()) as { access_token?: string };
+  if (!data.access_token) {
+    throw new Error("Googleサービスアカウントtoken取得結果にaccess_tokenがありません。");
+  }
+
+  return data.access_token;
+}
+
 async function getGoogleAccessToken(env: Env) {
+  if (env.GOOGLE_SERVICE_ACCOUNT_EMAIL && env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+    return getServiceAccountAccessToken(env);
+  }
+
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || !env.GOOGLE_REFRESH_TOKEN) {
     throw new Error(
-      "Google連携設定が不足しています。GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN を設定してください。",
+      "Google連携設定が不足しています。サービスアカウントまたはOAuth refresh tokenの設定をしてください。",
     );
   }
 
@@ -61,6 +147,11 @@ export async function onRequestGet(context: {
   console.log("GOOGLE_CLIENT_ID exists:", !!context.env.GOOGLE_CLIENT_ID);
   console.log("GOOGLE_CLIENT_SECRET exists:", !!context.env.GOOGLE_CLIENT_SECRET);
   console.log("GOOGLE_REFRESH_TOKEN exists:", !!context.env.GOOGLE_REFRESH_TOKEN);
+  console.log("GOOGLE_SERVICE_ACCOUNT_EMAIL exists:", !!context.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+  console.log(
+    "GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY exists:",
+    !!context.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+  );
   console.log("GOOGLE_CALENDAR_ID:", context.env.GOOGLE_CALENDAR_ID);
 
   const { searchParams } = new URL(context.request.url);

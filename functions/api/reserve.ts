@@ -2,6 +2,8 @@ type Env = {
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
   GOOGLE_REFRESH_TOKEN?: string;
+  GOOGLE_SERVICE_ACCOUNT_EMAIL?: string;
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?: string;
   GOOGLE_CALENDAR_ID?: string;
   RESEND_API_KEY?: string;
   RESERVE_FROM_EMAIL?: string;
@@ -19,9 +21,14 @@ type ReservePayload = {
 };
 
 const TIME_ZONE = "Asia/Tokyo";
+const DEFAULT_RESERVE_FROM_EMAIL = "send@natural-fitness-gym.jp";
 
 function isBlank(value: string | undefined) {
   return !value || value.trim().length === 0;
+}
+
+function normalizeEmail(value: string | undefined) {
+  return value?.trim().toLowerCase() ?? "";
 }
 
 function escapeHtml(str: string) {
@@ -35,6 +42,86 @@ function escapeHtml(str: string) {
 
 function getCalendarId(env: Env) {
   return env.GOOGLE_CALENDAR_ID || "personal.sol0514@gmail.com";
+}
+
+function base64UrlEncode(input: string | ArrayBuffer) {
+  const bytes =
+    typeof input === "string" ? new TextEncoder().encode(input) : new Uint8Array(input);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function pemToArrayBuffer(pem: string) {
+  const normalized = pem.replace(/\\n/g, "\n");
+  const base64 = normalized
+    .replace(/-----BEGIN PRIVATE KEY-----/g, "")
+    .replace(/-----END PRIVATE KEY-----/g, "")
+    .replace(/\s/g, "");
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+async function getServiceAccountAccessToken(env: Env) {
+  if (!env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+    throw new Error(
+      "Googleサービスアカウント設定が不足しています。GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY を設定してください。",
+    );
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", typ: "JWT" };
+  const claim = {
+    iss: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    scope: "https://www.googleapis.com/auth/calendar",
+    aud: "https://oauth2.googleapis.com/token",
+    iat: now,
+    exp: now + 3600,
+  };
+  const unsignedToken = `${base64UrlEncode(JSON.stringify(header))}.${base64UrlEncode(
+    JSON.stringify(claim),
+  )}`;
+
+  const key = await crypto.subtle.importKey(
+    "pkcs8",
+    pemToArrayBuffer(env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY),
+    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign(
+    "RSASSA-PKCS1-v1_5",
+    key,
+    new TextEncoder().encode(unsignedToken),
+  );
+  const assertion = `${unsignedToken}.${base64UrlEncode(signature)}`;
+
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion,
+    }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Googleサービスアカウントtoken取得失敗: ${response.status} ${detail}`);
+  }
+
+  const data = (await response.json()) as { access_token?: string };
+  if (!data.access_token) {
+    throw new Error("Googleサービスアカウントtoken取得結果にaccess_tokenがありません。");
+  }
+
+  return data.access_token;
 }
 
 function formatReservationMailDateTime(
@@ -70,9 +157,13 @@ function formatReservationMailDateTime(
 }
 
 async function getGoogleAccessToken(env: Env) {
+  if (env.GOOGLE_SERVICE_ACCOUNT_EMAIL && env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+    return getServiceAccountAccessToken(env);
+  }
+
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || !env.GOOGLE_REFRESH_TOKEN) {
     throw new Error(
-      "Google連携設定が不足しています。GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN を設定してください。",
+      "Google連携設定が不足しています。サービスアカウントまたはOAuth refresh tokenの設定をしてください。",
     );
   }
 
@@ -113,6 +204,11 @@ async function createCalendarReservation(
   console.log("GOOGLE_CLIENT_ID exists:", !!env.GOOGLE_CLIENT_ID);
   console.log("GOOGLE_CLIENT_SECRET exists:", !!env.GOOGLE_CLIENT_SECRET);
   console.log("GOOGLE_REFRESH_TOKEN exists:", !!env.GOOGLE_REFRESH_TOKEN);
+  console.log("GOOGLE_SERVICE_ACCOUNT_EMAIL exists:", !!env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+  console.log(
+    "GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY exists:",
+    !!env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+  );
   console.log("GOOGLE_CALENDAR_ID:", env.GOOGLE_CALENDAR_ID);
 
   const accessToken = await getGoogleAccessToken(env);
@@ -148,9 +244,22 @@ async function sendEmail(
     html?: string;
   },
 ) {
-  if (!env.RESEND_API_KEY || !env.RESERVE_FROM_EMAIL) {
+  const fromEmail = env.RESERVE_FROM_EMAIL || DEFAULT_RESERVE_FROM_EMAIL;
+  const toEmail = params.to.trim();
+
+  if (!env.RESEND_API_KEY) {
     throw new Error(
-      "メール送信設定が未完了です。RESEND_API_KEY / RESERVE_FROM_EMAIL を設定してください。",
+      "メール送信設定が未完了です。RESEND_API_KEY を設定してください。",
+    );
+  }
+
+  if (!toEmail) {
+    throw new Error("メール送信先が空です。");
+  }
+
+  if (normalizeEmail(toEmail) === normalizeEmail(fromEmail)) {
+    throw new Error(
+      `送信元専用アドレス ${fromEmail} は受信先として使用できません。`,
     );
   }
 
@@ -161,8 +270,8 @@ async function sendEmail(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: env.RESERVE_FROM_EMAIL,
-      to: [params.to],
+      from: fromEmail,
+      to: [toEmail],
       subject: params.subject,
       text: params.text,
       html: params.html,
@@ -207,10 +316,6 @@ export async function onRequestPost(context: {
       );
     }
 
-    if (!context.env.RESERVE_TO_EMAIL) {
-      throw new Error("RESERVE_TO_EMAIL が未設定です。");
-    }
-
     await createCalendarReservation(context.env, {
       name,
       email,
@@ -232,11 +337,22 @@ export async function onRequestPost(context: {
 ${note || "未入力"}
 `;
 
-    await sendEmail(context.env, {
-      to: context.env.RESERVE_TO_EMAIL,
-      subject: `【体験予約】${name}さんからのお問い合わせ`,
-      text: adminTextBody,
-    });
+    if (context.env.RESERVE_TO_EMAIL) {
+      try {
+        await sendEmail(context.env, {
+          to: context.env.RESERVE_TO_EMAIL,
+          subject: `【体験予約】${name}さんからのお問い合わせ`,
+          text: adminTextBody,
+        });
+        console.log("管理者通知メール送信成功:", {
+          to: context.env.RESERVE_TO_EMAIL,
+        });
+      } catch (adminMailError) {
+        console.error("管理者通知メール送信に失敗しました:", adminMailError);
+      }
+    } else {
+      console.error("管理者通知メール送信に失敗しました: RESERVE_TO_EMAIL が未設定です。");
+    }
 
     const { date, time } = formatReservationMailDateTime(
       selectedDate,
@@ -244,10 +360,10 @@ ${note || "未入力"}
       slotEndIso,
     );
     const customerSubject =
-      "【予約完了】ご予約ありがとうございます｜THE natural fitness";
+      "【予約完了】ご予約ありがとうございます｜NATURAL FITNESS";
     const customerText = `${name}様
 
-この度は「THE natural fitness」へのご予約ありがとうございます。
+この度は「NATURAL FITNESS」へのご予約ありがとうございます。
 以下の内容でご予約を承りました。
 
 ――――――――――――――――
@@ -276,11 +392,11 @@ https://share.google/mGZNxrMdQfTS8wx2b
 それではお会いできることを楽しみにしております。
 
 ――――――――――――――――
-THE natural fitness`;
+NATURAL FITNESS`;
     const customerHtml = `
       <div style="font-family: sans-serif; line-height: 1.8; color: #222;">
         <p>${escapeHtml(name)}様</p>
-        <p>この度は「THE natural fitness」へのご予約ありがとうございます。<br />以下の内容でご予約を承りました。</p>
+        <p>この度は「NATURAL FITNESS」へのご予約ありがとうございます。<br />以下の内容でご予約を承りました。</p>
         <div style="padding: 16px; border: 1px solid #ddd; border-radius: 8px; margin: 16px 0;">
           <p style="margin: 0 0 8px;"><strong>■ ご予約内容</strong></p>
           <p style="margin: 0;">・日時：${escapeHtml(date)} ${escapeHtml(time)}</p>
@@ -292,7 +408,7 @@ THE natural fitness`;
         <p>当日はお時間の5分前を目安にお越しください。<br />※ご予約の変更・キャンセルは事前にご連絡ください。<br />※お問い合わせ先：<a href="tel:09018195050">090-1819-5050</a></p>
         <p>それではお会いできることを楽しみにしております。</p>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 24px 0;" />
-        <p>THE natural fitness</p>
+        <p>NATURAL FITNESS</p>
       </div>
     `;
 
@@ -303,6 +419,7 @@ THE natural fitness`;
         text: customerText,
         html: customerHtml,
       });
+      console.log("予約者確認メール送信成功:", { to: email });
     } catch (customerMailError) {
       console.error("予約者への確認メール送信に失敗しました:", customerMailError);
     }
