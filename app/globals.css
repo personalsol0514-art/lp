@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.font-vars {
+  --font-noto-sans-jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", sans-serif;
+  --font-zen-maru: "Hiragino Maru Gothic ProN", "Yu Gothic", "YuGothic",
+    sans-serif;
+  --font-zen-kurenaido: "Hiragino Maru Gothic ProN", "Yu Gothic", "YuGothic",
+    sans-serif;
+  --font-yomogi: "Hiragino Maru Gothic ProN", "Yu Gothic", "YuGothic",
+    sans-serif;
+  --font-klee-one: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  --font-oswald: Arial, Helvetica, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
@@ -10,6 +23,13 @@ html {
 body {
   background-color: #f9fafb;
   color: #0f172a;
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    sans-serif;
+}
+
+.en {
+  font-family: "Montserrat", "Noto Sans JP", sans-serif;
+  letter-spacing: 0.04em;
 }
 
 .font-kurenaido-force {
@@ -41,3 +61,166 @@ body {
   }
 }
 
+@keyframes nf-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nf-hero-zoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes nf-float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(var(--nf-rotate, 0deg));
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(calc(var(--nf-rotate, 0deg) + 3deg));
+  }
+}
+
+@keyframes nf-blob-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -16px, 0) scale(1.05);
+  }
+}
+
+@keyframes nf-wave-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+}
+
+@keyframes nf-cta-breathe {
+  0%,
+  100% {
+    box-shadow: 0 16px 34px rgba(232, 111, 35, 0.26);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 22px 44px rgba(232, 111, 35, 0.34);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes nf-diagonal-marquee-drift {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0) translateZ(0);
+  }
+}
+
+@keyframes nf-marquee-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.nf-fade-up {
+  animation: nf-fade-up 0.8s ease both;
+}
+
+.nf-hero-zoom {
+  animation: nf-hero-zoom 9s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.nf-float-soft {
+  animation: nf-float-soft 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.nf-blob-drift {
+  animation: nf-blob-drift 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.nf-wave-drift svg {
+  animation: nf-wave-drift 8s ease-in-out infinite;
+  width: 104%;
+  max-width: none;
+  will-change: transform;
+}
+
+.nf-cta-breathe {
+  animation: nf-cta-breathe 3.4s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+.nf-diagonal-marquee-track {
+  animation: nf-diagonal-marquee-drift 28s linear infinite;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.nf-marquee {
+  animation: nf-marquee-drift 32s linear infinite;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.nf-card-motion {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.nf-card-motion:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 52px rgba(82, 67, 54, 0.14);
+}
+
+@supports (animation-timeline: view()) {
+  .nf-reveal {
+    animation: nf-fade-up both ease;
+    animation-timeline: view();
+    animation-range: entry 10% cover 28%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-fade-up,
+  .nf-hero-zoom,
+  .nf-float-soft,
+  .nf-blob-drift,
+  .nf-wave-drift svg,
+  .nf-cta-breathe,
+  .nf-diagonal-marquee-track,
+  .nf-marquee,
+  .nf-reveal {
+    animation: none !important;
+  }
+
+  .nf-card-motion,
+  .nf-card-motion:hover {
+    transform: none;
+    transition: none;
+  }
+}

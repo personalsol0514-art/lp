@@ -35,50 +35,56 @@ export const WORRY_ITEMS: WorryItem[] = [
   {
     id: "continue",
     kind: "single",
-    text: "続かない…",
+    text: "ダイエットが続かない…",
     highlight: "続かない",
     accent: "rose",
+    bubbleClass:
+      "min-w-[8.3rem] max-w-[8.9rem] px-[1.25rem] py-[1.1rem] sm:max-w-[22.4rem] sm:px-[3.194rem] sm:py-[1.997rem]",
     desktopPosition:
-      "left-[5%] top-[17%] z-20 -rotate-[5deg] sm:left-[5%] sm:top-[19%] lg:left-[5%] lg:top-[18%]",
+      "left-[-6%] top-[17%] z-20 -rotate-[5deg] sm:left-[5%] sm:top-[19%] lg:left-[5%] lg:top-[18%]",
   },
   {
     id: "legs",
     kind: "double",
-    top: "脚だけ",
+    top: "脚だけなかなか",
     bottom: "変わらない",
     accent: "orange",
+    bubbleClass:
+      "max-w-[8.8rem] px-[1.3rem] py-[1.15rem] sm:max-w-[22.4rem] sm:px-[3.194rem] sm:py-[1.997rem]",
     desktopPosition:
-      "right-[5%] top-[7%] z-20 rotate-[4deg] sm:right-[5%] sm:top-[9%] lg:right-[5%] lg:top-[8%]",
+      "right-[-3%] top-[2%] z-20 rotate-[4deg] sm:right-[5%] sm:top-[9%] lg:right-[5%] lg:top-[8%]",
   },
   {
     id: "gentle",
     kind: "double",
-    top: "きついのは",
+    top: "きつい運動は",
     bottom: "不安",
     accent: "sky",
     bubbleClass:
-      "max-w-[min(14.5rem,82vw)] sm:max-w-[20.8rem] lg:max-w-[min(28rem,92vw)]",
+      "max-w-[8.8rem] px-[1.3rem] py-[1.15rem] sm:max-w-[20.8rem] sm:px-[3.194rem] sm:py-[1.997rem] lg:max-w-[min(28rem,92vw)]",
     desktopPosition:
-      "right-[5%] top-[36%] z-20 rotate-[5deg] sm:right-[11%] sm:top-[37%] lg:right-[13%] lg:top-[39%]",
+      "right-[-4%] top-[38%] z-20 rotate-[5deg] sm:right-[11%] sm:top-[37%] lg:right-[13%] lg:top-[39%]",
   },
   {
     id: "posture",
     kind: "double",
-    top: "姿勢が",
+    top: "姿勢や体型の崩れが",
     bottom: "気になる",
     accent: "emerald",
+    bubbleClass:
+      "max-w-[10.4rem] px-[1.45rem] py-[1.15rem] sm:max-w-[22.4rem] sm:px-[3.194rem] sm:py-[1.997rem]",
     desktopPosition:
-      "bottom-[3%] right-[25%] z-20 rotate-[5deg] sm:bottom-[4%] sm:right-[26%] lg:bottom-[5%] lg:right-[27%]",
+      "bottom-[-2%] right-[13%] z-20 rotate-[5deg] sm:bottom-[4%] sm:right-[26%] lg:bottom-[5%] lg:right-[27%]",
   },
   {
     id: "start",
     kind: "double",
-    top: "何をすれば",
-    bottom: "いい？",
+    top: "自分に何が合っているか",
+    bottom: "わからない",
     accent: "lime",
     bubbleClass:
-      "max-w-[min(14.5rem,82vw)] sm:max-w-[20.8rem] lg:max-w-[min(28rem,92vw)]",
+      "min-w-[8.5rem] max-w-[9.2rem] px-[1.25rem] py-[1.05rem] sm:max-w-[20.8rem] sm:px-[3.194rem] sm:py-[1.997rem] lg:max-w-[min(28rem,92vw)]",
     desktopPosition:
-      "left-[5%] top-[51%] z-20 -rotate-[4deg] sm:left-[6%] sm:top-[52%] lg:left-[8%] lg:top-[54%]",
+      "left-[-7%] top-[56%] z-20 -rotate-[4deg] sm:left-[6%] sm:top-[52%] lg:left-[8%] lg:top-[54%]",
   },
 ];
