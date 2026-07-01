@@ -11,12 +11,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://natural-fitness-gym.jp/price" },
 };
 
-const plans = [
+type Plan = {
+  name: string;
+  label: string;
+  time: string;
+  price: string;
+  extra?: { count: string; price: string };
+  lead: string;
+  image: string;
+  imageAlt: string;
+  points: string[];
+};
+
+const plans: Plan[] = [
   {
     name: "根本改善コース",
     label: "Body Make",
     time: "1回50分 / 月4回",
     price: "24,000",
+    extra: { count: "月8回", price: "44,000" },
     lead: "ダイエット・姿勢改善・脚やせなど、身体をしっかり変えたい方におすすめ。",
     image: "/solution-movement.png",
     imageAlt: "根本改善コースのパーソナルトレーニング",
@@ -321,6 +334,11 @@ export default function PricePage() {
                     {plan.time}
                   </p>
                   <div className="mt-5 flex items-end gap-2">
+                    {plan.extra ? (
+                      <span className="pb-1 text-sm font-black text-[#8B8178]">
+                        月4回
+                      </span>
+                    ) : null}
                     <span className="text-[3.5rem] font-black leading-none tracking-normal text-[#E86F23]">
                       {plan.price}
                     </span>
@@ -328,6 +346,21 @@ export default function PricePage() {
                       円（税込）
                     </span>
                   </div>
+                  {plan.extra ? (
+                    <div className="mt-3 flex items-center justify-between rounded-2xl bg-[#FFF7EF] px-4 py-3">
+                      <span className="text-sm font-black text-[#3A342F]">
+                        {plan.extra.count}
+                      </span>
+                      <span className="flex items-end gap-1">
+                        <span className="text-2xl font-black leading-none text-[#E86F23]">
+                          {plan.extra.price}
+                        </span>
+                        <span className="text-xs font-black text-[#3A342F]">
+                          円（税込）
+                        </span>
+                      </span>
+                    </div>
+                  ) : null}
                   <p className="mt-5 text-sm font-medium leading-relaxed text-[#6D6258]">
                     {plan.lead}
                   </p>
