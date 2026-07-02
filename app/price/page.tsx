@@ -27,7 +27,7 @@ const plans: Plan[] = [
   {
     name: "根本改善コース",
     label: "Body Make",
-    time: "1回50分 / 月4回",
+    time: "1回50分",
     price: "24,000",
     extra: { count: "月8回", price: "44,000" },
     lead: "ダイエット・姿勢改善・脚やせなど、身体をしっかり変えたい方におすすめ。",
@@ -333,34 +333,40 @@ export default function PricePage() {
                   <p className="text-sm font-black text-[#6D6258]">
                     {plan.time}
                   </p>
-                  <div className="mt-5 flex items-end gap-2">
-                    {plan.extra ? (
-                      <span className="pb-1 text-sm font-black text-[#8B8178]">
-                        月4回
-                      </span>
-                    ) : null}
-                    <span className="text-[3.5rem] font-black leading-none tracking-normal text-[#E86F23]">
-                      {plan.price}
-                    </span>
-                    <span className="pb-2 text-sm font-black text-[#3A342F]">
-                      円（税込）
-                    </span>
-                  </div>
                   {plan.extra ? (
-                    <div className="mt-3 flex items-center justify-between rounded-2xl bg-[#FFF7EF] px-4 py-3">
-                      <span className="text-sm font-black text-[#3A342F]">
-                        {plan.extra.count}
+                    <div className="mt-5 grid grid-cols-2 gap-3">
+                      {[
+                        { count: "月4回", price: plan.price },
+                        { count: plan.extra.count, price: plan.extra.price },
+                      ].map((tier) => (
+                        <div
+                          key={tier.count}
+                          className="rounded-2xl border border-[#EADCCF] bg-[#FFF7EF] px-4 py-4 text-center"
+                        >
+                          <p className="text-sm font-black text-[#3A342F]">
+                            {tier.count}
+                          </p>
+                          <div className="mt-1 flex items-end justify-center gap-1">
+                            <span className="text-[2.6rem] font-black leading-none tracking-tight text-[#E86F23]">
+                              {tier.price}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-xs font-black text-[#3A342F]">
+                            円（税込）
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-5 flex items-end gap-2">
+                      <span className="text-[3.5rem] font-black leading-none tracking-normal text-[#E86F23]">
+                        {plan.price}
                       </span>
-                      <span className="flex items-end gap-1">
-                        <span className="text-2xl font-black leading-none text-[#E86F23]">
-                          {plan.extra.price}
-                        </span>
-                        <span className="text-xs font-black text-[#3A342F]">
-                          円（税込）
-                        </span>
+                      <span className="pb-2 text-sm font-black text-[#3A342F]">
+                        円（税込）
                       </span>
                     </div>
-                  ) : null}
+                  )}
                   <p className="mt-5 text-sm font-medium leading-relaxed text-[#6D6258]">
                     {plan.lead}
                   </p>
