@@ -1,20 +1,7 @@
 "use client";
 
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-
-declare global {
-  interface Window {
-    dataLayer?: Array<unknown>;
-    gtag?: (
-      command: "event",
-      eventName: string,
-      params?: Record<string, unknown>,
-    ) => void;
-  }
-}
-
-const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-MC1E4TKCFG";
+import { GA_MEASUREMENT_ID } from "./analytics";
 
 type ReserveLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   eventLabel: string;
