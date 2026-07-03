@@ -8,7 +8,6 @@ function BeforeAfterRow({
   afterAlt,
   beforeNote,
   afterNote,
-  index,
   showAccent,
 }: {
   beforeSrc: string;
@@ -17,17 +16,10 @@ function BeforeAfterRow({
   afterAlt: string;
   beforeNote: ReactNode;
   afterNote: ReactNode;
-  index: number;
   showAccent?: boolean;
 }) {
   return (
     <div className="min-w-0">
-      <div className="mb-5 flex justify-center sm:mb-6">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-stone-200 bg-[#faf7f3] text-sm font-semibold tabular-nums text-stone-400">
-          {index + 1}
-        </span>
-      </div>
-
       <div className="grid grid-cols-[minmax(0,36%)_minmax(0,1fr)] items-end gap-2 sm:grid-cols-[minmax(0,34%)_minmax(0,1fr)] sm:gap-3">
         <div className="flex min-w-0 flex-col items-center">
           {showAccent ? (
@@ -97,10 +89,9 @@ export function BeforeAfter() {
           </h2>
         </header>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:mt-10 md:grid-cols-2 md:gap-6 lg:gap-8">
-          <div className="min-w-0 rounded-[1.75rem] bg-white p-6 shadow-[0_8px_40px_rgba(62,56,50,0.07)] sm:p-7 lg:p-6">
+        <div className="mx-auto mt-8 max-w-xl sm:mt-10">
+          <div className="min-w-0 rounded-[1.75rem] bg-white p-6 shadow-[0_8px_40px_rgba(62,56,50,0.07)] sm:p-7 lg:p-8">
             <BeforeAfterRow
-              index={0}
               showAccent
               beforeSrc="/before-after-before.png"
               afterSrc="/before-after-after.png"
@@ -133,26 +124,11 @@ export function BeforeAfter() {
             />
           </div>
 
-          <div className="min-w-0 rounded-[1.75rem] bg-white p-6 shadow-[0_8px_40px_rgba(62,56,50,0.07)] sm:p-7 lg:p-6">
-            <BeforeAfterRow
-              index={1}
-              beforeSrc="/before-after-pair2-before.png"
-              afterSrc="/before-after-pair2-after.png"
-              beforeAlt="ビフォー：別シーンでのイメージ"
-              afterAlt="アフター：フォーム・姿勢のイメージ"
-              beforeNote={
-                <p className="text-stone-500">
-                  ※別シチュエーションでのビフォー例です。
-                </p>
-              }
-              afterNote={
-                <p className="text-stone-500">
-                  ※トレーニングを重ねたあとのフォーム例のイメージです。
-                </p>
-              }
-            />
-          </div>
         </div>
+
+        <p className="mt-6 text-center text-[0.75rem] text-stone-500 sm:mt-8">
+          ※効果には個人差があります
+        </p>
       </div>
     </section>
   );

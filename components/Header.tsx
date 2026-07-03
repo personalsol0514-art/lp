@@ -4,6 +4,7 @@ const navItems = [
   { label: "特徴", href: "#features" },
   { label: "変化イメージ", href: "#changes" },
   { label: "トレーナー", href: "#trainer" },
+  { label: "体験の流れ", href: "#flow" },
   { label: "料金", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -24,9 +25,9 @@ export function Header() {
             <ReserveLink
               href="/reserve"
               eventLabel="header_desktop_reserve"
-              className="hidden rounded-full bg-[#E07A3A] px-4 py-2 text-body-sm font-semibold text-white shadow-sm shadow-[#F3C9A9]/70 transition hover:bg-[#C9682F] sm:inline-flex"
+              className="hidden whitespace-nowrap rounded-full bg-[#E07A3A] px-4 py-2 text-body-sm font-semibold text-white shadow-sm shadow-[#F3C9A9]/70 transition hover:bg-[#C9682F] sm:inline-flex"
             >
-              体験予約
+              初回体験を予約する
             </ReserveLink>
 
             <details className="relative">
@@ -56,7 +57,7 @@ export function Header() {
                     eventLabel="header_menu_reserve"
                     className="mt-1 inline-flex items-center justify-center rounded-xl bg-emerald-500 px-3 py-2.5 text-body font-semibold text-white shadow-sm shadow-emerald-200/60"
                   >
-                    体験予約
+                    初回体験を予約する
                   </ReserveLink>
                 </div>
               </div>

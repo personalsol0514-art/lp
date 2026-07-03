@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ReasonPointBadge } from "./ReasonPointBadge";
+import { ReserveLink } from "./ReserveLink";
 
 const reasons: Array<{
   accentLabel: string;
@@ -18,12 +19,12 @@ const reasons: Array<{
       "マットの上でトレーニングを行う女性と、フォームを見守るトレーナー。無理のない習慣づくりをイメージできる写真。",
   },
   {
-    accentLabel: "女性の身体に合わせて",
-    title: "女性の身体に合わせたアプローチ",
-    desc: "ただ痩せるだけでは、キレイにはなれません。ホルモンバランスや体調の波、冷え・むくみ・姿勢の崩れまで考えたサポート。だからこそ、無理な食事制限なし・リバウンドしにくい・見た目から変わる。「女性だからこそ変わる方法」で整えていきます。",
+    accentLabel: "一人ひとりに合わせて",
+    title: "体調と体力に合わせるオーダーメイド",
+    desc: "年齢も体力も目標も、人によって違います。その日の体調・生活リズム・過去のケガまで確認しながら、メニューをその場で調整。無理な食事制限はせず、続けられる形で整えていきます。",
     imageSrc: "/solution-posture.png",
     imageAlt:
-      "トレーナーが姿勢やフォームを確認しながら、女性がジムでトレーニングする様子。",
+      "トレーナーが姿勢やフォームを確認しながらトレーニングする様子。",
   },
   {
     accentLabel: "実感できる変化へ",
@@ -31,7 +32,14 @@ const reasons: Array<{
     desc: "体重の数字だけを追いません。姿勢が整う・脚がスッキリする・朝の体が軽くなる、そんな“実感できる変化”を大切にしています。外見だけでなく、「自分に自信が持てる毎日」までサポートします。",
     imageSrc: "/solution-movement.png",
     imageAlt:
-      "トレーナーのサポートを受けながら動きのトレーニングをする女性。体の変化がイメージできる写真。",
+      "トレーナーのサポートを受けながら動きのトレーニングをする様子。体の変化がイメージできる写真。",
+  },
+  {
+    accentLabel: "岡崎で通いやすい",
+    title: "完全個室×駐車券サービス",
+    desc: "人目を気にせず集中できる完全個室。お車の方にはタカラパーキングのサービス券をお渡しします。営業は20時まで、お仕事帰りにも通いやすい岡崎市本町通のジムです。",
+    imageSrc: "/gallery-studio-interior.png",
+    imageAlt: "完全個室のトレーニングルームの様子。",
   },
 ];
 
@@ -93,7 +101,7 @@ export function Reasons() {
           </p>
         </header>
 
-        <div className="mx-auto mt-12 w-[70%] min-w-0 grid grid-cols-1 gap-12 sm:mt-14 sm:grid-cols-3 sm:gap-8 md:gap-10 lg:gap-12">
+        <div className="mx-auto mt-12 w-full min-w-0 grid grid-cols-1 gap-12 sm:mt-14 sm:grid-cols-2 sm:gap-8 md:gap-10 lg:grid-cols-4 lg:gap-8">
           {reasons.map((reason, index) => (
             <article
               key={reason.title}
@@ -121,6 +129,16 @@ export function Reasons() {
               </p>
             </article>
           ))}
+        </div>
+
+        <div className="mt-12 text-center sm:mt-14">
+          <ReserveLink
+            href="/reserve"
+            eventLabel="reasons_mid_cta"
+            className="text-body font-semibold text-[#c45a28] underline decoration-[#E07A3A]/50 underline-offset-4 transition hover:decoration-[#E07A3A]"
+          >
+            → 体験の空き時間を見てみる
+          </ReserveLink>
         </div>
       </div>
     </section>

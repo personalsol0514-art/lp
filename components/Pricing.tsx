@@ -1,3 +1,5 @@
+import { ReserveLink } from "./ReserveLink";
+
 /** 根本改善コース（50分）・月額（税込） */
 const PLANS_50_MIN = [
   { sessions: 4, totalYen: 24_000 },
@@ -31,14 +33,15 @@ function MonthlyPlanGrid({
             <p className="text-body-sm font-medium text-slate-600">
               月{sessions}回
             </p>
-            <p className="mt-2 font-sans text-xl font-bold tabular-nums tracking-tight text-slate-900 sm:text-2xl">
-              {totalYen.toLocaleString("ja-JP")}
+            <p className="mt-2 font-sans text-2xl font-bold tabular-nums tracking-tight text-[#c45a28] sm:text-3xl">
+              {perSession.toLocaleString("ja-JP")}
               <span className="text-body font-bold">円</span>
             </p>
+            <p className="text-[0.7rem] text-slate-500">1回あたり（税込）</p>
             <p className="mt-3 border-t border-slate-200/70 pt-3 text-body-sm text-slate-600">
-              1回あたり{" "}
+              月額{" "}
               <span className="font-semibold tabular-nums text-slate-800">
-                {perSession.toLocaleString("ja-JP")}円（税込）
+                {totalYen.toLocaleString("ja-JP")}円
               </span>
             </p>
           </li>
@@ -83,6 +86,13 @@ export function Pricing() {
                 <span className="tabular-nums">0円</span>
               </p>
             </div>
+            <ReserveLink
+              href="/reserve"
+              eventLabel="pricing_trial_reserve"
+              className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 text-body font-bold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
+            >
+              0円で体験を予約する
+            </ReserveLink>
           </div>
 
           <p className="flex flex-wrap items-center gap-2 text-body font-semibold text-slate-900">
@@ -115,6 +125,29 @@ export function Pricing() {
               </div>
               <MonthlyPlanGrid plans={PLANS_30_MIN} durationKey="30" />
             </div>
+          </div>
+
+          <ul className="space-y-2 text-body-sm text-slate-600">
+            {[
+              "回数の縛り・違約金はありません",
+              "入会金0円",
+              "体験だけのご利用もOKです",
+            ].map((note) => (
+              <li key={note} className="flex items-center gap-2">
+                <span className="text-[#E07A3A]">✓</span>
+                {note}
+              </li>
+            ))}
+          </ul>
+
+          <div className="text-center">
+            <ReserveLink
+              href="/reserve"
+              eventLabel="pricing_bottom_cta"
+              className="text-body font-semibold text-[#c45a28] underline decoration-[#E07A3A]/50 underline-offset-4 transition hover:decoration-[#E07A3A]"
+            >
+              → 体験の空き時間を見てみる
+            </ReserveLink>
           </div>
         </div>
       </div>

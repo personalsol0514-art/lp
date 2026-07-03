@@ -8,11 +8,14 @@ export function Studio() {
       aria-labelledby="gallery-heading"
     >
       <div className="mx-auto max-w-4xl px-4 pb-6 text-center sm:pb-8">
+        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-orange-500 sm:text-body-sm">
+          Studio
+        </p>
         <h2
           id="gallery-heading"
-          className="font-sans text-3xl font-bold uppercase tracking-[0.14em] text-orange-500 sm:text-4xl"
+          className="mt-2 text-heading font-bold text-slate-900"
         >
-          Gallery
+          店内の様子
         </h2>
       </div>
       <StudioGalleryMarquee />

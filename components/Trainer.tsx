@@ -24,15 +24,27 @@ export function Trainer() {
             渡邉 亮太
           </figcaption>
         </figure>
+
+        <ul className="mx-auto mt-5 flex max-w-sm flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-body-sm font-semibold text-[#B86E3C] sm:mt-6">
+          <li className="rounded-full bg-[#fff3ea] px-3 py-1">指導歴6年</li>
+          <li className="rounded-full bg-[#fff3ea] px-3 py-1">栄養コンシェルジュ</li>
+          <li className="rounded-full bg-[#fff3ea] px-3 py-1">姿勢改善・ボディメイク</li>
+        </ul>
+
         <p className="mt-6 text-heading font-bold text-slate-900 sm:mt-8">
           「続けられること」を
           <br />
           いちばん大切にしています。
         </p>
         <p className="mt-4 text-body text-slate-700">
-          これまで忙しくて自分のことを後回しにしてきた女性が、「自分のための時間」を取り戻せるように。
+          これまで忙しくて自分のことを後回しにしてきた方が、「自分のための時間」を取り戻せるように。
           その日の体調や気分に合わせて、無理のないメニューを一緒に考えます。
         </p>
+
+        <blockquote className="mt-6 rounded-2xl border-l-4 border-[#E07A3A] bg-[#fff8f4] px-5 py-4 text-left text-body-sm leading-relaxed text-slate-700">
+          「体験に来たからといって、入会を迫ることはありません。まずは今の体の状態を一緒に確認しましょう。」
+        </blockquote>
+
         <div className="mt-10">
           <InstagramEmbeds />
         </div>

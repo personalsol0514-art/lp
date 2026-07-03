@@ -27,7 +27,7 @@ export function FinalCTA() {
     },
     {
       term: "営業時間",
-      desc: "11時〜20時",
+      desc: "11時〜20時（お仕事帰りにも通えます）",
     },
     {
       term: "定休日",
@@ -103,7 +103,7 @@ export function FinalCTA() {
             eventLabel="final_cta_reserve"
             className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-[#E07A3A] px-6 py-2.5 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
           >
-            体験予約
+            初回体験を予約する
           </ReserveLink>
           <ReserveLink
             href="/reserve"
