@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { trackGtagEvent } from "./analytics";
 
 type ReserveStatus = "idle" | "submitting" | "success" | "error";
 type Slot = {
@@ -44,6 +45,7 @@ export function ReserveForm() {
   const [selectedSlotStart, setSelectedSlotStart] = useState("");
   const [selectedSlotEnd, setSelectedSlotEnd] = useState("");
   const [activeDateKey, setActiveDateKey] = useState("");
+  const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
 
   const baseDate = useMemo(() => {
     const today = new Date();
@@ -177,7 +179,14 @@ export function ReserveForm() {
       setSelectedDate("");
       setSelectedSlotStart("");
       setSelectedSlotEnd("");
-      window.location.assign(`${window.location.origin}/thanks`);
+      const reservationEventId =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}`;
+      const thanksUrl = new URL("/thanks", window.location.origin);
+      thanksUrl.searchParams.set("reservation_complete", "1");
+      thanksUrl.searchParams.set("event_id", reservationEventId);
+      window.location.assign(thanksUrl.toString());
     } catch (error) {
       setStatus("error");
       setMessage(
@@ -186,6 +195,17 @@ export function ReserveForm() {
           : "送信に失敗しました。時間をおいて再度お試しください。",
       );
     }
+  }
+
+  function trackFormStartIfNeeded() {
+    if (hasTrackedFormStart) return;
+
+    trackGtagEvent("form_start", {
+      event_category: "reservation",
+      event_label: "reserve_form_start",
+      form_name: "reserve_form",
+    });
+    setHasTrackedFormStart(true);
   }
 
   return (
@@ -361,6 +381,7 @@ export function ReserveForm() {
           name="name"
           type="text"
           required
+          onFocus={trackFormStartIfNeeded}
           className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
           placeholder="山田 花子"
         />
@@ -376,6 +397,7 @@ export function ReserveForm() {
             name="email"
             type="email"
             required
+            onFocus={trackFormStartIfNeeded}
             className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
             placeholder="example@email.com"
           />
@@ -389,6 +411,7 @@ export function ReserveForm() {
             name="phone"
             type="tel"
             required
+            onFocus={trackFormStartIfNeeded}
             className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
             placeholder="090-1234-5678"
           />
@@ -403,6 +426,7 @@ export function ReserveForm() {
           id="note"
           name="note"
           rows={5}
+          onFocus={trackFormStartIfNeeded}
           className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
           placeholder="運動経験、目的、お悩みなど"
         />
