@@ -1,0 +1,7 @@
+name = "natural"
+pages_build_output_dir = "out"
+
+[[d1_databases]]
+binding = "BLOG_DB"
+database_name = "natural-fitness-blog"
+database_id = "15bf52fa-dd59-4258-9198-ed3e746ea53f"
