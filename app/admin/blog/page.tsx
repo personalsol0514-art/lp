@@ -180,7 +180,8 @@ export default function AdminBlogPage() {
           <h1 className="text-3xl font-black sm:text-5xl">ブログ管理</h1>
           <p className="mt-3 text-sm font-medium leading-relaxed text-[#6D6258]">
             投稿・編集・削除・公開/下書き切り替えができます。本文内で見出しにしたい行は
-            「## 見出し」の形で入力してください。
+            「## 見出し」、画像を差し込みたい行は「![説明文](画像のURL)」の形で、
+            前後を1行空けて入力してください。
           </p>
         </section>
 
@@ -324,7 +325,9 @@ export default function AdminBlogPage() {
                     value={form.content}
                     onChange={(event) => setForm({ ...form, content: event.target.value })}
                     className="mt-2 min-h-[22rem] w-full rounded-2xl border border-[#EADCCF] px-4 py-3 font-mono text-sm outline-none focus:border-[#E86F23]"
-                    placeholder={"## 見出し\n\n本文を入力してください。"}
+                    placeholder={
+                      "## 見出し\n\n本文を入力してください。\n\n![画像の説明](/gallery-studio-interior.png)\n\n続きの本文…"
+                    }
                     required
                   />
                 </label>
