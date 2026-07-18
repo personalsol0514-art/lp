@@ -5,3 +5,7 @@ pages_build_output_dir = "out"
 binding = "BLOG_DB"
 database_name = "natural-fitness-blog"
 database_id = "15bf52fa-dd59-4258-9198-ed3e746ea53f"
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "natural-fitness-media"

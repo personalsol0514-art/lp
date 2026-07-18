@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type AdminPost = {
   slug: string;
@@ -13,6 +13,20 @@ type AdminPost = {
   publishedAt: string;
   date?: string;
 };
+
+type MediaItem = {
+  key: string;
+  url: string;
+  size: number;
+  uploadedAt: string;
+  contentType: string;
+};
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes}B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)}KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
+}
 
 const emptyPost: AdminPost = {
   slug: "",
@@ -43,6 +57,11 @@ export default function AdminBlogPage() {
   const [form, setForm] = useState<AdminPost>(emptyPost);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
+  const [mediaLoading, setMediaLoading] = useState(false);
+  const [mediaUploading, setMediaUploading] = useState(false);
+  const [mediaMessage, setMediaMessage] = useState("");
+  const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
   const authHeaders = useMemo(
     () => ({
@@ -65,6 +84,7 @@ export default function AdminBlogPage() {
       }
       setPosts(data.posts || []);
       setIsLoggedIn(true);
+      void loadMedia(password);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "ログインできませんでした。");
       setIsLoggedIn(false);
@@ -79,6 +99,103 @@ export default function AdminBlogPage() {
       setPassword(saved);
     }
   }, []);
+
+  async function loadMedia(pw: string) {
+    setMediaLoading(true);
+    setMediaMessage("");
+    try {
+      const response = await fetch("/api/media", {
+        headers: { Authorization: `Bearer ${pw}` },
+      });
+      const data = (await response.json()) as { items?: MediaItem[]; error?: string };
+      if (!response.ok) {
+        throw new Error(data.error || "画像一覧の取得に失敗しました。");
+      }
+      setMediaItems(data.items || []);
+    } catch (error) {
+      setMediaMessage(error instanceof Error ? error.message : "画像一覧の取得に失敗しました。");
+    } finally {
+      setMediaLoading(false);
+    }
+  }
+
+  async function uploadMedia(file: File) {
+    setMediaUploading(true);
+    setMediaMessage("");
+    try {
+      const body = new FormData();
+      body.append("file", file);
+      const response = await fetch("/api/media", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${password}` },
+        body,
+      });
+      const data = (await response.json()) as MediaItem & { error?: string };
+      if (!response.ok) {
+        throw new Error(data.error || "アップロードに失敗しました。");
+      }
+      setMediaItems((current) => [
+        {
+          key: data.key,
+          url: data.url,
+          size: data.size,
+          uploadedAt: new Date().toISOString(),
+          contentType: data.contentType,
+        },
+        ...current,
+      ]);
+      setMediaMessage("アップロードしました。下の一覧からご利用ください。");
+    } catch (error) {
+      setMediaMessage(error instanceof Error ? error.message : "アップロードに失敗しました。");
+    } finally {
+      setMediaUploading(false);
+    }
+  }
+
+  function handleFileInput(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) void uploadMedia(file);
+    event.target.value = "";
+  }
+
+  function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) void uploadMedia(file);
+  }
+
+  function insertImageIntoContent(item: MediaItem) {
+    const textarea = contentRef.current;
+    const markdown = `![](${item.url})`;
+
+    if (!textarea) {
+      setForm((current) => ({
+        ...current,
+        content: current.content ? `${current.content}\n\n${markdown}\n\n` : `${markdown}\n\n`,
+      }));
+      return;
+    }
+
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const before = textarea.value.slice(0, start);
+    const after = textarea.value.slice(end);
+    const needsLeadingBreak = before.length > 0 && !before.endsWith("\n\n");
+    const insertion = `${needsLeadingBreak ? "\n\n" : ""}${markdown}\n\n`;
+    const nextValue = `${before}${insertion}${after}`;
+
+    setForm((current) => ({ ...current, content: nextValue }));
+
+    requestAnimationFrame(() => {
+      const cursor = before.length + insertion.length;
+      textarea.focus();
+      textarea.setSelectionRange(cursor, cursor);
+    });
+  }
+
+  function useAsCoverImage(item: MediaItem) {
+    setForm((current) => ({ ...current, image: item.url }));
+  }
 
   function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -302,13 +419,23 @@ export default function AdminBlogPage() {
                   </select>
                 </label>
                 <label className="block text-sm font-black text-[#6D6258] sm:col-span-2">
-                  画像URL
-                  <input
-                    value={form.image}
-                    onChange={(event) => setForm({ ...form, image: event.target.value })}
-                    className="mt-2 w-full rounded-2xl border border-[#EADCCF] px-4 py-3 outline-none focus:border-[#E86F23]"
-                    placeholder="/gallery-studio-interior.png"
-                  />
+                  画像URL（サムネイル）
+                  <div className="mt-2 flex items-center gap-2">
+                    <input
+                      value={form.image}
+                      onChange={(event) => setForm({ ...form, image: event.target.value })}
+                      className="w-full rounded-2xl border border-[#EADCCF] px-4 py-3 outline-none focus:border-[#E86F23]"
+                      placeholder="/gallery-studio-interior.png"
+                    />
+                    {form.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={form.image}
+                        alt=""
+                        className="h-12 w-12 shrink-0 rounded-xl border border-[#EADCCF] object-cover"
+                      />
+                    ) : null}
+                  </div>
                 </label>
                 <label className="block text-sm font-black text-[#6D6258] sm:col-span-2">
                   抜粋
@@ -319,9 +446,87 @@ export default function AdminBlogPage() {
                     required
                   />
                 </label>
+
+                <div className="sm:col-span-2">
+                  <p className="text-sm font-black text-[#6D6258]">画像ライブラリ</p>
+                  <p className="mt-1 text-xs font-medium text-[#8B8178]">
+                    画像をアップロードして、「サムネイルに使う」または「本文に挿入」を押してください。
+                  </p>
+
+                  <div
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={handleDrop}
+                    className="mt-3 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#EADCCF] bg-[#FFFDF8] px-4 py-6 text-center"
+                  >
+                    <p className="text-sm font-bold text-[#8B8178]">
+                      ここに画像をドラッグ＆ドロップ、または
+                    </p>
+                    <label className="cursor-pointer rounded-full bg-[#EFF3E7] px-4 py-2 text-xs font-black text-[#7B9257]">
+                      ファイルを選択
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileInput}
+                        className="hidden"
+                      />
+                    </label>
+                    {mediaUploading ? (
+                      <p className="text-xs font-bold text-[#E86F23]">アップロード中...</p>
+                    ) : null}
+                    {mediaMessage ? (
+                      <p className="text-xs font-bold text-[#D36F31]">{mediaMessage}</p>
+                    ) : null}
+                  </div>
+
+                  {mediaLoading ? (
+                    <p className="mt-3 text-xs font-bold text-[#8B8178]">読み込み中...</p>
+                  ) : mediaItems.length > 0 ? (
+                    <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                      {mediaItems.map((item) => (
+                        <div
+                          key={item.key}
+                          className="overflow-hidden rounded-2xl border border-[#EADCCF] bg-white"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={item.url}
+                            alt=""
+                            className="aspect-square w-full object-cover"
+                          />
+                          <div className="p-2">
+                            <p className="truncate text-[0.65rem] font-bold text-[#8B8178]">
+                              {formatFileSize(item.size)}
+                            </p>
+                            <div className="mt-1.5 grid gap-1">
+                              <button
+                                type="button"
+                                onClick={() => insertImageIntoContent(item)}
+                                className="rounded-full bg-[#E86F23] px-2 py-1 text-[0.65rem] font-black text-white"
+                              >
+                                本文に挿入
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => useAsCoverImage(item)}
+                                className="rounded-full border border-[#EADCCF] px-2 py-1 text-[0.65rem] font-black text-[#7B9257]"
+                              >
+                                サムネイルに使う
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 text-xs font-bold text-[#8B8178]">
+                      まだ画像がアップロードされていません。
+                    </p>
+                  )}
+                </div>
                 <label className="block text-sm font-black text-[#6D6258] sm:col-span-2">
                   本文
                   <textarea
+                    ref={contentRef}
                     value={form.content}
                     onChange={(event) => setForm({ ...form, content: event.target.value })}
                     className="mt-2 min-h-[22rem] w-full rounded-2xl border border-[#EADCCF] px-4 py-3 font-mono text-sm outline-none focus:border-[#E86F23]"
