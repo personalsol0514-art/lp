@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { Header } from "../../components/Header";
-import { ThanksConversionTracker } from "../../components/ThanksConversionTracker";
 
 export default function ThanksPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#fffdfb] via-[#fff8f4] to-[#fff3eb] px-4 pb-10 pt-24 sm:px-6 sm:pb-14 sm:pt-28">
-      <ThanksConversionTracker />
       <Header />
       <div className="mx-auto max-w-2xl">
         <section className="rounded-3xl border border-[#E8D4C4] bg-white p-6 text-center shadow-[0_12px_32px_-12px_rgba(224,122,58,0.35)] sm:p-10">

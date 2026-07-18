@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { trackGtagEvent } from "./analytics";
+import { trackGtagEvent, trackGtagEventBeforeNavigation } from "./analytics";
 
 type ReserveStatus = "idle" | "submitting" | "success" | "error";
 type Slot = {
@@ -186,6 +186,13 @@ export function ReserveForm() {
       const thanksUrl = new URL("/thanks", window.location.origin);
       thanksUrl.searchParams.set("reservation_complete", "1");
       thanksUrl.searchParams.set("event_id", reservationEventId);
+
+      await trackGtagEventBeforeNavigation("generate_lead", {
+        event_category: "reservation",
+        event_label: "reservation_complete",
+        reservation_event_id: reservationEventId,
+      });
+
       window.location.assign(thanksUrl.toString());
     } catch (error) {
       setStatus("error");
