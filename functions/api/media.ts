@@ -88,7 +88,18 @@ export const onRequestPost = async ({
       typeof (file as { size?: unknown }).size === "number";
 
     if (!isFileLike) {
-      return json({ error: "画像ファイルを選択してください。" }, { status: 400 });
+      return json(
+        {
+          error: "画像ファイルを選択してください。",
+          debug: {
+            fileIsNull: file === null,
+            fileType: typeof file,
+            fileCtorName: (file as any)?.constructor?.name,
+            keys: Array.from(formData.keys()),
+          },
+        },
+        { status: 400 },
+      );
     }
 
     if (!ALLOWED_TYPES.has(file.type)) {
