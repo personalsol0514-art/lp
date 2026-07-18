@@ -80,9 +80,14 @@ export const onRequestPost = async ({
 
   try {
     const formData = await request.formData();
-    const file = formData.get("file");
+    const file = formData.get("file") as File | null;
+    const isFileLike =
+      file &&
+      typeof file === "object" &&
+      typeof (file as { arrayBuffer?: unknown }).arrayBuffer === "function" &&
+      typeof (file as { size?: unknown }).size === "number";
 
-    if (!(file instanceof File)) {
+    if (!isFileLike) {
       return json({ error: "画像ファイルを選択してください。" }, { status: 400 });
     }
 
