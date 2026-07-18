@@ -1,5 +1,6 @@
 name = "natural"
 pages_build_output_dir = "out"
+compatibility_date = "2026-07-18"
 
 [[d1_databases]]
 binding = "BLOG_DB"
