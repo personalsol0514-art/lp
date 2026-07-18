@@ -67,6 +67,40 @@ export const onRequestGet = async ({
   }
 };
 
+export const onRequestDelete = async ({
+  request,
+  env,
+}: {
+  request: Request;
+  env: Env;
+}) => {
+  if (!requireAdmin(request, env)) {
+    return json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!env.MEDIA_BUCKET) {
+    return json({ error: "MEDIA_BUCKET binding is not configured." }, { status: 500 });
+  }
+
+  try {
+    const url = new URL(request.url);
+    const key = url.searchParams.get("key") || "";
+
+    if (!key) {
+      return json({ error: "削除する画像を指定してください。" }, { status: 400 });
+    }
+
+    await env.MEDIA_BUCKET.delete(key);
+
+    return json({ ok: true });
+  } catch (error) {
+    console.error("media delete error", error);
+    return json(
+      { error: error instanceof Error ? error.message : "削除に失敗しました。" },
+      { status: 500 },
+    );
+  }
+};
+
 export const onRequestPost = async ({
   request,
   env,

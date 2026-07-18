@@ -197,6 +197,27 @@ export default function AdminBlogPage() {
     setForm((current) => ({ ...current, image: item.url }));
   }
 
+  async function deleteMedia(item: MediaItem) {
+    if (!window.confirm("この画像を削除しますか？本文で使用中の場合は表示できなくなります。")) {
+      return;
+    }
+    setMediaMessage("");
+    try {
+      const response = await fetch(`/api/media?key=${encodeURIComponent(item.key)}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${password}` },
+      });
+      const data = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(data.error || "削除に失敗しました。");
+      }
+      setMediaItems((current) => current.filter((existing) => existing.key !== item.key));
+      setMediaMessage("画像を削除しました。");
+    } catch (error) {
+      setMediaMessage(error instanceof Error ? error.message : "削除に失敗しました。");
+    }
+  }
+
   function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     window.localStorage.setItem("natural_blog_admin_password", password);
@@ -511,6 +532,13 @@ export default function AdminBlogPage() {
                                 className="rounded-full border border-[#EADCCF] px-2 py-1 text-[0.65rem] font-black text-[#7B9257]"
                               >
                                 サムネイルに使う
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => void deleteMedia(item)}
+                                className="rounded-full border border-red-200 px-2 py-1 text-[0.65rem] font-black text-red-600"
+                              >
+                                削除
                               </button>
                             </div>
                           </div>
