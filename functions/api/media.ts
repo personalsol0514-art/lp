@@ -43,7 +43,10 @@ export const onRequestGet = async ({
   }
 
   try {
-    const listed = await env.MEDIA_BUCKET.list({ limit: 200 });
+    const listed = await env.MEDIA_BUCKET.list({
+      limit: 200,
+      include: ["httpMetadata"],
+    });
     const items = listed.objects
       .map((obj) => ({
         key: obj.key,
