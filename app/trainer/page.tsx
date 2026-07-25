@@ -183,17 +183,17 @@ export default function TrainerPage() {
       </section>
 
       <section className="px-5 py-16 sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-[#8AA05F]">
               Message
             </p>
-            <h2 className="mt-4 text-[2rem] font-black leading-[1.45] sm:text-[3rem]">
-              「自分にできるかな」
-              <br />
-              その不安ごと、
-              <br />
-              お聞かせください。
+            <h2 className="mt-4 text-[2rem] font-black leading-[1.45] sm:text-[2.65rem]">
+              <span className="block whitespace-nowrap">
+                「自分にできるかな」
+              </span>
+              <span className="block">その不安ごと、</span>
+              <span className="block">お聞かせください。</span>
             </h2>
             <div className="relative mt-8 aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#F5EEE5] shadow-[0_20px_54px_rgba(82,67,54,0.12)] sm:mt-10">
               <Image
