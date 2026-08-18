@@ -193,6 +193,41 @@ export default function AdminBlogPage() {
     });
   }
 
+  function insertHeadingIntoContent(level: 2 | 3) {
+    const textarea = contentRef.current;
+    const marker = level === 2 ? "##" : "###";
+    const placeholder = level === 2 ? "見出し" : "小見出し";
+
+    if (!textarea) {
+      setForm((current) => ({
+        ...current,
+        content: current.content
+          ? `${current.content}\n\n${marker} ${placeholder}\n\n`
+          : `${marker} ${placeholder}\n\n`,
+      }));
+      return;
+    }
+
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const before = textarea.value.slice(0, start);
+    const after = textarea.value.slice(end);
+    const selectedText = textarea.value.slice(start, end).trim().split(/\r?\n/)[0];
+    const headingText = selectedText || placeholder;
+    const leadingBreak = before.length > 0 && !before.endsWith("\n\n") ? "\n\n" : "";
+    const insertion = `${leadingBreak}${marker} ${headingText}\n\n`;
+    const nextValue = `${before}${insertion}${after}`;
+
+    setForm((current) => ({ ...current, content: nextValue }));
+
+    requestAnimationFrame(() => {
+      const textStart = before.length + leadingBreak.length + marker.length + 1;
+      const textEnd = textStart + headingText.length;
+      textarea.focus();
+      textarea.setSelectionRange(textStart, textEnd);
+    });
+  }
+
   function useAsCoverImage(item: MediaItem) {
     setForm((current) => ({ ...current, image: item.url }));
   }
@@ -317,9 +352,8 @@ export default function AdminBlogPage() {
         <section className="py-8">
           <h1 className="text-3xl font-black sm:text-5xl">ブログ管理</h1>
           <p className="mt-3 text-sm font-medium leading-relaxed text-[#6D6258]">
-            投稿・編集・削除・公開/下書き切り替えができます。本文内で見出しにしたい行は
-            「## 見出し」、画像を差し込みたい行は「![説明文](画像のURL)」の形で、
-            前後を1行空けて入力してください。
+            投稿・編集・削除・公開/下書き切り替えができます。本文内では「## 見出し」、
+            「### 小見出し」が使えます。画像は「![説明文](画像のURL)」の形で入力できます。
           </p>
         </section>
 
@@ -551,9 +585,30 @@ export default function AdminBlogPage() {
                     </p>
                   )}
                 </div>
-                <label className="block text-sm font-black text-[#6D6258] sm:col-span-2">
-                  本文
+                <div className="sm:col-span-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <label htmlFor="blog-content" className="text-sm font-black text-[#6D6258]">
+                      本文
+                    </label>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => insertHeadingIntoContent(2)}
+                        className="rounded-full border border-[#E86F23] bg-white px-3 py-1.5 text-xs font-black text-[#C85F1F] transition hover:bg-[#FFF7EF]"
+                      >
+                        見出しを挿入
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertHeadingIntoContent(3)}
+                        className="rounded-full border border-[#8AA05F] bg-white px-3 py-1.5 text-xs font-black text-[#667A42] transition hover:bg-[#F4F7EE]"
+                      >
+                        小見出しを挿入
+                      </button>
+                    </div>
+                  </div>
                   <textarea
+                    id="blog-content"
                     ref={contentRef}
                     value={form.content}
                     onChange={(event) => setForm({ ...form, content: event.target.value })}
@@ -563,7 +618,10 @@ export default function AdminBlogPage() {
                     }
                     required
                   />
-                </label>
+                  <p className="mt-2 text-xs font-medium leading-relaxed text-[#8B8178]">
+                    文字を選択してからボタンを押すと、その文字を見出しにできます。
+                  </p>
+                </div>
               </div>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">

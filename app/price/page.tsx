@@ -154,6 +154,7 @@ export default function PricePage() {
           <div className="flex items-center gap-2">
             <a
               href="/reserve"
+              data-event-label="price_header_reserve"
               className="hidden rounded-full bg-[#E86F23] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)] transition hover:bg-[#cf5f1c] sm:inline-flex"
             >
               体験予約
@@ -183,6 +184,7 @@ export default function PricePage() {
                 ))}
                 <a
                   href="/reserve"
+                  data-event-label="price_menu_reserve"
                   className="mt-2 flex items-center justify-center rounded-xl bg-[#E86F23] px-4 py-3 text-sm font-black text-white"
                 >
                   体験予約
@@ -550,6 +552,7 @@ export default function PricePage() {
           </div>
           <a
             href="/reserve"
+            data-event-label="price_final_reserve"
             className="inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-base font-black text-[#E86F23]"
           >
             体験予約する
@@ -574,11 +577,11 @@ export default function PricePage() {
           </div>
           <nav className="grid gap-3 text-sm font-black text-white/80 sm:grid-cols-2 lg:min-w-[22rem]">
             <a href="/">トップ</a>
-            <a href="/bodymake">ボディメイク</a>
-            <a href="/posture">姿勢改善</a>
-            <a href="/legs">脚やせ</a>
-            <a href="/beginner">運動初心者</a>
-            <a href="/access">アクセス</a>
+            <a href="/#goals">ボディメイク</a>
+            <a href="/#goals">姿勢改善</a>
+            <a href="/#goals">脚やせ</a>
+            <a href="/#goals">運動初心者</a>
+            <a href="/#access">アクセス</a>
           </nav>
         </div>
         <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-5 text-xs font-bold text-white/45">

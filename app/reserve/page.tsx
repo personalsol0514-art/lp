@@ -9,10 +9,10 @@ export default function ReservePage() {
       <div className="mx-auto max-w-2xl">
         <div className="mb-6">
           <Link
-            href="/lp"
+            href="/"
             className="text-body-sm font-semibold text-[#B86E3C] underline decoration-[#B86E3C]/40 underline-offset-4"
           >
-            LPに戻る
+            トップページに戻る
           </Link>
         </div>
 
@@ -24,8 +24,29 @@ export default function ReservePage() {
             体験予約フォーム
           </h1>
           <p className="mt-3 text-body text-slate-600">
-            60分枠（11:00〜20:00）からご希望の時間を選んでご予約ください。
+            空き枠を選び、お名前と連絡先を入力すると予約が完了します。
           </p>
+
+          <div className="mt-5 grid grid-cols-3 gap-2 rounded-2xl border border-[#F1D8C5] bg-[#FFF8F2] p-3 text-center text-xs font-bold text-[#6D6258] sm:text-sm">
+            <div>
+              <span className="mx-auto mb-1 grid h-6 w-6 place-items-center rounded-full bg-[#E86F23] text-[11px] text-white">1</span>
+              空き枠を選択
+            </div>
+            <div>
+              <span className="mx-auto mb-1 grid h-6 w-6 place-items-center rounded-full bg-[#E86F23] text-[11px] text-white">2</span>
+              連絡先を入力
+            </div>
+            <div>
+              <span className="mx-auto mb-1 grid h-6 w-6 place-items-center rounded-full bg-[#7B9257] text-[11px] text-white">3</span>
+              予約完了
+            </div>
+          </div>
+
+          <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-bold text-[#7A7068]">
+            <li><span className="mr-1 text-[#7B9257]">✓</span>入力約1分</li>
+            <li><span className="mr-1 text-[#7B9257]">✓</span>体験約60分</li>
+            <li><span className="mr-1 text-[#7B9257]">✓</span>無理な勧誘なし</li>
+          </ul>
 
           <div className="mt-7">
             <ReserveForm />

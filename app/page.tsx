@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import BlogNewsPreviewClient from "../components/BlogNewsPreviewClient";
+import { InstagramEmbeds } from "../components/InstagramEmbeds";
+import { MobileCTA } from "../components/MobileCTA";
 import { ReserveLink } from "../components/ReserveLink";
 import { WorriesSection } from "../components/WorriesSection";
 import { blogPosts } from "../lib/blog-posts";
@@ -35,6 +37,9 @@ const address = "〒444-0051 愛知県岡崎市本町通2丁目3 鳥居ビル1F"
 const mapsSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
   address,
 )}&output=embed&hl=ja&z=17`;
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  address,
+)}`;
 
 const navItems = [
   ["お知らせ", "#news"],
@@ -97,7 +102,7 @@ const goalPages = [
     label: "Legs",
     title: "脚やせ・下半身",
     text: "むくみや使い方のクセに向き合い、脚のラインを自然に整えます。",
-    href: "/legs",
+    href: "#trial-flow",
     src: "/solution-daily.png",
   },
   {
@@ -289,8 +294,73 @@ function NewsSection() {
 }
 
 export default function TestPage() {
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HealthClub",
+    "@id": "https://natural-fitness-gym.jp/#business",
+    name: "NATURAL FITNESS",
+    alternateName: "ナチュラルフィットネス",
+    description:
+      "岡崎市本町通の完全個室パーソナルジム。ダイエット、姿勢改善、脚やせ、運動初心者の身体づくりをマンツーマンでサポートします。",
+    url: "https://natural-fitness-gym.jp/",
+    telephone: "+81-90-1819-5050",
+    image: [
+      "https://natural-fitness-gym.jp/gallery-exterior.png",
+      "https://natural-fitness-gym.jp/gallery-studio-interior.png",
+      "https://natural-fitness-gym.jp/solution-movement.png",
+    ],
+    logo: "https://natural-fitness-gym.jp/laurel-wreath.png",
+    priceRange: "¥¥",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "本町通2丁目3 鳥居ビル1F",
+      addressLocality: "岡崎市",
+      addressRegion: "愛知県",
+      postalCode: "444-0051",
+      addressCountry: "JP",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "岡崎市",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "11:00",
+        closes: "20:00",
+      },
+    ],
+    hasMap: mapsLink,
+    sameAs: ["https://www.instagram.com/naturalfitness1101/"],
+    amenityFeature: [
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "完全個室",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "駐車サービス券",
+        value: true,
+      },
+    ],
+  };
+
   return (
     <main className="bg-[#FFFDF8] text-[#3A342F]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       <header className="nf-fade-up fixed inset-x-0 top-0 z-50 border-b border-[#EADCCF] bg-white/92 shadow-sm backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-8">
           <a href="#top" className="leading-none">
@@ -394,8 +464,7 @@ export default function TestPage() {
                 OKAZAKI PERSONAL GYM
               </p>
               <h1 className="font-sans text-[2.05rem] font-black leading-[1.2] tracking-normal text-[#332F2B] sm:text-[4.1rem] lg:text-[4.25rem]">
-                楽しく変われる
-                <br />
+                <span className="block text-[0.72em] text-[#5D554E]">岡崎で、楽しく変われる</span>
                 <span className="text-[#E86F23]">オトナの</span>
                 <br />
                 パーソナルジム
@@ -407,16 +476,49 @@ export default function TestPage() {
                 <br className="hidden sm:block" />
                 無理なくサポート
               </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-[0.72rem] font-black text-[#5F554C] sm:mt-6 sm:text-sm">
+                {[
+                  "完全個室",
+                  "月4回 14,400円〜",
+                  "入会金0円",
+                  "駐車サービスあり",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-[#EADCCF] bg-white/90 px-3 py-1.5 shadow-sm"
+                  >
+                    <span className="mr-1 text-[#7B9257]">✓</span>
+                    {item}
+                  </span>
+                ))}
+              </div>
               <ReserveLink
                 href="/reserve"
                 eventLabel="home_hero_reserve"
                 className="nf-cta-breathe mt-6 inline-flex min-h-13 w-full max-w-[430px] items-center justify-center rounded-full bg-[#E86F23] px-8 py-4 text-base font-black text-white shadow-[0_16px_34px_rgba(232,111,35,0.26)] transition hover:bg-[#cf5f1c] sm:mt-8 sm:min-h-16 sm:py-0"
               >
-                体験予約する
+                空き枠を確認する
                 <span className="ml-5 grid h-7 w-7 place-items-center rounded-full bg-white text-[#E86F23]">
                   ›
                 </span>
               </ReserveLink>
+              <p className="mt-3 text-center text-xs font-bold text-[#7A7068] sm:max-w-[430px] sm:text-sm">
+                体験は約60分・入力約1分・無理な勧誘はありません
+              </p>
+              <nav
+                aria-label="検討中の方への案内"
+                className="mt-4 grid grid-cols-3 gap-2 text-center text-[0.68rem] font-black text-[#8A674F] sm:hidden"
+              >
+                <a href="#price" className="rounded-xl bg-[#FFF4EA] px-2 py-2.5">
+                  料金
+                </a>
+                <a href="#voice" className="rounded-xl bg-[#FFF4EA] px-2 py-2.5">
+                  実績・声
+                </a>
+                <a href="#trial-flow" className="rounded-xl bg-[#FFF4EA] px-2 py-2.5">
+                  体験の流れ
+                </a>
+              </nav>
             </div>
           </div>
         </div>
@@ -867,6 +969,32 @@ export default function TestPage() {
         </div>
       </section>
 
+      <section className="bg-[#FFF7EF] px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-6xl text-center">
+          <p className="text-[0.72rem] font-black uppercase tracking-[0.2em] text-[#E5792E]">
+            Instagram
+          </p>
+          <h2 className="mt-3 text-[1.85rem] font-black leading-tight text-[#3A342F] sm:text-[2.4rem]">
+            日々の様子を発信しています
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-[2] text-[#6D6258]">
+            トレーニングや身体づくりのヒント、NATURAL FITNESSの日常をご紹介しています。
+          </p>
+          <div className="mt-8">
+            <InstagramEmbeds />
+          </div>
+          <a
+            href="https://www.instagram.com/naturalfitness1101/"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-flex min-h-12 items-center justify-center rounded-full border border-[#E86F23] bg-white px-6 text-sm font-black text-[#E86F23] transition hover:bg-[#FFF1E8]"
+          >
+            Instagramをもっと見る
+            <span className="ml-2" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
       <NewsSection />
 
       <section id="access" className="bg-white px-5 py-12 sm:px-8 sm:py-16">
@@ -905,13 +1033,14 @@ export default function TestPage() {
                     <dd>タカラパーキング / 駐車場サービス券あり</dd>
                   </div>
                 </dl>
-                <ReserveLink
-                  href="/reserve"
-                  eventLabel="home_access_reserve"
+                <a
+                  href={mapsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-6 inline-flex rounded-lg bg-[#7B9257] px-7 py-3 text-sm font-black text-white transition hover:bg-[#677b49]"
                 >
-                  アクセス詳細を見る ›
-                </ReserveLink>
+                  Googleマップで確認する ›
+                </a>
               </div>
             </div>
             <div className="min-h-[360px] overflow-hidden rounded-2xl border border-[#EADCCF] bg-[#F5EFE7]">
@@ -1034,6 +1163,7 @@ export default function TestPage() {
           <p>Okazaki Personal Gym</p>
         </div>
       </footer>
+      <MobileCTA />
     </main>
   );
 }

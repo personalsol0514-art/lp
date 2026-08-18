@@ -115,6 +115,7 @@ export default function TrainerPage() {
           <div className="flex items-center gap-2">
             <a
               href="/reserve"
+              data-event-label="trainer_header_reserve"
               className="hidden rounded-full bg-[#E86F23] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)] transition hover:bg-[#cf5f1c] sm:inline-flex"
             >
               体験予約
@@ -148,6 +149,7 @@ export default function TrainerPage() {
                 ))}
                 <a
                   href="/reserve"
+                  data-event-label="trainer_menu_reserve"
                   className="mt-2 flex items-center justify-center rounded-xl bg-[#E86F23] px-4 py-3 text-sm font-black text-white"
                 >
                   体験予約
@@ -357,6 +359,7 @@ export default function TrainerPage() {
           </div>
           <a
             href="/reserve"
+            data-event-label="trainer_final_reserve"
             className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-black text-[#E86F23] shadow-[0_14px_32px_rgba(106,49,16,0.18)] transition hover:-translate-y-0.5"
           >
             初回体験を予約する
@@ -386,7 +389,7 @@ export default function TrainerPage() {
             <a href="/#goals">お悩み別</a>
             <a href="/#voice">お客様の声</a>
             <a href="/#access">アクセス</a>
-            <a href="/reserve">体験予約</a>
+            <a href="/reserve" data-event-label="trainer_footer_reserve">体験予約</a>
           </nav>
         </div>
         <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-5 text-xs font-bold text-white/45">
@@ -396,6 +399,7 @@ export default function TrainerPage() {
 
       <a
         href="/reserve"
+        data-event-label="trainer_mobile_reserve"
         className="fixed inset-x-4 bottom-4 z-40 flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#E86F23] px-6 text-sm font-black text-white shadow-[0_16px_36px_rgba(94,45,14,0.3)] sm:hidden"
       >
         初回体験を予約する

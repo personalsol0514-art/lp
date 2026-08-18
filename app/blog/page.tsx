@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BlogIndexClient from "../../components/BlogIndexClient";
 import { blogPosts } from "../../lib/blog-posts";
+import { absoluteUrl, siteName } from "../../lib/site";
 
 const title = "ブログ｜岡崎市のパーソナルジム NATURAL FITNESS";
 const description =
@@ -17,14 +18,35 @@ export const metadata: Metadata = {
     description,
     type: "website",
     url: "https://natural-fitness-gym.jp/blog",
-    siteName: "NATURAL FITNESS",
+    siteName,
     locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 
 export default function BlogPage() {
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "NATURAL FITNESS ブログ記事一覧",
+    itemListElement: blogPosts.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/blog/${post.slug}`),
+      name: post.title,
+    })),
+  };
+
   return (
     <main className="bg-[#FFFDF8] text-[#3A342F]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <header className="sticky top-0 z-50 border-b border-[#EADCCF] bg-white/92 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
           <a href="/" className="leading-none">
@@ -37,6 +59,7 @@ export default function BlogPage() {
           </a>
           <a
             href="/reserve"
+            data-event-label="blog_index_header_reserve"
             className="rounded-full bg-[#E86F23] px-5 py-2.5 text-sm font-black text-white"
           >
             体験予約

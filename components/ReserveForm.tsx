@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { trackGtagEvent, trackGtagEventBeforeNavigation } from "./analytics";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { trackGtagEvent } from "./analytics";
 
 type ReserveStatus = "idle" | "submitting" | "success" | "error";
 type Slot = {
@@ -45,7 +45,11 @@ export function ReserveForm() {
   const [selectedSlotStart, setSelectedSlotStart] = useState("");
   const [selectedSlotEnd, setSelectedSlotEnd] = useState("");
   const [activeDateKey, setActiveDateKey] = useState("");
-  const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
+  const [contactError, setContactError] = useState("");
+  const hasTrackedFormStartRef = useRef(false);
+  const hasTrackedContactStartRef = useRef(false);
+  const submissionInFlightRef = useRef(false);
+  const selectedSlotStartRef = useRef("");
 
   const baseDate = useMemo(() => {
     const today = new Date();
@@ -74,12 +78,24 @@ export function ReserveForm() {
             const response = await fetch(
               `/api/availability?date=${encodeURIComponent(dateKey)}`,
             );
-            const data = (await response.json()) as {
+            const rawBody = await response.text();
+            let data: {
               slots?: Slot[];
               message?: string;
-            };
+            } | null = null;
+            try {
+              data = JSON.parse(rawBody) as {
+                slots?: Slot[];
+                message?: string;
+              };
+            } catch {
+              data = null;
+            }
             if (!response.ok) {
-              throw new Error(data.message ?? "空き時間の取得に失敗しました。");
+              throw new Error(data?.message ?? "空き時間の取得に失敗しました。");
+            }
+            if (!data) {
+              throw new Error("空き時間の取得に失敗しました。");
             }
             return { date: dateKey, slots: data.slots ?? [] };
           }),
@@ -88,9 +104,13 @@ export function ReserveForm() {
         if (!cancelled) {
           setDayAvailabilities(responses);
           const stillValid = responses.some((day) =>
-            day.slots.some((slot) => slot.startIso === selectedSlotStart && slot.available),
+            day.slots.some(
+              (slot) =>
+                slot.startIso === selectedSlotStartRef.current && slot.available,
+            ),
           );
           if (!stillValid) {
+            selectedSlotStartRef.current = "";
             setSelectedDate("");
             setSelectedSlotStart("");
             setSelectedSlotEnd("");
@@ -106,6 +126,7 @@ export function ReserveForm() {
       } catch (error) {
         if (!cancelled) {
           setDayAvailabilities([]);
+          selectedSlotStartRef.current = "";
           setSelectedSlotStart("");
           setSelectedSlotEnd("");
           setMessage(
@@ -125,14 +146,12 @@ export function ReserveForm() {
     return () => {
       cancelled = true;
     };
-  }, [weekDates, selectedSlotStart]);
+  }, [weekDates]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submissionInFlightRef.current) return;
     const form = event.currentTarget;
-    setStatus("submitting");
-    setMessage("");
-
     const formData = new FormData(form);
     const payload = {
       name: String(formData.get("name") ?? ""),
@@ -143,6 +162,43 @@ export function ReserveForm() {
       slotEndIso: String(formData.get("slotEndIso") ?? ""),
       note: String(formData.get("note") ?? ""),
     };
+
+    if (!payload.slotStartIso || !payload.slotEndIso || !payload.selectedDate) {
+      setStatus("error");
+      setMessage("最初にご希望の日時をお選びください。");
+      trackGtagEvent("submit_error", {
+        event_category: "reservation",
+        form_id: "reserve-form",
+        error_type: "missing_slot",
+      });
+      document.getElementById("reservation-date")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+
+    if (!payload.phone.trim() && !payload.email.trim()) {
+      setStatus("error");
+      setMessage("");
+      setContactError("電話番号またはメールアドレスのどちらか1つをご入力ください。");
+      trackGtagEvent("submit_error", {
+        event_category: "reservation",
+        form_id: "reserve-form",
+        error_type: "missing_contact",
+      });
+      document.getElementById("phone")?.focus();
+      return;
+    }
+
+    submissionInFlightRef.current = true;
+    setStatus("submitting");
+    setMessage("");
+    setContactError("");
+    trackGtagEvent("submit_attempt", {
+      event_category: "reservation",
+      form_id: "reserve-form",
+    });
 
     try {
       const response = await fetch("/api/reserve", {
@@ -187,15 +243,15 @@ export function ReserveForm() {
       thanksUrl.searchParams.set("reservation_complete", "1");
       thanksUrl.searchParams.set("event_id", reservationEventId);
 
-      await trackGtagEventBeforeNavigation("generate_lead", {
-        event_category: "reservation",
-        event_label: "reservation_complete",
-        reservation_event_id: reservationEventId,
-      });
-
       window.location.assign(thanksUrl.toString());
     } catch (error) {
+      submissionInFlightRef.current = false;
       setStatus("error");
+      trackGtagEvent("submit_error", {
+        event_category: "reservation",
+        form_id: "reserve-form",
+        error_type: "request_failed",
+      });
       setMessage(
         error instanceof Error
           ? error.message
@@ -205,19 +261,35 @@ export function ReserveForm() {
   }
 
   function trackFormStartIfNeeded() {
-    if (hasTrackedFormStart) return;
+    if (hasTrackedFormStartRef.current) return;
+    hasTrackedFormStartRef.current = true;
 
     trackGtagEvent("form_start", {
       event_category: "reservation",
       event_label: "reserve_form_start",
+      form_id: "reserve-form",
       form_name: "reserve_form",
+      form_destination: "/api/reserve",
     });
-    setHasTrackedFormStart(true);
+  }
+
+  function trackContactStartIfNeeded() {
+    trackFormStartIfNeeded();
+    setContactError("");
+    if (hasTrackedContactStartRef.current) return;
+    hasTrackedContactStartRef.current = true;
+    trackGtagEvent("contact_started", {
+      event_category: "reservation",
+      form_id: "reserve-form",
+    });
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <section className="rounded-2xl border border-[#EADCCF] bg-[#FFFDF8] p-4 sm:p-5">
+    <form id="reserve-form" onSubmit={handleSubmit} className="space-y-6">
+      <section
+        id="reservation-date"
+        className="scroll-mt-24 rounded-2xl border border-[#EADCCF] bg-[#FFFDF8] p-4 sm:p-5"
+      >
         <div className="mb-3 flex items-center gap-2">
           <p className="text-base font-black text-[#3A342F]">ご希望の日時</p>
           <span className="rounded-full bg-[#E86F23] px-2 py-0.5 text-[10px] font-bold text-white">
@@ -274,7 +346,14 @@ export function ReserveForm() {
                   <button
                     key={dateKey}
                     type="button"
-                    onClick={() => setActiveDateKey(dateKey)}
+                    onClick={() => {
+                      trackFormStartIfNeeded();
+                      setActiveDateKey(dateKey);
+                      trackGtagEvent("date_selected", {
+                        event_category: "reservation",
+                        form_id: "reserve-form",
+                      });
+                    }}
                     className={`flex min-w-[3.6rem] flex-shrink-0 flex-col items-center rounded-xl border px-2 py-2 transition ${
                       isActive
                         ? "border-[#E86F23] bg-[#E86F23] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
@@ -336,9 +415,21 @@ export function ReserveForm() {
                             type="button"
                             disabled={!slot.available}
                             onClick={() => {
+                              trackFormStartIfNeeded();
                               setSelectedDate(activeDateKey);
+                              selectedSlotStartRef.current = slot.startIso;
                               setSelectedSlotStart(slot.startIso);
                               setSelectedSlotEnd(slot.endIso);
+                              trackGtagEvent("slot_selected", {
+                                event_category: "reservation",
+                                form_id: "reserve-form",
+                              });
+                              window.requestAnimationFrame(() => {
+                                document.getElementById("contact-details")?.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                });
+                              });
                             }}
                             className={`flex min-h-[3rem] flex-col items-center justify-center rounded-xl border text-sm font-black transition ${
                               !slot.available
@@ -374,12 +465,20 @@ export function ReserveForm() {
         <p className="mt-3 text-xs font-bold text-[#8B8178]">
           営業時間: 11:00〜20:00（60分枠）
         </p>
+        {selectedSlotStart ? (
+          <p
+            className="mt-3 rounded-xl bg-[#EFF3E7] px-4 py-3 text-sm font-black text-[#617544]"
+            aria-live="polite"
+          >
+            ✓ 日時を選択しました。続けて連絡先をご入力ください。
+          </p>
+        ) : null}
         <input type="hidden" name="slotStartIso" value={selectedSlotStart} required />
         <input type="hidden" name="slotEndIso" value={selectedSlotEnd} required />
         <input type="hidden" name="selectedDate" value={selectedDate} required />
       </section>
 
-      <div>
+      <div id="contact-details" className="scroll-mt-24">
         <label htmlFor="name" className="text-body-sm font-semibold text-slate-700">
           お名前 <span className="text-[#E07A3A]">必須</span>
         </label>
@@ -388,63 +487,92 @@ export function ReserveForm() {
           name="name"
           type="text"
           required
-          onFocus={trackFormStartIfNeeded}
+          autoComplete="name"
+          onFocus={trackContactStartIfNeeded}
           className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
           placeholder="山田 花子"
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="email" className="text-body-sm font-semibold text-slate-700">
-            メールアドレス <span className="text-[#E07A3A]">必須</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            onFocus={trackFormStartIfNeeded}
-            className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
-            placeholder="example@email.com"
-          />
+      <fieldset
+        className={`rounded-2xl border p-4 ${
+          contactError ? "border-rose-400 bg-rose-50/40" : "border-[#E9D8C9] bg-[#FFFDF8]"
+        }`}
+        aria-describedby={contactError ? "contact-error" : "contact-help"}
+      >
+        <legend className="px-1 text-body-sm font-semibold text-slate-700">
+          ご連絡先 <span className="text-[#E07A3A]">どちらか1つ必須</span>
+        </legend>
+        <p id="contact-help" className="mb-3 text-xs font-medium text-slate-500">
+          電話番号かメールアドレスのどちらかだけで予約できます。
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="phone" className="text-body-sm font-semibold text-slate-700">
+              電話番号
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              onFocus={trackContactStartIfNeeded}
+              onChange={() => setContactError("")}
+              aria-invalid={contactError ? true : undefined}
+              className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+              placeholder="090-1234-5678"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="text-body-sm font-semibold text-slate-700">
+              メールアドレス
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              onFocus={trackContactStartIfNeeded}
+              onChange={() => setContactError("")}
+              aria-invalid={contactError ? true : undefined}
+              className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+              placeholder="example@email.com"
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="phone" className="text-body-sm font-semibold text-slate-700">
-            電話番号 <span className="text-[#E07A3A]">必須</span>
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            required
-            onFocus={trackFormStartIfNeeded}
-            className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
-            placeholder="090-1234-5678"
-          />
-        </div>
-      </div>
+        {contactError ? (
+          <p id="contact-error" className="mt-3 text-sm font-bold text-rose-700" role="alert">
+            {contactError}
+          </p>
+        ) : null}
+      </fieldset>
 
       <div>
         <label htmlFor="note" className="text-body-sm font-semibold text-slate-700">
-          ご相談内容
+          ご相談内容 <span className="text-xs font-medium text-slate-400">（任意）</span>
         </label>
         <textarea
           id="note"
           name="note"
-          rows={5}
-          onFocus={trackFormStartIfNeeded}
+          rows={3}
+          onFocus={trackContactStartIfNeeded}
           className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
-          placeholder="運動経験、目的、お悩みなど"
+          placeholder="気になることがあればご入力ください"
         />
+      </div>
+
+      <div className="rounded-2xl bg-[#EFF3E7] px-4 py-3 text-center text-xs font-bold leading-relaxed text-[#617544]">
+        送信後に予約内容をご案内します。変更・キャンセルもご相談いただけます。
       </div>
 
       <button
         type="submit"
         disabled={status === "submitting" || !selectedSlotStart}
-        className="inline-flex w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 py-3 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34] disabled:cursor-not-allowed disabled:opacity-70"
+        className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 py-3 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34] disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {status === "submitting" ? "送信中..." : "予約内容を送信する"}
+        {status === "submitting" ? "送信中..." : "この内容で体験を予約する"}
       </button>
 
       {message ? (
@@ -452,10 +580,12 @@ export function ReserveForm() {
           className={`text-body-sm font-medium ${
             status === "success" ? "text-emerald-700" : "text-rose-700"
           }`}
+          role={status === "error" ? "alert" : undefined}
         >
           {message}
         </p>
       ) : null}
+
     </form>
   );
 }

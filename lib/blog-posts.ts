@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
       "リバウンドを防ぐには、きつい制限よりも続けられる食事・運動・睡眠の整え方が大切です。",
     image: "/solution-movement.png",
     relatedLinks: [
-      { href: "/diet", label: "ダイエット・リバウンド対策を見る" },
+      { href: "/#goals", label: "ダイエットサポートを見る" },
       { href: "/price", label: "料金を見る" },
     ],
     sections: [
@@ -71,7 +71,7 @@ export const blogPosts: BlogPost[] = [
       "姿勢の崩れは見た目だけでなく、身体の使い方にも影響します。まず確認したいポイントを紹介します。",
     image: "/solution-posture.png",
     relatedLinks: [
-      { href: "/posture", label: "姿勢改善ページを見る" },
+      { href: "/#goals", label: "姿勢改善サポートを見る" },
       { href: "/trainer", label: "トレーナー紹介を見る" },
     ],
     sections: [
@@ -108,7 +108,7 @@ export const blogPosts: BlogPost[] = [
       "初めての方が不安になりやすい、持ち物・カウンセリング・体験トレーニングの流れをまとめました。",
     image: "/gallery-studio-interior.png",
     relatedLinks: [
-      { href: "/beginner", label: "運動初心者向けページを見る" },
+      { href: "/#goals", label: "運動初心者向けサポートを見る" },
       { href: "/reserve", label: "体験予約する" },
     ],
     sections: [

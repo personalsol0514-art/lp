@@ -242,6 +242,7 @@ async function sendEmail(
     subject: string;
     text: string;
     html?: string;
+    replyTo?: string;
   },
 ) {
   const fromEmail = env.RESERVE_FROM_EMAIL || DEFAULT_RESERVE_FROM_EMAIL;
@@ -275,6 +276,7 @@ async function sendEmail(
       subject: params.subject,
       text: params.text,
       html: params.html,
+      ...(params.replyTo?.trim() ? { reply_to: params.replyTo.trim() } : {}),
     }),
   });
 
@@ -303,15 +305,17 @@ export async function onRequestPost(context: {
 
     if (
       isBlank(name) ||
-      isBlank(email) ||
-      isBlank(phone) ||
+      (isBlank(email) && isBlank(phone)) ||
       isBlank(selectedDate) ||
       isBlank(slotStartIso) ||
       isBlank(slotEndIso)
     ) {
       console.log("reserve API response:", { status: 400, message: "必須項目不足" });
       return Response.json(
-        { success: false, message: "お名前・メールアドレス・電話番号・予約日時は必須です。" },
+        {
+          success: false,
+          message: "お名前・電話番号またはメールアドレス・予約日時は必須です。",
+        },
         { status: 400 },
       );
     }
@@ -343,6 +347,7 @@ ${note || "未入力"}
           to: context.env.RESERVE_TO_EMAIL,
           subject: `【体験予約】${name}さんからのお問い合わせ`,
           text: adminTextBody,
+          replyTo: email || undefined,
         });
         console.log("管理者通知メール送信成功:", {
           to: context.env.RESERVE_TO_EMAIL,
@@ -412,16 +417,19 @@ NATURAL FITNESS`;
       </div>
     `;
 
-    try {
-      await sendEmail(context.env, {
-        to: email,
-        subject: customerSubject,
-        text: customerText,
-        html: customerHtml,
-      });
-      console.log("予約者確認メール送信成功:", { to: email });
-    } catch (customerMailError) {
-      console.error("予約者への確認メール送信に失敗しました:", customerMailError);
+    if (email) {
+      try {
+        await sendEmail(context.env, {
+          to: email,
+          subject: customerSubject,
+          text: customerText,
+          html: customerHtml,
+          replyTo: context.env.RESERVE_TO_EMAIL,
+        });
+        console.log("予約者確認メール送信成功:", { to: email });
+      } catch (customerMailError) {
+        console.error("予約者への確認メール送信に失敗しました:", customerMailError);
+      }
     }
 
     console.log("reserve API response:", { status: 200, message: "送信に成功しました。" });

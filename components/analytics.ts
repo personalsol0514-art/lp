@@ -27,35 +27,6 @@ export function trackGtagEvent(
   });
 }
 
-export function trackGtagEventBeforeNavigation(
-  eventName: string,
-  params: Record<string, unknown> = {},
-  timeoutMs = 800,
-) {
-  if (typeof window === "undefined") return Promise.resolve();
-
-  ensureGtag();
-
-  return new Promise<void>((resolve) => {
-    let resolved = false;
-    const done = () => {
-      if (resolved) return;
-      resolved = true;
-      window.clearTimeout(timeoutId);
-      resolve();
-    };
-    const timeoutId = window.setTimeout(done, timeoutMs);
-
-    window.gtag?.("event", eventName, {
-      send_to: GA_MEASUREMENT_ID,
-      transport_type: "beacon",
-      event_callback: done,
-      event_timeout: timeoutMs,
-      ...params,
-    });
-  });
-}
-
 function ensureGtag() {
   window.dataLayer = window.dataLayer ?? [];
   window.gtag =

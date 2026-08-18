@@ -18,6 +18,8 @@ export function ReserveLink({
     <a
       {...props}
       href={props.href ?? "/reserve"}
+      data-reserve-tracked="true"
+      data-event-label={eventLabel}
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
@@ -49,8 +51,11 @@ export function ReserveLink({
 
         window.gtag("event", "reserve_click", {
           send_to: GA_MEASUREMENT_ID,
+          event_category: "reservation",
           event_label: eventLabel,
+          cta_id: eventLabel,
           link_url: href,
+          page_path: window.location.pathname,
           transport_type: "beacon",
           event_callback: continueNavigation,
           event_timeout: 500,

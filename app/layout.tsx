@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Script from "next/script";
+import { ReservationAnalytics } from "../components/ReservationAnalytics";
 import {
   Klee_One,
   Noto_Sans_JP,
@@ -53,8 +54,17 @@ const oswald = Oswald({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://natural-fitness-gym.jp"),
   title: "Natural Fitness",
   description: "ナチュラルに一生続くフィットネスのためのオンラインサービス",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    siteName: "NATURAL FITNESS",
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -105,6 +115,7 @@ gtag('config', '${gaMeasurementId}');`}
             />
           </noscript>
         ) : null}
+        <ReservationAnalytics />
         {children}
       </body>
     </html>

@@ -21,13 +21,14 @@ export default function ThanksPage() {
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/lp"
+              href="/"
               className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-[#E07A3A] px-6 py-2.5 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
             >
-              LPへ戻る
+              トップページへ戻る
             </Link>
             <Link
               href="/reserve"
+              data-event-label="thanks_repeat_reserve"
               className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-[#E8D4C4] bg-white px-6 py-2.5 text-body font-semibold text-[#B86E3C] transition hover:bg-[#fff7f1]"
             >
               予約画面へ戻る

@@ -105,13 +105,12 @@ export function FinalCTA() {
           >
             初回体験を予約する
           </ReserveLink>
-          <ReserveLink
-            href="/reserve"
-            eventLabel="final_cta_consult"
+          <a
+            href="/price"
             className="inline-flex min-w-[180px] items-center justify-center rounded-full border-2 border-[#E07A3A]/50 bg-white px-6 py-2.5 text-body font-semibold text-[#c45a28] transition hover:border-[#E07A3A] hover:bg-[#fff5ef]"
           >
-            LINEで相談
-          </ReserveLink>
+            料金を確認する
+          </a>
         </div>
       </div>
     </section>
