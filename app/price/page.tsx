@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PricePageContent } from "../price-test/page";
+import { PricePageContent } from "../../components/PricePageContent";
 
 export const metadata: Metadata = {
   title: "岡崎市のパーソナルジム料金｜NATURAL FITNESS",
