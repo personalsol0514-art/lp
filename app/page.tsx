@@ -123,37 +123,62 @@ const trialSteps = [
 ];
 
 const comparisonRows = [
-  ["月額の金額", "月4回 14,400円〜", "41,800円〜", "55,000円〜"],
+  ["月額の金額", "月4回 24,000円〜", "41,800円〜", "55,000円〜"],
   ["入会金", "無料", "41,800円", "55,000円"],
   ["トレーナー", "専属", "バラバラ", "バラバラ"],
 ];
 
 const plans = [
   {
-    name: "根本改善コース",
-    target: "しっかり変えたい方に",
-    purpose: "ダイエット・姿勢改善・脚やせに",
+    id: "trial",
+    number: "01",
+    name: "トライアルコース",
+    target: "初心者・週1回から",
+    purpose: "運動を生活の一部にしたい方に",
     duration: "1回50分",
     count: "月4回",
     price: "24,000",
-    color: "orange",
-    src: "/solution-movement.png",
-    description:
-      "体型をしっかり変えたい方、姿勢や身体の使い方から整えたい方におすすめのコースです。",
-    points: ["整体×トレーニングのWアプローチ", "姿勢改善・脚やせに特化", "食事サポート・LINEサポート付き"],
-  },
-  {
-    name: "メンテナンスコース",
-    target: "整えながら維持したい方に",
-    purpose: "カラダのメンテナンス・運動習慣づくりに",
-    duration: "1回30分",
-    count: "月4回",
-    price: "14,400",
-    color: "green",
+    unitPrice: "6,000",
+    color: "#E9942B",
+    tint: "#FFF4D8",
     src: "/solution-daily.png",
     description:
-      "忙しい方や、無理なく運動習慣を続けたい方におすすめのコースです。",
-    points: ["ボディメイク・姿勢ケア", "無理なく続けられるプログラム", "定期カウンセリング付き"],
+      "まずは週1回から、運動初心者でも無理なく習慣づくりを始めたい方におすすめです。",
+    points: ["運動初心者", "習慣づくり", "無理なく継続"],
+  },
+  {
+    id: "standard",
+    number: "02",
+    name: "根本改善コース",
+    target: "一番人気・しっかり改善",
+    purpose: "姿勢や身体をしっかり変えたい方に",
+    duration: "1回50分",
+    count: "月8回",
+    price: "44,000",
+    unitPrice: "5,500",
+    color: "#F65291",
+    tint: "#FFF0F6",
+    src: "/solution-movement.png",
+    description:
+      "週2回のトレーニングで、姿勢・体型と生活習慣まで整えたい方におすすめです。",
+    points: ["一番人気", "姿勢・体型改善", "生活習慣サポート"],
+  },
+  {
+    id: "intensive",
+    number: "03",
+    name: "集中改善コース",
+    target: "短期集中で取り組む",
+    purpose: "目標に向けて集中的に取り組みたい方に",
+    duration: "1回50分",
+    count: "月12回",
+    price: "60,000",
+    unitPrice: "5,000",
+    color: "#20B564",
+    tint: "#ECF8F0",
+    src: "/solution-posture.png",
+    description:
+      "週3回の個別プログラムで、期限のある目標に向けて集中して取り組みたい方におすすめです。",
+    points: ["短期集中", "個別プログラム", "週3回サポート"],
   },
 ];
 
@@ -759,38 +784,38 @@ export default function TestPage() {
       </section>
 
       <section id="price" className="bg-white px-5 py-14 sm:px-8 sm:py-20">
-        <SectionTitle title="目的に合わせて選べる2つのコース" />
-        <div className="mx-auto mt-10 grid max-w-6xl gap-6 lg:grid-cols-2">
-          {plans.map((plan) => {
-            const isOrange = plan.color === "orange";
-            return (
+        <SectionTitle
+          title="目的に合わせて選べる3つのコース"
+          text="すべて1回50分。生活リズムと目標に合わせて、月4回・8回・12回から選べます。"
+        />
+        <div className="mx-auto mt-10 grid max-w-7xl gap-6 lg:grid-cols-3">
+          {plans.map((plan) => (
               <article
                 key={plan.name}
-                className={`grid overflow-hidden rounded-2xl border shadow-[0_14px_44px_rgba(82,67,54,0.09)] sm:grid-cols-[0.86fr_1fr] ${
-                  isOrange ? "border-[#EADCCF]" : "border-[#D6DEC7]"
-                }`}
+                className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#EADCCF] bg-[#FFFDF8] shadow-[0_14px_44px_rgba(82,67,54,0.09)]"
               >
-                <div className="relative min-h-[260px]">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={plan.src}
                     alt={plan.name}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 32vw"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
                   />
+                  <span className="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-2 text-xs font-black tracking-[0.14em] shadow-sm">
+                    PLAN {plan.number}
+                  </span>
                 </div>
-                <div className="bg-[#FFFDF8] p-7">
+                <div className="flex flex-1 flex-col p-7" style={{ backgroundColor: plan.tint }}>
                   <span
-                    className={`inline-flex rounded-full px-4 py-1.5 text-xs font-black ${
-                      isOrange ? "bg-[#E86F23] text-white" : "bg-[#7B9257] text-white"
-                    }`}
+                    className="inline-flex w-fit rounded-full px-4 py-1.5 text-xs font-black text-white"
+                    style={{ backgroundColor: plan.color }}
                   >
                     {plan.target}
                   </span>
                   <h3
-                    className={`mt-5 text-2xl font-black ${
-                      isOrange ? "text-[#E86F23]" : "text-[#6E884E]"
-                    }`}
+                    className="mt-5 text-2xl font-black"
+                    style={{ color: plan.color }}
                   >
                     {plan.name}
                   </h3>
@@ -807,17 +832,19 @@ export default function TestPage() {
                     </span>
                   </div>
                   <p
-                    className={`mt-5 text-[2.15rem] font-black tabular-nums ${
-                      isOrange ? "text-[#E86F23]" : "text-[#6E884E]"
-                    }`}
+                    className="mt-5 text-[2.15rem] font-black tabular-nums"
+                    style={{ color: plan.color }}
                   >
                     {plan.price}
                     <span className="ml-1 text-base">円（税込）</span>
                   </p>
+                  <p className="mt-1 text-xs font-black text-[#8B8178]">
+                    1回あたり {plan.unitPrice}円・入会金0円
+                  </p>
                   <ul className="mt-5 space-y-2 border-t border-[#EADCCF] pt-5 text-sm font-medium text-[#6D6258]">
                     {plan.points.map((point) => (
                       <li key={point} className="flex gap-2">
-                        <span className={isOrange ? "text-[#E86F23]" : "text-[#7B9257]"}>
+                        <span style={{ color: plan.color }}>
                           ◎
                         </span>
                         <span>{point}</span>
@@ -825,20 +852,16 @@ export default function TestPage() {
                     ))}
                   </ul>
                   <a
-                    href="/price"
-                    className={`mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full px-5 text-sm font-black text-white transition sm:w-auto ${
-                      isOrange
-                        ? "bg-[#E86F23] hover:bg-[#cf5f1c]"
-                        : "bg-[#7B9257] hover:bg-[#687d49]"
-                    }`}
+                    href={`/price#${plan.id}`}
+                    className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full px-5 text-sm font-black text-white transition hover:opacity-90"
+                    style={{ backgroundColor: plan.color }}
                   >
                     詳しくはこちら
                     <span className="ml-2">›</span>
                   </a>
                 </div>
               </article>
-            );
-          })}
+          ))}
         </div>
         <div className="mx-auto mt-7 max-w-6xl overflow-hidden rounded-2xl border border-[#F1D8C5] bg-[#FFF7EF] shadow-[0_14px_38px_rgba(82,67,54,0.08)]">
           <div className="grid gap-5 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
@@ -847,17 +870,25 @@ export default function TestPage() {
                 Option
               </span>
               <h3 className="mt-4 text-xl font-black text-[#3A342F] sm:text-2xl">
-                ダイエットサポート
+                食事管理
               </h3>
               <p className="mt-2 text-sm font-medium leading-relaxed text-[#6D6258]">
-                食事や生活習慣を整えたい方に。毎日の取り組みを無理なく続けられるようサポートします。
+                秋のキャンペーン中にご入会いただくと、通常月額10,000円のところ月額7,000円でご利用いただけます。
               </p>
             </div>
             <div className="rounded-2xl bg-white px-6 py-5 text-center shadow-sm">
-              <p className="text-xs font-black text-[#8AA05F]">月額オプション</p>
+              <p className="inline-flex rounded-full bg-[#E86F23] px-3 py-1 text-xs font-black text-white">
+                秋のキャンペーン
+              </p>
+              <p className="mt-2 text-xs font-black text-[#8B8178]">
+                通常月額 <span className="line-through">10,000円</span>
+              </p>
               <p className="mt-1 text-[2rem] font-black tabular-nums text-[#E86F23]">
-                10,000
+                7,000
                 <span className="ml-1 text-base">円（税込）</span>
+              </p>
+              <p className="mt-2 text-xs font-black text-[#8AA05F]">
+                キャンペーン中のご入会で適用
               </p>
             </div>
           </div>
