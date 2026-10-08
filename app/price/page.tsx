@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const title = "岡崎市のパーソナルジム料金｜NATURAL FITNESS";
 const description =
-  "岡崎市本町通の完全個室パーソナルジムNATURAL FITNESSの料金ページ。根本改善コース、メンテナンスコース、ダイエットサポートをご案内します。";
+  "岡崎市本町通の完全個室パーソナルジムNATURAL FITNESSの料金ページ。根本改善コース、メンテナンスコース、食事管理オプションをご案内します。";
 
 export const metadata: Metadata = {
   title,
@@ -30,7 +30,7 @@ const plans: Plan[] = [
     time: "1回50分",
     price: "24,000",
     extra: { count: "月8回", price: "44,000" },
-    lead: "ダイエット・姿勢改善・脚やせなど、身体をしっかり変えたい方におすすめ。",
+    lead: "姿勢改善・脚やせなど、身体をしっかり変えたい方におすすめ。",
     image: "/solution-movement.png",
     imageAlt: "根本改善コースのパーソナルトレーニング",
     points: ["姿勢・動きのクセをチェック", "目的別トレーニング", "生活習慣までサポート"],
@@ -49,10 +49,10 @@ const plans: Plan[] = [
 
 const options = [
   {
-    name: "ダイエットサポート",
-    price: "10,000",
+    name: "食事管理",
+    price: "7,000",
     unit: "円 / 月",
-    text: "食事や生活習慣も整えたい方向けのオプションです。無理な制限ではなく、続けやすい考え方を大切にします。",
+    text: "食事や生活習慣も整えたい方向けのオプションです。秋のキャンペーン中にご入会いただくと、通常月額10,000円のところ月額7,000円でご利用いただけます。",
   },
   {
     name: "整体",
@@ -81,9 +81,9 @@ const faq = [
       "体型や姿勢をしっかり変えたい方は根本改善コース、運動習慣や身体のメンテナンス目的の方はメンテナンスコースがおすすめです。",
   },
   {
-    question: "ダイエットサポートは追加できますか？",
+    question: "食事管理は追加できますか？",
     answer:
-      "はい。食事や生活習慣も整えたい方向けに、月10,000円のダイエットサポートをご用意しています。",
+      "はい。通常月額10,000円の食事管理を、秋のキャンペーン中にご入会いただいた方は月額7,000円で追加できます。",
   },
   {
     question: "整体だけの利用はできますか？",
@@ -257,25 +257,15 @@ export default function PricePage() {
                 <div className="mt-5 flex flex-wrap items-end gap-x-4 gap-y-2">
                   <div>
                     <p className="text-xs font-black text-[#8B8178]">
-                      通常価格
+                      体験トレーニング料金
                     </p>
-                    <p className="text-2xl font-black leading-none text-[#8B8178] line-through decoration-[#E86F23] decoration-2">
+                    <p className="mt-1 text-[3.5rem] font-black leading-none tracking-normal text-[#E86F23]">
                       2,980円
                     </p>
                   </div>
-                  <div>
-                    <p className="inline-flex rounded-full bg-[#E86F23] px-3 py-1 text-xs font-black text-white">
-                      今だけ
-                    </p>
-                    <div className="mt-1 flex items-end gap-2">
-                      <span className="text-[3.5rem] font-black leading-none tracking-normal text-[#E86F23]">
-                        0
-                      </span>
-                      <span className="pb-2 text-sm font-black text-[#3A342F]">
-                        円（税込）
-                      </span>
-                    </div>
-                  </div>
+                  <p className="inline-flex rounded-full bg-[#E86F23] px-4 py-2 text-sm font-black text-white">
+                    当日ご契約で0円
+                  </p>
                 </div>
                 <p className="mt-5 text-sm font-medium leading-relaxed text-[#6D6258]">
                   まずは現在の身体の状態やお悩みを確認し、姿勢チェックと体験トレーニングを行います。強い勧誘ではなく、今の身体に合う進め方を一緒に確認します。
@@ -452,7 +442,6 @@ export default function PricePage() {
             <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 "パーソナルトレーニング",
-                "トレーニング合間の食事の相談",
                 "カウンセリング",
                 "完全マンツーマン",
                 "完全個室",
@@ -497,14 +486,23 @@ export default function PricePage() {
                         </p>
                       </div>
                     ) : (
-                      <p className="text-[2rem] font-black leading-none text-[#E86F23]">
-                        {option.price}
-                        {option.unit ? (
+                      <div className="min-w-[12rem] text-right">
+                        <p className="inline-flex rounded-full bg-[#E86F23] px-3 py-1 text-xs font-black text-white">
+                          秋のキャンペーン
+                        </p>
+                        <p className="mt-2 text-sm font-black text-[#8B8178]">
+                          通常月額 <span className="line-through">10,000円</span>
+                        </p>
+                        <p className="mt-1 text-[2rem] font-black leading-none text-[#E86F23]">
+                          {option.price}
                           <span className="ml-1 text-sm text-[#3A342F]">
                             {option.unit}
                           </span>
-                        ) : null}
-                      </p>
+                        </p>
+                        <p className="mt-2 text-xs font-black text-[#8AA05F]">
+                          キャンペーン中のご入会で適用
+                        </p>
+                      </div>
                     )}
                   </div>
                 </article>
