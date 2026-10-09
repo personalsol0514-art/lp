@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { PopularBadge } from "../components/PopularBadge";
 import BlogNewsPreviewClient from "../components/BlogNewsPreviewClient";
 import { InstagramEmbeds } from "../components/InstagramEmbeds";
 import { MobileCTA } from "../components/MobileCTA";
@@ -186,7 +187,7 @@ const voices = [
   {
     badge: "-8.6kg",
     title: "ウエスト-7cmで洋服が似合う体に！",
-    profile: "30代 / 会社員",
+    profile: "40代 / 会社員",
     text: "自己流ダイエットでは変わらなかったのが、トレーナーさんのサポートで楽しく続けられました。",
     before: "/before-after-before.png",
     after: "/before-after-after.png",
@@ -194,7 +195,7 @@ const voices = [
   {
     badge: "-5.2kg",
     title: "脚のラインが変わってスキニーが履けるように！",
-    profile: "20代 / 主婦",
+    profile: "50代 / 主婦",
     text: "むくみが取れてスッキリし、周りからも「痩せたね」と言われることが増えました。",
     before: "/before-after-pair2-before.png",
     after: "/before-after-pair2-after.png",
@@ -805,6 +806,7 @@ export default function TestPage() {
                   <span className="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-2 text-xs font-black tracking-[0.14em] shadow-sm">
                     PLAN {plan.number}
                   </span>
+                  {plan.id === "standard" && <PopularBadge className="right-4 top-4" />}
                 </div>
                 <div className="flex flex-1 flex-col p-7" style={{ backgroundColor: plan.tint }}>
                   <span
@@ -873,12 +875,12 @@ export default function TestPage() {
                 食事管理
               </h3>
               <p className="mt-2 text-sm font-medium leading-relaxed text-[#6D6258]">
-                秋のキャンペーン中にご入会いただくと、通常月額10,000円のところ月額7,000円でご利用いただけます。
+                期間限定で、通常月額10,000円のところ月額7,000円でご利用いただけます。
               </p>
             </div>
             <div className="rounded-2xl bg-white px-6 py-5 text-center shadow-sm">
               <p className="inline-flex rounded-full bg-[#E86F23] px-3 py-1 text-xs font-black text-white">
-                秋のキャンペーン
+                期間限定
               </p>
               <p className="mt-2 text-xs font-black text-[#8B8178]">
                 通常月額 <span className="line-through">10,000円</span>
@@ -888,7 +890,7 @@ export default function TestPage() {
                 <span className="ml-1 text-base">円（税込）</span>
               </p>
               <p className="mt-2 text-xs font-black text-[#8AA05F]">
-                キャンペーン中のご入会で適用
+                期間限定価格
               </p>
             </div>
           </div>

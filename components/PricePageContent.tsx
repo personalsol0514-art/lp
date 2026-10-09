@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PopularBadge } from "./PopularBadge";
 
 const plans = [
   {
@@ -34,12 +35,12 @@ const faq = [
 
 const voices = [
   {
-    badge: "-8.6kg", title: "ウエスト-7cmで洋服が似合う体に！", profile: "30代／会社員",
+    badge: "-8.6kg", title: "ウエスト-7cmで洋服が似合う体に！", profile: "40代／会社員",
     text: "自己流では変わらなかったのが、サポートを受けながら楽しく続けられました。",
     before: "/before-after-before.png", after: "/before-after-after.png",
   },
   {
-    badge: "-5.2kg", title: "脚のラインが変わってスキニーが履けるように！", profile: "20代／主婦",
+    badge: "-5.2kg", title: "脚のラインが変わってスキニーが履けるように！", profile: "50代／主婦",
     text: "むくみが取れてスッキリし、周りからも痩せたと言われることが増えました。",
     before: "/before-after-pair2-before.png", after: "/before-after-pair2-after.png",
   },
@@ -49,8 +50,8 @@ const options = [
   {
     name: "食事管理",
     price: "7,000円／月",
-    note: "通常月額10,000円",
-    text: "食事や生活習慣も整えたい方向け。秋のキャンペーン中にご入会いただいた方へ適用します。",
+    note: "期間限定｜通常月額10,000円",
+    text: "食事や生活習慣も整えたい方向け。期間限定で月額7,000円に変更しています。",
     color: "#F65291",
   },
   {
@@ -179,6 +180,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
           <div className="mt-10 grid gap-10 lg:grid-cols-3 lg:gap-5">
             {plans.map((plan) => (
               <article id={plan.id} key={plan.id} className="relative scroll-mt-6 overflow-hidden rounded-[2.8rem] bg-white shadow-[0_16px_45px_rgba(83,72,57,0.055)] sm:rounded-[4rem]">
+                {plan.id === "standard" && <PopularBadge className="right-3 top-3 sm:right-5 sm:top-5" />}
                 <div className="px-6 pb-4 pt-7 text-center sm:px-10 sm:pt-9 lg:px-5 lg:pt-7">
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-[#3A342F]">PLAN {plan.number}</p>
                   <p className="mt-2 text-[0.72rem] font-black uppercase tracking-[0.28em]" style={{ color: plan.color }}>{plan.english}</p>
