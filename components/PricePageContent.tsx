@@ -147,8 +147,8 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
                 <h2 className="mt-2 text-[2rem] font-black sm:text-[3rem]">初回体験</h2>
                 <p className="mt-2 text-sm font-black text-[#77706A]">カウンセリング込み 約60分</p>
                 <div className="mt-5 flex flex-wrap items-end gap-3">
-                  <div><p className="text-xs font-black text-[#77706A]">体験トレーニング料金</p><p className="mt-1 text-[3rem] font-black leading-none text-[#FF9700] sm:text-[4rem]">2,980<span className="text-base text-[#302E2C]">円</span></p></div>
-                  <span className="rounded-full bg-[#FF9700] px-4 py-2 text-sm font-black text-white">当日ご契約で0円</span>
+                  <div><p className="text-xs font-black text-[#77706A]">体験トレーニング料金</p><p className="mt-1 text-[3rem] font-black leading-none text-[#FF9700] sm:text-[4rem]">0<span className="text-base text-[#302E2C]">円</span></p></div>
+                  <span className="rounded-full bg-[#FF9700] px-4 py-2 text-sm font-black text-white">体験だけでもOK</span>
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-2 text-center text-xs font-black sm:text-sm">
                   {["カウンセリング", "姿勢チェック", "体験トレーニング", "プラン提案"].map((item) => <span key={item} className="rounded-2xl bg-[#FFF4D8] px-3 py-3">{item}</span>)}
@@ -157,7 +157,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
             </div>
           </article>
           <div className="mx-auto mb-16 mt-4 grid max-w-5xl gap-3 sm:mb-20 sm:mt-5 sm:grid-cols-2">
-            <ReserveLink label="price_test_top_trial" className="flex min-h-14 items-center justify-center rounded-full bg-[#302E2C] px-6 text-sm font-black text-white shadow-lg">2,980円で体験予約 →</ReserveLink>
+            <ReserveLink label="price_test_top_trial" className="flex min-h-14 items-center justify-center rounded-full bg-[#302E2C] px-6 text-sm font-black text-white shadow-lg">0円で体験予約 →</ReserveLink>
             <a href="#monthly-plans" className="flex min-h-14 items-center justify-center rounded-full border-2 border-[#302E2C] bg-white px-6 text-sm font-black text-[#302E2C]">コースを比較する ↓</a>
           </div>
           <div id="monthly-plans" className="scroll-mt-6 text-center">
@@ -275,7 +275,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
         <div className="pointer-events-none absolute -right-36 top-20 h-72 w-72 rounded-[42%_58%_45%_55%/61%_40%_60%_39%] bg-[#ECF8F0] sm:h-[26rem] sm:w-[26rem]" />
         <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2.8rem] bg-[#F65291] shadow-[0_20px_50px_rgba(78,70,58,0.12)] sm:rounded-[4rem]">
           <div className="grid gap-8 px-7 py-12 text-white sm:px-12 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div><p className="text-xs font-black uppercase tracking-[0.22em] text-white/75">Trial Session</p><h2 className="mt-3 text-[2rem] font-black sm:text-[3rem]">まずは2,980円の体験から</h2><p className="mt-4 font-bold leading-relaxed text-white/85">その場で入会を決める必要はありません。生活に合う回数を一緒に考えます。</p></div>
+            <div><p className="text-xs font-black uppercase tracking-[0.22em] text-white/75">Trial Session</p><h2 className="mt-3 text-[2rem] font-black sm:text-[3rem]">まずは0円の初回体験から</h2><p className="mt-4 font-bold leading-relaxed text-white/85">その場で入会を決める必要はありません。生活に合う回数を一緒に考えます。</p></div>
             <ReserveLink label="price_test_final_reserve" className="flex min-h-16 items-center justify-center rounded-full bg-white px-8 font-black text-[#F65291] shadow-lg">空き状況を見て体験予約 →</ReserveLink>
           </div>
         </div>
@@ -289,7 +289,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
 
       <div className="fixed inset-x-0 bottom-0 z-50 px-0 sm:bottom-5 sm:px-6">
         <div className="mx-auto max-w-xl overflow-hidden border border-white/70 bg-white shadow-[0_-8px_30px_rgba(60,50,40,0.18)] sm:rounded-full">
-          <ReserveLink label="price_test_mobile_trial" className="flex min-h-16 items-center justify-center gap-2 bg-[#F65291] px-6 text-base font-black text-white transition hover:bg-[#E83F80] sm:min-h-[4.5rem] sm:text-lg">2,980円で体験予約 →</ReserveLink>
+          <ReserveLink label="price_test_mobile_trial" className="flex min-h-16 items-center justify-center gap-2 bg-[#F65291] px-6 text-base font-black text-white transition hover:bg-[#E83F80] sm:min-h-[4.5rem] sm:text-lg">0円で体験予約 →</ReserveLink>
         </div>
       </div>
     </main>
