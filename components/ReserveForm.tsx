@@ -301,6 +301,7 @@ export function ReserveForm() {
         <div className="flex items-center justify-between gap-2">
           <button
             type="button"
+            aria-label="前の週"
             onClick={() => setWeekOffset((prev) => Math.max(0, prev - 1))}
             disabled={weekOffset === 0}
             className="inline-flex h-9 items-center gap-1 rounded-full border border-[#EADCCF] bg-white px-3 text-sm font-black text-[#B86E3C] transition hover:bg-[#FFF4EA] disabled:cursor-not-allowed disabled:opacity-40"
@@ -313,6 +314,7 @@ export function ReserveForm() {
           </p>
           <button
             type="button"
+            aria-label="次の週"
             onClick={() => setWeekOffset((prev) => prev + 1)}
             className="inline-flex h-9 items-center gap-1 rounded-full border border-[#EADCCF] bg-white px-3 text-sm font-black text-[#B86E3C] transition hover:bg-[#FFF4EA]"
           >
@@ -470,7 +472,8 @@ export function ReserveForm() {
             className="mt-3 rounded-xl bg-[#EFF3E7] px-4 py-3 text-sm font-black text-[#617544]"
             aria-live="polite"
           >
-            ✓ 日時を選択しました。続けて連絡先をご入力ください。
+            ✓ {selectedDate.replace(/-/g, "/")} {new Date(selectedSlotStart).toLocaleTimeString("ja-JP", { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit" })}〜（約60分）
+            <br />続けて連絡先をご入力ください。
           </p>
         ) : null}
         <input type="hidden" name="slotStartIso" value={selectedSlotStart} required />
@@ -566,6 +569,10 @@ export function ReserveForm() {
       <div className="rounded-2xl bg-[#EFF3E7] px-4 py-3 text-center text-xs font-bold leading-relaxed text-[#617544]">
         送信後に予約内容をご案内します。変更・キャンセルもご相談いただけます。
       </div>
+      <p className="text-center text-sm leading-relaxed text-slate-600">
+        ご希望の日時がない・予約操作でお困りの方は<br />
+        <a href="tel:09018195050" className="font-bold text-[#B86E3C] underline">090-1819-5050へ電話で相談</a>
+      </p>
 
       <button
         type="submit"
