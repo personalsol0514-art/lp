@@ -54,7 +54,7 @@ export function Hero() {
               初回体験を予約する
             </ReserveLink>
             <p className="mt-2.5 text-[0.75rem] text-white/85">
-              初回0円（先着5名）・約60分・無理な勧誘はしません
+              初回体験0円・約60分・体験だけでもOK
             </p>
           </div>
 
