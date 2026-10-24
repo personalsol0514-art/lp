@@ -71,19 +71,16 @@ export function Pricing() {
             </p>
             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
               <p className="text-body text-slate-600">
-                通常{" "}
+                体験トレーニング料金{" "}
                 <span className="font-semibold tabular-nums text-slate-800">
-                  2,980円
+                  0円
                 </span>
                 <span className="text-body-sm font-normal text-slate-500">
                   （税込）
                 </span>
               </p>
-              <p className="inline-flex flex-wrap items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-body font-bold text-[#c45a28] shadow-sm ring-1 ring-[#E07A3A]/30 sm:py-2">
-                <span className="rounded-full bg-[#E07A3A] px-2.5 py-0.5 text-[0.6875rem] font-bold uppercase tracking-wider text-white">
-                  先着5名様限定
-                </span>
-                <span className="tabular-nums">0円</span>
+              <p className="text-body-sm font-semibold text-[#c45a28]">
+                体験だけでもOK・当日の入会決定は不要です
               </p>
             </div>
             <ReserveLink
@@ -91,7 +88,7 @@ export function Pricing() {
               eventLabel="pricing_trial_reserve"
               className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 text-body font-bold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
             >
-              0円で体験を予約する
+              体験を予約する
             </ReserveLink>
           </div>
 
