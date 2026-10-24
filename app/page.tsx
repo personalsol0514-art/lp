@@ -505,7 +505,7 @@ export default function TestPage() {
               <div className="mt-4 flex flex-wrap gap-2 text-[0.72rem] font-black text-[#5F554C] sm:mt-6 sm:text-sm">
                 {[
                   "完全個室",
-                  "月4回 14,400円〜",
+                  "月4回 24,000円〜（1回50分）",
                   "入会金0円",
                   "駐車サービスあり",
                 ].map((item) => (
@@ -529,7 +529,9 @@ export default function TestPage() {
                 </span>
               </ReserveLink>
               <p className="mt-3 text-center text-xs font-bold text-[#7A7068] sm:max-w-[430px] sm:text-sm">
-                体験は約60分・入力約1分・無理な勧誘はありません
+                初回体験0円・体験だけでもOK
+                <br />
+                約60分・入力約1分・無理な勧誘はありません
               </p>
               <nav
                 aria-label="検討中の方への案内"
@@ -693,7 +695,7 @@ export default function TestPage() {
         </div>
         <div className="mx-auto mt-8 max-w-3xl rounded-2xl bg-[#F6EFE7] px-6 py-5 text-center">
           <p className="text-sm font-black leading-relaxed text-[#5F554C]">
-            体験はカウンセリング込みで約60分。強い勧誘ではなく、今の体に合う進め方を一緒に確認します。
+            初回体験は0円。体験だけのご利用も歓迎します。カウンセリング・姿勢チェック・体験トレーニング・プラン説明を含めて約60分。その場で入会を決める必要はありません。
           </p>
         </div>
       </section>
