@@ -1,57 +1,17 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Script from "next/script";
 import { ReservationAnalytics } from "../components/ReservationAnalytics";
-import {
-  Klee_One,
-  Noto_Sans_JP,
-  Oswald,
-  Yomogi,
-  Zen_Kurenaido,
-  Zen_Maru_Gothic,
-} from "next/font/google";
 import "./globals.css";
 
-const notoSansJP = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-noto-sans-jp",
-  display: "swap",
-});
-
-const zenMaru = Zen_Maru_Gothic({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-zen-maru",
-  display: "swap",
-});
-
-const zenKurenaido = Zen_Kurenaido({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-zen-kurenaido",
-  display: "swap",
-});
-
-const yomogi = Yomogi({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-yomogi",
-  display: "swap",
-});
-
-const kleeOne = Klee_One({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-klee-one",
-  display: "swap",
-});
-
-const oswald = Oswald({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-oswald",
-  display: "swap",
-});
+// Load web fonts in the browser so builds do not depend on Google Fonts responses.
+const fontVariables = {
+  "--font-noto-sans-jp": '"Noto Sans JP"',
+  "--font-zen-maru": '"Zen Maru Gothic"',
+  "--font-zen-kurenaido": '"Zen Kurenaido"',
+  "--font-yomogi": '"Yomogi"',
+  "--font-klee-one": '"Klee One"',
+  "--font-oswald": '"Oswald"',
+} as CSSProperties;
 
 export const metadata = {
   metadataBase: new URL("https://natural-fitness-gym.jp"),
@@ -76,9 +36,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${zenMaru.variable} ${zenKurenaido.variable} ${yomogi.variable} ${kleeOne.variable} ${oswald.variable}`}
+      style={fontVariables}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;600;700&family=Oswald:wght@600;700&family=Yomogi&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@500;700&display=swap"
+        />
         {gtmId ? (
           <Script id="gtm-script" strategy="beforeInteractive">
             {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
