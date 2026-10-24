@@ -26,6 +26,10 @@ export default function ReservePage() {
           <p className="mt-3 text-body text-slate-600">
             空き枠を選び、お名前と連絡先を入力すると予約が完了します。
           </p>
+          <div className="mt-4 rounded-2xl bg-[#FFF8F2] p-4 text-sm leading-relaxed text-slate-700">
+            <p className="font-bold">初回体験0円・体験だけでもOK</p>
+            <p className="mt-1">カウンセリング・姿勢チェック・体験トレーニング・プラン説明を含めて約60分。その場で入会を決める必要はありません。</p>
+          </div>
 
           <div className="mt-5 grid grid-cols-3 gap-2 rounded-2xl border border-[#F1D8C5] bg-[#FFF8F2] p-3 text-center text-xs font-bold text-[#6D6258] sm:text-sm">
             <div>
