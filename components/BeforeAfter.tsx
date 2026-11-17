@@ -75,7 +75,7 @@ export function BeforeAfter() {
   return (
     <section
       id="changes"
-      className="scroll-mt-28 bg-[#efe8df] px-4 pt-14 pb-24 sm:pt-16 sm:pb-28"
+      className="scroll-mt-28 bg-[#f4f7f2] px-4 pt-14 pb-24 sm:pt-16 sm:pb-28"
     >
       <div className="relative mx-auto max-w-6xl">
         <header className="mx-auto max-w-xl text-center">

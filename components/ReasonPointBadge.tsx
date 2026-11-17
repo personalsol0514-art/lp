@@ -11,7 +11,7 @@ export function ReasonPointBadge({
 
   return (
     <div
-      className={`relative h-[5.75rem] w-[5.75rem] shrink-0 text-[#1a1816] ${className ?? "mx-auto sm:mx-0"}`}
+      className={`relative h-[5.75rem] w-[5.75rem] shrink-0 text-[#2f3a33] ${className ?? "mx-auto sm:mx-0"}`}
       role="img"
       aria-label={`POINT ${num}`}
     >

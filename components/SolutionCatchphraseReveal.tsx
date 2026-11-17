@@ -53,16 +53,16 @@ export function SolutionCatchphraseReveal() {
     <div ref={wrapRef} className="mx-auto max-w-4xl px-2 sm:px-4">
       <div className="flex flex-col items-center text-center">
         <p
-          className={`font-sans text-[1.5rem] font-bold leading-[1.12] tracking-tight text-[#1a1816] sm:text-[2rem] md:text-[2.4rem] ${revealed ? shown : hidden}`}
+          className={`font-sans text-[1.5rem] font-bold leading-[1.12] tracking-tight text-[#2f3a33] sm:text-[2rem] md:text-[2.4rem] ${revealed ? shown : hidden}`}
           style={tx(0)}
         >
           そのお悩み、
         </p>
         <p
-          className={`font-sans mt-2 leading-[1.05] tracking-tight text-[#1a1816] sm:mt-2.5 ${revealed ? shown : hidden}`}
+          className={`font-sans mt-2 leading-[1.05] tracking-tight text-[#2f3a33] sm:mt-2.5 ${revealed ? shown : hidden}`}
           style={tx(STAGGER_MS)}
         >
-          <span className="text-[2.1rem] font-extrabold text-[#E07A3A] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[3.9rem]">
+          <span className="text-[2.1rem] font-extrabold text-[#5f826a] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[3.9rem]">
             Natural Fitness
           </span>
           <span className="ml-1 text-[1.25rem] font-bold sm:text-[1.55rem] md:text-[1.7rem] lg:text-[1.8rem]">
@@ -70,14 +70,14 @@ export function SolutionCatchphraseReveal() {
           </span>
         </p>
         <p
-          className={`font-sans mt-3 text-[2rem] font-bold leading-[1.12] tracking-tight text-[#1a1816] sm:mt-4 sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] ${revealed ? shown : hidden}`}
+          className={`font-sans mt-3 text-[2rem] font-bold leading-[1.12] tracking-tight text-[#2f3a33] sm:mt-4 sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] ${revealed ? shown : hidden}`}
           style={tx(STAGGER_MS * 2)}
         >
           解決します！
         </p>
       </div>
       <div
-        className={`mx-auto mt-8 h-px max-w-[12rem] bg-gradient-to-r from-transparent via-[#E07A3A]/55 to-transparent motion-reduce:opacity-100 sm:mt-10 sm:max-w-[16rem] ${
+        className={`mx-auto mt-8 h-px max-w-[12rem] bg-gradient-to-r from-transparent via-[#5f826a]/55 to-transparent motion-reduce:opacity-100 sm:mt-10 sm:max-w-[16rem] ${
           revealed ? "opacity-100" : "opacity-0"
         }`}
         style={{

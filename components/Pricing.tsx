@@ -33,7 +33,7 @@ function MonthlyPlanGrid({
             <p className="text-body-sm font-medium text-slate-600">
               月{sessions}回
             </p>
-            <p className="mt-2 font-sans text-2xl font-bold tabular-nums tracking-tight text-[#c45a28] sm:text-3xl">
+            <p className="mt-2 font-sans text-2xl font-bold tabular-nums tracking-tight text-[#3d5547] sm:text-3xl">
               {perSession.toLocaleString("ja-JP")}
               <span className="text-body font-bold">円</span>
             </p>
@@ -55,7 +55,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="scroll-mt-28 bg-white px-4 pt-14 pb-24 sm:pb-28">
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-label font-semibold uppercase text-[#E07A3A]">
+        <h2 className="text-label font-semibold uppercase text-[#5f826a]">
           料金
         </h2>
         <p className="mt-2 text-heading font-bold text-slate-900">
@@ -65,8 +65,8 @@ export function Pricing() {
         </p>
 
         <div className="mt-8 space-y-6">
-          <div className="rounded-2xl border border-[#E07A3A]/25 bg-[#fff8f4] p-6 shadow-sm sm:p-7">
-            <p className="text-body-sm font-semibold uppercase tracking-wide text-[#E07A3A]">
+          <div className="rounded-2xl border border-[#5f826a]/25 bg-[#f6f8f3] p-6 shadow-sm sm:p-7">
+            <p className="text-body-sm font-semibold uppercase tracking-wide text-[#5f826a]">
               初回体験
             </p>
             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
@@ -79,14 +79,14 @@ export function Pricing() {
                   （税込）
                 </span>
               </p>
-              <p className="text-body-sm font-semibold text-[#c45a28]">
+              <p className="text-body-sm font-semibold text-[#3d5547]">
                 体験だけでもOK・当日の入会決定は不要です
               </p>
             </div>
             <ReserveLink
               href="/reserve"
               eventLabel="pricing_trial_reserve"
-              className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 text-body font-bold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
+              className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#5f826a] px-6 text-body font-bold text-white shadow-md shadow-[#5f826a]/35 transition hover:bg-[#4f735b]"
             >
               体験を予約する
             </ReserveLink>
@@ -131,7 +131,7 @@ export function Pricing() {
               "体験だけのご利用もOKです",
             ].map((note) => (
               <li key={note} className="flex items-center gap-2">
-                <span className="text-[#E07A3A]">✓</span>
+                <span className="text-[#5f826a]">✓</span>
                 {note}
               </li>
             ))}
@@ -141,7 +141,7 @@ export function Pricing() {
             <ReserveLink
               href="/reserve"
               eventLabel="pricing_bottom_cta"
-              className="text-body font-semibold text-[#c45a28] underline decoration-[#E07A3A]/50 underline-offset-4 transition hover:decoration-[#E07A3A]"
+              className="text-body font-semibold text-[#3d5547] underline decoration-[#5f826a]/50 underline-offset-4 transition hover:decoration-[#5f826a]"
             >
               → 体験の空き時間を見てみる
             </ReserveLink>

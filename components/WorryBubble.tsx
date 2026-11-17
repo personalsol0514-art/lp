@@ -5,7 +5,7 @@ import type { Accent } from "./worries-data";
 
 const accentClass: Record<Accent, string> = {
   rose: "text-rose-500",
-  orange: "text-orange-500",
+  orange: "text-[#5f826a]",
   sky: "text-sky-500",
   emerald: "text-emerald-600",
   lime: "text-lime-700",
@@ -79,7 +79,7 @@ export function WorryBubble({
         <path
           d={MAIN_BLOB_PATH}
           className="fill-white"
-          stroke="#6b5344"
+          stroke="#4f5a53"
           strokeWidth={1.15}
           strokeLinejoin="round"
           strokeLinecap="round"

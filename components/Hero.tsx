@@ -49,7 +49,7 @@ export function Hero() {
             <ReserveLink
               href="/reserve"
               eventLabel="hero_reserve"
-              className="flex min-h-[52px] w-full max-w-[420px] items-center justify-center rounded-full bg-[#E07A3A] px-6 py-3 text-body font-bold text-white shadow-lg shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
+              className="flex min-h-[52px] w-full max-w-[420px] items-center justify-center rounded-full bg-[#5f826a] px-6 py-3 text-body font-bold text-white shadow-lg shadow-[#5f826a]/35 transition hover:bg-[#4f735b]"
             >
               初回体験を予約する
             </ReserveLink>

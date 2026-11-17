@@ -46,9 +46,9 @@ export default function BlogNewsPreviewClient({
         <a
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className="group grid grid-cols-[6.5rem_1fr] gap-4 rounded-2xl border border-[#EADCCF] bg-[#FFFDF8] p-3 shadow-[0_10px_30px_rgba(82,67,54,0.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(82,67,54,0.1)] sm:grid-cols-[8rem_1fr] lg:block"
+          className="group grid grid-cols-[6.5rem_1fr] gap-4 rounded-2xl border border-[#e1e6de] bg-[#ffffff] p-3 shadow-[0_10px_30px_rgba(61,85,71,0.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(61,85,71,0.1)] sm:grid-cols-[8rem_1fr] lg:block"
         >
-          <div className="relative aspect-square overflow-hidden rounded-xl bg-[#F5EFE7] lg:aspect-[16/10]">
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0f3ed] lg:aspect-[16/10]">
             <Image
               src={post.image || "/gallery-studio-interior.png"}
               alt={post.title}
@@ -58,16 +58,16 @@ export default function BlogNewsPreviewClient({
             />
           </div>
           <div className="min-w-0 lg:p-2">
-            <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-black text-[#8AA05F]">
+            <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-black text-[#779d82]">
               <span>{post.date}</span>
-              <span className="rounded-full bg-[#EFF3E7] px-2.5 py-1">
+              <span className="rounded-full bg-[#f0f3ed] px-2.5 py-1">
                 {post.category}
               </span>
             </div>
-            <h3 className="mt-2 line-clamp-2 text-sm font-black leading-snug text-[#3A342F] sm:text-base">
+            <h3 className="mt-2 line-clamp-2 text-sm font-black leading-snug text-[#3d5547] sm:text-base">
               {post.title}
             </h3>
-            <p className="mt-2 hidden text-sm font-medium leading-relaxed text-[#6D6258] lg:line-clamp-2 lg:block">
+            <p className="mt-2 hidden text-sm font-medium leading-relaxed text-[#5f6862] lg:line-clamp-2 lg:block">
               {post.excerpt}
             </p>
           </div>

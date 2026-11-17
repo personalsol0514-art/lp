@@ -42,25 +42,25 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="bg-[#FFFDF8] text-[#3A342F]">
+    <main className="bg-[#ffffff] text-[#3d5547]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <header className="sticky top-0 z-50 border-b border-[#EADCCF] bg-white/92 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-[#e1e6de] bg-white/92 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
           <a href="/" className="leading-none">
-            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#D36F31]">
+            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#4f735b]">
               NATURAL FITNESS
             </span>
-            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#8AA05F]">
+            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#779d82]">
               Private Personal Gym
             </span>
           </a>
           <a
             href="/reserve"
             data-event-label="blog_index_header_reserve"
-            className="rounded-full bg-[#E86F23] px-5 py-2.5 text-sm font-black text-white"
+            className="rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white"
           >
             体験予約
           </a>
@@ -69,13 +69,13 @@ export default function BlogPage() {
 
       <section className="px-5 py-14 sm:px-8 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#E86F23]">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#5f826a]">
             Blog
           </p>
           <h1 className="mt-3 text-[2rem] font-black leading-tight sm:text-[3.4rem]">
             NATURAL FITNESS ブログ
           </h1>
-          <p className="mt-4 max-w-2xl text-sm font-medium leading-relaxed text-[#6D6258] sm:text-base">
+          <p className="mt-4 max-w-2xl text-sm font-medium leading-relaxed text-[#5f6862] sm:text-base">
             ダイエット・姿勢改善・脚やせ・運動初心者向けに、無理なく身体を変えるためのヒントをお届けします。
           </p>
 

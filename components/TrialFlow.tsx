@@ -36,7 +36,7 @@ export function TrialFlow() {
     >
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
-          <h2 className="text-label font-semibold uppercase text-[#E07A3A]">
+          <h2 className="text-label font-semibold uppercase text-[#5f826a]">
             Trial Flow
           </h2>
           <p className="mt-2 text-heading font-bold text-slate-900">
@@ -61,7 +61,7 @@ export function TrialFlow() {
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, 25vw"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.7rem] font-bold tabular-nums text-[#E07A3A] shadow-sm">
+                <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.7rem] font-bold tabular-nums text-[#5f826a] shadow-sm">
                   {step.num}
                 </span>
               </div>
@@ -85,7 +85,7 @@ export function TrialFlow() {
           <ReserveLink
             href="/reserve"
             eventLabel="trial_flow_reserve"
-            className="flex min-h-[52px] w-full max-w-[420px] items-center justify-center rounded-full bg-[#E07A3A] px-6 text-body font-bold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34]"
+            className="flex min-h-[52px] w-full max-w-[420px] items-center justify-center rounded-full bg-[#5f826a] px-6 text-body font-bold text-white shadow-md shadow-[#5f826a]/35 transition hover:bg-[#4f735b]"
           >
             初回体験を予約する
           </ReserveLink>
