@@ -116,7 +116,7 @@ export default function TrainerPage() {
             <a
               href="/reserve"
               data-event-label="trainer_header_reserve"
-              className="hidden rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)] transition hover:bg-[#3d5547] sm:inline-flex"
+              className="hidden rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(61,85,71,0.25)] transition hover:bg-[#3d5547] sm:inline-flex"
             >
               体験予約
             </a>
@@ -170,7 +170,7 @@ export default function TrainerPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/45" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,111,35,0.12),transparent_45%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(61,85,71,0.12),transparent_45%)]" />
         <div className="relative z-10 px-5 text-center text-white">
           <p className="text-[0.72rem] font-black uppercase tracking-[0.34em] text-white/80">
             Natural Fitness
@@ -400,7 +400,7 @@ export default function TrainerPage() {
       <a
         href="/reserve"
         data-event-label="trainer_mobile_reserve"
-        className="fixed inset-x-4 bottom-4 z-40 flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#5f826a] px-6 text-sm font-black text-white shadow-[0_16px_36px_rgba(94,45,14,0.3)] sm:hidden"
+        className="fixed inset-x-4 bottom-4 z-40 flex min-h-14 items-center justify-center gap-2 rounded-full px-6 text-base font-bold sm:hidden border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"
       >
         初回体験を予約する
         <ArrowRight aria-hidden="true" className="h-4 w-4" />

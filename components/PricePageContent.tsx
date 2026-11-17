@@ -107,12 +107,12 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
             {headerNavItems.map(([label, href]) => <a key={label} href={href} className="transition hover:text-[#5f826a]">{label}</a>)}
           </nav>
           <div className="flex items-center gap-2">
-            <ReserveLink label="price_header_reserve" className="hidden rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)] transition hover:bg-[#3d5547] sm:inline-flex">体験予約</ReserveLink>
+            <ReserveLink label="price_header_reserve" className="hidden rounded-full px-5 py-2.5 text-sm font-bold sm:inline-flex border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]">初回体験を予約する</ReserveLink>
             <details className="group relative lg:hidden">
               <summary className="list-none"><span className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#e1e6de] bg-white text-sm font-black text-[#5f826a] shadow-sm sm:h-11 sm:w-auto sm:px-4"><span className="grid gap-1"><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /></span><span className="ml-2 hidden sm:inline">Menu</span></span></summary>
               <div className="fixed inset-x-4 top-16 z-[80] overflow-hidden rounded-[1.35rem] border border-[#e1e6de] bg-white p-2 shadow-[0_18px_46px_rgba(61,85,71,0.16)] sm:absolute sm:inset-auto sm:right-0 sm:top-auto sm:mt-3 sm:w-64">
                 {headerNavItems.map(([label, href]) => <a key={label} href={href} className="block rounded-xl px-4 py-3 text-sm font-black text-[#3d5547] transition hover:bg-[#f6f8f3] hover:text-[#5f826a]">{label}</a>)}
-                <ReserveLink label="price_header_menu_reserve" className="mt-2 flex items-center justify-center rounded-xl bg-[#5f826a] px-4 py-3 text-sm font-black text-white">体験予約</ReserveLink>
+                <ReserveLink label="price_header_menu_reserve" className="mt-2 flex items-center justify-center rounded-xl px-4 py-3 text-sm font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]">初回体験を予約する</ReserveLink>
               </div>
             </details>
           </div>
@@ -120,8 +120,8 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
       </header>
 
       <section className="relative isolate h-[50svh] min-h-[22rem] max-h-[34rem] overflow-hidden bg-[#779d82] pt-14 sm:pt-[4.5rem]">
-        <div className="absolute -left-24 top-24 h-64 w-64 rounded-full bg-[#d9c48a]/65 sm:h-[30rem] sm:w-[30rem]" />
-        <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-[58%_42%_64%_36%/45%_62%_38%_55%] bg-[#b59753]/60 sm:h-[36rem] sm:w-[36rem]" />
+        <div className="absolute -left-24 top-24 h-64 w-64 rounded-full bg-white/25 sm:h-[30rem] sm:w-[30rem]" />
+        <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-[58%_42%_64%_36%/45%_62%_38%_55%] bg-[#a9c6b2]/60 sm:h-[36rem] sm:w-[36rem]" />
         <div className="relative z-10 flex h-full items-center justify-center px-5 text-center text-white">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-white/85">Natural Fitness</p>
@@ -157,7 +157,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
             </div>
           </article>
           <div className="mx-auto mb-16 mt-4 grid max-w-5xl gap-3 sm:mb-20 sm:mt-5 sm:grid-cols-2">
-            <ReserveLink label="price_test_top_trial" className="flex min-h-14 items-center justify-center rounded-full bg-[#2f3e35] px-6 text-sm font-black text-white shadow-lg">0円で体験予約 →</ReserveLink>
+            <ReserveLink label="price_test_top_trial" className="flex min-h-14 items-center justify-center gap-3 rounded-full px-6 text-base font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"><span className="rounded-full bg-white px-2.5 py-1 text-[0.7rem] font-bold text-[#71957e]">体験0円</span>初回体験を予約する →</ReserveLink>
             <a href="#monthly-plans" className="flex min-h-14 items-center justify-center rounded-full border-2 border-[#2f3e35] bg-white px-6 text-sm font-black text-[#2f3e35]">コースを比較する ↓</a>
           </div>
           <div id="monthly-plans" className="scroll-mt-6 text-center">
@@ -253,7 +253,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
               </article>
             ))}
           </div>
-          <ReserveLink label="price_test_results_reserve" className="mx-auto mt-7 flex min-h-14 max-w-md items-center justify-center rounded-full bg-[#2f3e35] px-6 text-center text-sm font-black text-white">自分に合うプランを体験で相談 →</ReserveLink>
+          <ReserveLink label="price_test_results_reserve" className="mx-auto mt-7 flex min-h-14 max-w-md items-center justify-center gap-3 rounded-full px-6 text-center text-base font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"><span className="rounded-full bg-white px-2.5 py-1 text-[0.7rem] font-bold text-[#71957e]">体験0円</span>初回体験を予約する →</ReserveLink>
         </div>
       </section>
 
@@ -273,10 +273,10 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
       <section className="relative overflow-hidden px-4 pb-16 pt-4 sm:px-8 sm:pb-20 sm:pt-8">
         <div className="pointer-events-none absolute -left-48 top-2 h-80 w-80 rounded-[57%_43%_62%_38%/43%_58%_42%_57%] bg-white/75 sm:h-[32rem] sm:w-[32rem]" />
         <div className="pointer-events-none absolute -right-36 top-20 h-72 w-72 rounded-[42%_58%_45%_55%/61%_40%_60%_39%] bg-[#eef2ea] sm:h-[26rem] sm:w-[26rem]" />
-        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2.8rem] bg-[#b08d46] shadow-[0_20px_50px_rgba(61,85,71,0.12)] sm:rounded-[4rem]">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2.8rem] bg-[#5f826a] shadow-[0_20px_50px_rgba(61,85,71,0.12)] sm:rounded-[4rem]">
           <div className="grid gap-8 px-7 py-12 text-white sm:px-12 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-center">
             <div><p className="text-xs font-black uppercase tracking-[0.22em] text-white/75">Trial Session</p><h2 className="mt-3 text-[2rem] font-black sm:text-[3rem]">まずは0円の初回体験から</h2><p className="mt-4 font-bold leading-relaxed text-white/85">その場で入会を決める必要はありません。生活に合う回数を一緒に考えます。</p></div>
-            <ReserveLink label="price_test_final_reserve" className="flex min-h-16 items-center justify-center rounded-full bg-white px-8 font-black text-[#b08d46] shadow-lg">空き状況を見て体験予約 →</ReserveLink>
+            <ReserveLink label="price_test_final_reserve" className="flex min-h-16 items-center justify-center rounded-full bg-white px-8 font-bold text-[#3d5547] shadow-lg">初回体験を予約する →</ReserveLink>
           </div>
         </div>
       </section>
@@ -288,8 +288,8 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
       </footer>
 
       <div className="fixed inset-x-0 bottom-0 z-50 px-0 sm:bottom-5 sm:px-6">
-        <div className="mx-auto max-w-xl overflow-hidden border border-white/70 bg-white shadow-[0_-8px_30px_rgba(61,85,71,0.18)] sm:rounded-full">
-          <ReserveLink label="price_test_mobile_trial" className="flex min-h-16 items-center justify-center gap-2 bg-[#b08d46] px-6 text-base font-black text-white transition hover:bg-[#3d5547] sm:min-h-[4.5rem] sm:text-lg">0円で体験予約 →</ReserveLink>
+        <div className="mx-auto max-w-xl px-4 pb-4 sm:px-0 sm:pb-0">
+          <ReserveLink label="price_test_mobile_trial" className="flex min-h-[3.75rem] items-center justify-center gap-3 rounded-full px-6 text-lg font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"><span className="rounded-full bg-white px-2.5 py-1 text-[0.7rem] font-bold text-[#71957e]">体験0円</span>初回体験を予約する <span aria-hidden="true">→</span></ReserveLink>
         </div>
       </div>
     </main>

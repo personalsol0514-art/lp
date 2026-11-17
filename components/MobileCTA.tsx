@@ -9,13 +9,13 @@ export function MobileCTA() {
         <ReserveLink
           href="/reserve"
           eventLabel="mobile_cta_reserve"
-          className="flex-1 rounded-xl bg-[#5f826a] px-4 py-3 text-center text-body font-semibold text-white shadow-sm shadow-[#dfe6dd]/60 transition hover:bg-[#4f735b]"
+          className="flex-1 rounded-xl px-4 py-3 text-center text-body font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"
         >
-          体験予約
+          初回体験を予約する
         </ReserveLink>
         <a
           href="/price"
-          className="rounded-xl border border-[#dfe6dd]/90 bg-[#f4f7f2] px-4 py-3 text-center text-body font-semibold text-[#b08d46] transition hover:bg-[#f4f7f2]"
+          className="rounded-xl border border-[#dfe6dd]/90 bg-[#f4f7f2] px-4 py-3 text-center text-body font-semibold text-[#3d5547] transition hover:bg-[#f4f7f2]"
         >
           料金を見る
         </a>

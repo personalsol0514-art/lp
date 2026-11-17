@@ -126,9 +126,9 @@ export function ServiceLandingPage({ config }: { config: ServicePageConfig }) {
           <ReserveLink
             href="/reserve"
             eventLabel={`${config.slug}_header_reserve`}
-            className="rounded-full bg-[#5f826a] px-4 py-2.5 text-sm font-black text-white shadow-[0_8px_20px_rgba(232,111,35,0.22)] sm:px-6"
+            className="rounded-full px-4 py-2.5 text-sm font-bold sm:px-6 border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"
           >
-            体験予約
+            初回体験を予約する
           </ReserveLink>
         </div>
       </header>
@@ -159,9 +159,9 @@ export function ServiceLandingPage({ config }: { config: ServicePageConfig }) {
               <ReserveLink
                 href="/reserve"
                 eventLabel={`${config.slug}_hero_reserve`}
-                className="mt-8 inline-flex min-h-14 w-full max-w-sm items-center justify-center rounded-full bg-[#5f826a] px-7 text-base font-black text-white shadow-[0_16px_32px_rgba(232,111,35,0.24)] transition hover:bg-[#3d5547]"
+                className="mt-8 inline-flex min-h-14 w-full max-w-sm items-center justify-center rounded-full px-7 text-base font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)]  transition hover:bg-[#3d5547]"
               >
-                初回体験の空き枠を見る <span className="ml-4">›</span>
+                初回体験を予約する <span className="ml-4">→</span>
               </ReserveLink>
               <p className="mt-3 text-xs font-bold text-[#7d867f]">カウンセリング込み約60分・無理な勧誘はありません</p>
             </div>
@@ -298,7 +298,7 @@ export function ServiceLandingPage({ config }: { config: ServicePageConfig }) {
             eventLabel={`${config.slug}_final_reserve`}
             className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-white px-8 font-black text-[#5f826a] sm:w-auto"
           >
-            体験予約する <span className="ml-4">›</span>
+            初回体験を予約する <span className="ml-4">→</span>
           </ReserveLink>
         </div>
       </section>

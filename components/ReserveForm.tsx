@@ -358,7 +358,7 @@ export function ReserveForm() {
                     }}
                     className={`flex min-w-[3.6rem] flex-shrink-0 flex-col items-center rounded-xl border px-2 py-2 transition ${
                       isActive
-                        ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
+                        ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(61,85,71,0.25)]"
                         : "border-[#e1e6de] bg-white hover:border-[#5f826a]/50"
                     }`}
                   >
@@ -437,7 +437,7 @@ export function ReserveForm() {
                               !slot.available
                                 ? "cursor-not-allowed border-[#f4f7f2] bg-[#f4f7f2] text-[#aab3ab] line-through"
                                 : selected
-                                  ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
+                                  ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(61,85,71,0.25)]"
                                   : "border-[#e1e6de] bg-white text-[#3d5547] hover:border-[#5f826a] hover:bg-[#f6f8f3]"
                             }`}
                           >

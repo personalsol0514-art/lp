@@ -367,7 +367,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <a
                 href="/reserve"
                 data-event-label="blog_article_body_reserve"
-                className="mt-7 inline-flex min-h-13 items-center justify-center rounded-full bg-[#5f826a] px-7 text-sm font-black text-white shadow-[0_12px_26px_rgba(232,111,35,0.22)]"
+                className="mt-7 inline-flex min-h-13 items-center justify-center rounded-full bg-[#5f826a] px-7 text-sm font-black text-white shadow-[0_12px_26px_rgba(61,85,71,0.22)]"
               >
                 体験予約する
               </a>
