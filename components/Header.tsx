@@ -16,7 +16,7 @@ export function Header() {
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-8">
           <a
             href="#top"
-            className="text-label font-semibold uppercase tracking-[0.25em] text-[#B86E3C]"
+            className="text-label font-semibold uppercase tracking-[0.25em] text-[#b08d46]"
           >
             NATURAL FITNESS
           </a>
@@ -25,18 +25,18 @@ export function Header() {
             <ReserveLink
               href="/reserve"
               eventLabel="header_desktop_reserve"
-              className="hidden whitespace-nowrap rounded-full bg-[#E07A3A] px-4 py-2 text-body-sm font-semibold text-white shadow-sm shadow-[#F3C9A9]/70 transition hover:bg-[#C9682F] sm:inline-flex"
+              className="hidden whitespace-nowrap rounded-full bg-[#5f826a] px-4 py-2 text-body-sm font-semibold text-white shadow-sm shadow-[#dfe6dd]/70 transition hover:bg-[#4f735b] sm:inline-flex"
             >
               初回体験を予約する
             </ReserveLink>
 
             <details className="relative">
               <summary className="list-none">
-                <span className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[#F0D3BD] bg-white px-3 py-2 text-body-sm font-semibold text-[#B86E3C] transition hover:bg-[#FFF4EB]">
+                <span className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[#dfe6dd] bg-white px-3 py-2 text-body-sm font-semibold text-[#b08d46] transition hover:bg-[#f4f7f2]">
                   <span className="mr-2 inline-flex flex-col gap-1">
-                    <span className="h-[2px] w-4 rounded-full bg-[#B86E3C]/80" />
-                    <span className="h-[2px] w-4 rounded-full bg-[#B86E3C]/80" />
-                    <span className="h-[2px] w-4 rounded-full bg-[#B86E3C]/80" />
+                    <span className="h-[2px] w-4 rounded-full bg-[#b08d46]/80" />
+                    <span className="h-[2px] w-4 rounded-full bg-[#b08d46]/80" />
+                    <span className="h-[2px] w-4 rounded-full bg-[#b08d46]/80" />
                   </span>
                   メニュー
                 </span>

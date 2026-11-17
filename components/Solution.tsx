@@ -55,7 +55,7 @@ const pillars: Array<{
  */
 export function Solution() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F3EBE3] via-[#FAF3EC] to-[#FDF6F0] px-4 pt-14 pb-24 sm:pt-20 sm:pb-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#f4f7f2] via-[#f4f7f2] to-[#f4f7f2] px-4 pt-14 pb-24 sm:pt-20 sm:pb-32">
       <SolutionSectionDecor />
 
       <div className="relative z-10 mx-auto max-w-4xl">

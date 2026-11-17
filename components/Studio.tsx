@@ -8,7 +8,7 @@ export function Studio() {
       aria-labelledby="gallery-heading"
     >
       <div className="mx-auto max-w-4xl px-4 pb-6 text-center sm:pb-8">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-orange-500 sm:text-body-sm">
+        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#5f826a] sm:text-body-sm">
           Studio
         </p>
         <h2

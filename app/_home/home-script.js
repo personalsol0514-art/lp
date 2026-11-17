@@ -1,0 +1,19 @@
+
+const toggle=document.querySelector('.menu-toggle'), panel=document.querySelector('.menu-panel');
+function setMenu(open){toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');panel.classList.toggle('open',open);panel.inert=!open;}
+toggle.addEventListener('click',()=>setMenu(toggle.getAttribute('aria-expanded')!=='true'));
+panel.addEventListener('click',event=>{if(event.target.closest('a'))setMenu(false)});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setMenu(false);toggle.focus()}});
+const video=document.querySelector('.hero-video'), videoButton=document.querySelector('.video-toggle');
+const mobile=matchMedia('(max-width:700px)'), reduced=matchMedia('(prefers-reduced-motion:reduce)');
+function loadVideo(){const kind=mobile.matches?'mobile':'desktop';video.src='/home/fv-web-'+kind+'.mp4';video.poster='/home/fv-reshoot-final-'+kind+'.jpg';if(!reduced.matches)video.play().catch(()=>{});else video.pause();}
+function updateVideoButton(){videoButton.textContent=video.paused?'▶':'Ⅱ';videoButton.setAttribute('aria-label',video.paused?'動画を再生':'動画を一時停止');}
+videoButton.addEventListener('click',()=>{if(video.paused)video.play().catch(()=>{});else video.pause()});
+video.addEventListener('play',updateVideoButton);video.addEventListener('pause',updateVideoButton);mobile.addEventListener('change',loadVideo);loadVideo();
+
+
+(()=>{const track=document.querySelector('.voice-track'),prev=document.querySelector('.voice-prev'),next=document.querySelector('.voice-next');if(!track)return;const update=()=>{prev.disabled=track.scrollLeft<2;next.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-2;};const step=()=>track.querySelector('.voice-card').getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);prev.addEventListener('click',()=>track.scrollBy({left:-step(),behavior:'smooth'}));next.addEventListener('click',()=>track.scrollBy({left:step(),behavior:'smooth'}));track.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();})();
+
+(()=>{const track=document.querySelector('.price-slider');if(!track)return;const buttons=document.querySelectorAll('[data-price-step]');const update=()=>buttons.forEach(b=>b.disabled=Number(b.dataset.priceStep)<0?track.scrollLeft<2:track.scrollLeft>=track.scrollWidth-track.clientWidth-2);buttons.forEach(b=>b.addEventListener('click',()=>track.scrollBy({left:Number(b.dataset.priceStep)*(track.querySelector('article').getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap)),behavior:'smooth'})));track.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();})();
+(()=>{const f=()=>document.body.classList.toggle('nf-top',scrollY<500);addEventListener('scroll',f,{passive:true});f();})();
+(()=>{const t=document.getElementById('nf-ps-track');if(!t)return;const cards=[...t.children],pv=document.querySelector('.nf-ps-prev'),nx=document.querySelector('.nf-ps-next'),dots=document.querySelector('.nf-ps-dots');cards.forEach(()=>dots.appendChild(document.createElement('span')));const step=()=>cards[0].getBoundingClientRect().width+parseFloat(getComputedStyle(t).columnGap||24);const up=()=>{const i=Math.round(t.scrollLeft/step());[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===Math.min(i,cards.length-1)));pv.disabled=t.scrollLeft<2;nx.disabled=t.scrollLeft>=t.scrollWidth-t.clientWidth-2;};pv.onclick=()=>t.scrollBy({left:-step(),behavior:'smooth'});nx.onclick=()=>t.scrollBy({left:step(),behavior:'smooth'});t.addEventListener('scroll',up,{passive:true});addEventListener('resize',up);up();})();

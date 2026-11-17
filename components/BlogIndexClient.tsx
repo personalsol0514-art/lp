@@ -49,9 +49,9 @@ export default function BlogIndexClient({ initialPosts }: BlogIndexClientProps) 
         <a
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className="group overflow-hidden rounded-2xl border border-[#EADCCF] bg-white shadow-[0_14px_44px_rgba(82,67,54,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_54px_rgba(82,67,54,0.12)]"
+          className="group overflow-hidden rounded-2xl border border-[#e1e6de] bg-white shadow-[0_14px_44px_rgba(61,85,71,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_54px_rgba(61,85,71,0.12)]"
         >
-          <div className="relative aspect-[4/3] bg-[#F5EFE7]">
+          <div className="relative aspect-[4/3] bg-[#f0f3ed]">
             <Image
               src={post.image || "/gallery-studio-interior.png"}
               alt={post.title}
@@ -61,17 +61,17 @@ export default function BlogIndexClient({ initialPosts }: BlogIndexClientProps) 
             />
           </div>
           <div className="p-6">
-            <div className="flex items-center gap-3 text-xs font-black text-[#8AA05F]">
+            <div className="flex items-center gap-3 text-xs font-black text-[#779d82]">
               <span>{post.date}</span>
-              <span className="rounded-full bg-[#EFF3E7] px-3 py-1">
+              <span className="rounded-full bg-[#f0f3ed] px-3 py-1">
                 {post.category}
               </span>
             </div>
             <h2 className="mt-4 text-xl font-black leading-snug">{post.title}</h2>
-            <p className="mt-3 text-sm font-medium leading-relaxed text-[#6D6258]">
+            <p className="mt-3 text-sm font-medium leading-relaxed text-[#5f6862]">
               {post.excerpt}
             </p>
-            <span className="mt-5 inline-flex text-sm font-black text-[#E86F23]">
+            <span className="mt-5 inline-flex text-sm font-black text-[#5f826a]">
               続きを読む 〉
             </span>
           </div>

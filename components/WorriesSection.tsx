@@ -8,10 +8,10 @@ type WorriesSectionProps = {
 export function WorriesSection({ variant = "default" }: WorriesSectionProps) {
   const sectionBg =
     variant === "light"
-      ? "bg-[#FFFDF8]"
+      ? "bg-[#ffffff]"
       : "bg-gradient-to-b from-[#fafaf8] via-[#f7f6f2] to-[#f3f1ec]";
   const triangleColor =
-    variant === "light" ? "border-t-[#FFFDF8]" : "border-t-[#f3f1ec]";
+    variant === "light" ? "border-t-[#ffffff]" : "border-t-[#f3f1ec]";
 
   return (
     <section

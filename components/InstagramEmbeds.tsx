@@ -15,7 +15,7 @@ export function InstagramEmbeds() {
         {INSTAGRAM_POST_URLS.map((url) => (
           <blockquote
             key={url}
-            className="instagram-media !m-0 !w-full !min-w-0 rounded-2xl border border-[#E8D4C4] bg-white shadow-[0_8px_24px_rgba(15,23,42,0.08)]"
+            className="instagram-media !m-0 !w-full !min-w-0 rounded-2xl border border-[#dfe6dd] bg-white shadow-[0_8px_24px_rgba(15,23,42,0.08)]"
             data-instgrm-permalink={toEmbedPermalink(url)}
             data-instgrm-version="14"
           >
@@ -23,7 +23,7 @@ export function InstagramEmbeds() {
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="block px-5 py-8 text-center text-sm font-bold text-[#E86F23]"
+              className="block px-5 py-8 text-center text-sm font-bold text-[#5f826a]"
             >
               Instagramの投稿を見る
             </a>

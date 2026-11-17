@@ -56,7 +56,7 @@ function ReasonImageSlot({
   if (imageSrc) {
     return (
       <div
-        className={`${sizeClass} relative overflow-hidden rounded-full border-[3px] border-white bg-white shadow-[0_14px_40px_rgba(42,40,38,0.14),0_4px_14px_rgba(224,122,60,0.12)] ring-2 ring-[#E07A3A]/35`}
+        className={`${sizeClass} relative overflow-hidden rounded-full border-[3px] border-white bg-white shadow-[0_14px_40px_rgba(42,40,38,0.14),0_4px_14px_rgba(224,122,60,0.12)] ring-2 ring-[#5f826a]/35`}
       >
         <Image
           src={imageSrc}
@@ -71,9 +71,9 @@ function ReasonImageSlot({
 
   return (
     <div
-      className={`${sizeClass} flex flex-col items-center justify-center gap-1 rounded-full border-[3px] border-dashed border-[#E07A3A]/55 bg-[#FFFDFB]/95 px-4 shadow-[0_10px_32px_rgba(42,40,38,0.08)]`}
+      className={`${sizeClass} flex flex-col items-center justify-center gap-1 rounded-full border-[3px] border-dashed border-[#5f826a]/55 bg-[#f4f7f2]/95 px-4 shadow-[0_10px_32px_rgba(42,40,38,0.08)]`}
     >
-      <span className="text-center text-[0.7rem] font-semibold tracking-wide text-[#E07A3A]/85">
+      <span className="text-center text-[0.7rem] font-semibold tracking-wide text-[#5f826a]/85">
         画像エリア
       </span>
       <span className="text-center text-[0.65rem] leading-snug text-stone-400">
@@ -93,10 +93,10 @@ export function Reasons() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <header className="mx-auto max-w-2xl text-center">
-          <h2 className="font-kurenaido-force inline-block -rotate-[6.5deg] border-b-2 border-[#E07A3A] pb-1 text-[2rem] leading-[1.08] tracking-tight text-[#E07A3A] sm:pb-1.5 sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem]">
+          <h2 className="font-kurenaido-force inline-block -rotate-[6.5deg] border-b-2 border-[#5f826a] pb-1 text-[2rem] leading-[1.08] tracking-tight text-[#5f826a] sm:pb-1.5 sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem]">
             初心者でも続けられる理由
           </h2>
-          <p className="font-sans mt-1 inline-block -rotate-[6.5deg] text-[1.35rem] font-bold leading-tight tracking-tight text-[#2c2825] sm:mt-1.5 sm:text-[1.65rem] md:text-[1.85rem]">
+          <p className="font-sans mt-1 inline-block -rotate-[6.5deg] text-[1.35rem] font-bold leading-tight tracking-tight text-[#2f3a33] sm:mt-1.5 sm:text-[1.65rem] md:text-[1.85rem]">
             続けられるから、変わっていく。
           </p>
         </header>
@@ -114,15 +114,15 @@ export function Reasons() {
               <div className="mt-5 flex w-full max-w-md flex-col items-center gap-4 sm:mt-6 sm:max-w-none sm:flex-row sm:items-start sm:justify-start sm:gap-4">
                 <ReasonPointBadge index={index} className="mx-0 shrink-0" />
                 <div className="min-w-0 w-full text-center sm:flex-1 sm:w-auto sm:text-left">
-                  <p className="font-sans inline-block rounded-xl border border-[#E07A3A]/20 bg-white/90 px-3.5 py-2 text-[0.8125rem] font-semibold tracking-wide text-[#E07A3A] shadow-[0_4px_14px_rgba(42,40,38,0.06),0_1px_3px_rgba(224,122,60,0.08)] sm:px-4 sm:py-2.5">
+                  <p className="font-sans inline-block rounded-xl border border-[#5f826a]/20 bg-white/90 px-3.5 py-2 text-[0.8125rem] font-semibold tracking-wide text-[#5f826a] shadow-[0_4px_14px_rgba(42,40,38,0.06),0_1px_3px_rgba(224,122,60,0.08)] sm:px-4 sm:py-2.5">
                     {reason.accentLabel}
                   </p>
-                  <h3 className="font-sans mt-2.5 inline-block max-w-full border-b-2 border-[#E07A3A] pb-1 text-[1.0625rem] font-bold leading-[1.45] tracking-tight text-[#E07A3A] sm:mt-3 sm:max-w-none sm:pb-1.5 sm:text-[1.32rem] sm:leading-[1.38] md:text-[1.45rem] md:leading-[1.34]">
+                  <h3 className="font-sans mt-2.5 inline-block max-w-full border-b-2 border-[#5f826a] pb-1 text-[1.0625rem] font-bold leading-[1.45] tracking-tight text-[#5f826a] sm:mt-3 sm:max-w-none sm:pb-1.5 sm:text-[1.32rem] sm:leading-[1.38] md:text-[1.45rem] md:leading-[1.34]">
                     {reason.title}
                   </h3>
                 </div>
               </div>
-              <p className="font-sans mt-3 max-w-md text-[0.875rem] leading-[1.75] text-[#4a4540] sm:mx-0 sm:max-w-none sm:text-[0.9375rem] sm:leading-[1.7]">
+              <p className="font-sans mt-3 max-w-md text-[0.875rem] leading-[1.75] text-[#3d4a42] sm:mx-0 sm:max-w-none sm:text-[0.9375rem] sm:leading-[1.7]">
                 <span className="block whitespace-pre-line text-left">
                   {reason.desc}
                 </span>
@@ -135,7 +135,7 @@ export function Reasons() {
           <ReserveLink
             href="/reserve"
             eventLabel="reasons_mid_cta"
-            className="text-body font-semibold text-[#c45a28] underline decoration-[#E07A3A]/50 underline-offset-4 transition hover:decoration-[#E07A3A]"
+            className="text-body font-semibold text-[#3d5547] underline decoration-[#5f826a]/50 underline-offset-4 transition hover:decoration-[#5f826a]"
           >
             → 体験の空き時間を見てみる
           </ReserveLink>

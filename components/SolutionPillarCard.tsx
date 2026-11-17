@@ -27,8 +27,8 @@ const accentStyles: Record<
     ringSoft: "ring-emerald-700/12",
   },
   orange: {
-    solid: "bg-[#E07A3A]",
-    ringSoft: "ring-orange-600/12",
+    solid: "bg-[#5f826a]",
+    ringSoft: "ring-[#5f826a]/12",
   },
   sky: {
     solid: "bg-[#4A9BC4]",
@@ -111,12 +111,12 @@ export function SolutionPillarCard({
         >
           {badge}
         </div>
-        <h3 className="font-sans mt-3 text-[2.125rem] font-bold leading-[1.12] tracking-tight text-[#1a1816] max-sm:mt-3.5 sm:mt-3.5 sm:text-[2.5rem] sm:leading-[1.1] md:text-[2.75rem] lg:text-[2.875rem]">
+        <h3 className="font-sans mt-3 text-[2.125rem] font-bold leading-[1.12] tracking-tight text-[#2f3a33] max-sm:mt-3.5 sm:mt-3.5 sm:text-[2.5rem] sm:leading-[1.1] md:text-[2.75rem] lg:text-[2.875rem]">
           {headline}
         </h3>
       </div>
 
-      <p className="font-sans order-3 flex-1 max-w-[22rem] whitespace-pre-line px-1 text-[0.9375rem] font-normal leading-[1.75] text-[#3d3936] max-sm:mt-6 sm:order-2 sm:mt-4 sm:max-w-none sm:px-0 sm:text-[1rem] sm:leading-[1.7]">
+      <p className="font-sans order-3 flex-1 max-w-[22rem] whitespace-pre-line px-1 text-[0.9375rem] font-normal leading-[1.75] text-[#3d4a42] max-sm:mt-6 sm:order-2 sm:mt-4 sm:max-w-none sm:px-0 sm:text-[1rem] sm:leading-[1.7]">
         {description}
       </p>
     </article>

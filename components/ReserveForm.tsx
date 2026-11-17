@@ -288,11 +288,11 @@ export function ReserveForm() {
     <form id="reserve-form" onSubmit={handleSubmit} className="space-y-6">
       <section
         id="reservation-date"
-        className="scroll-mt-24 rounded-2xl border border-[#EADCCF] bg-[#FFFDF8] p-4 sm:p-5"
+        className="scroll-mt-24 rounded-2xl border border-[#e1e6de] bg-[#ffffff] p-4 sm:p-5"
       >
         <div className="mb-3 flex items-center gap-2">
-          <p className="text-base font-black text-[#3A342F]">ご希望の日時</p>
-          <span className="rounded-full bg-[#E86F23] px-2 py-0.5 text-[10px] font-bold text-white">
+          <p className="text-base font-black text-[#3d5547]">ご希望の日時</p>
+          <span className="rounded-full bg-[#5f826a] px-2 py-0.5 text-[10px] font-bold text-white">
             必須
           </span>
         </div>
@@ -303,18 +303,18 @@ export function ReserveForm() {
             type="button"
             onClick={() => setWeekOffset((prev) => Math.max(0, prev - 1))}
             disabled={weekOffset === 0}
-            className="inline-flex h-9 items-center gap-1 rounded-full border border-[#EADCCF] bg-white px-3 text-sm font-black text-[#B86E3C] transition hover:bg-[#FFF4EA] disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-9 items-center gap-1 rounded-full border border-[#e1e6de] bg-white px-3 text-sm font-black text-[#b08d46] transition hover:bg-[#f6f8f3] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <span aria-hidden>‹</span>
             <span className="hidden sm:inline">前の週</span>
           </button>
-          <p className="text-sm font-black text-[#3A342F]">
+          <p className="text-sm font-black text-[#3d5547]">
             {formatMonthDay(weekDates[0])} 〜 {formatMonthDay(weekDates[6])}
           </p>
           <button
             type="button"
             onClick={() => setWeekOffset((prev) => prev + 1)}
-            className="inline-flex h-9 items-center gap-1 rounded-full border border-[#EADCCF] bg-white px-3 text-sm font-black text-[#B86E3C] transition hover:bg-[#FFF4EA]"
+            className="inline-flex h-9 items-center gap-1 rounded-full border border-[#e1e6de] bg-white px-3 text-sm font-black text-[#b08d46] transition hover:bg-[#f6f8f3]"
           >
             <span className="hidden sm:inline">次の週</span>
             <span aria-hidden>›</span>
@@ -322,8 +322,8 @@ export function ReserveForm() {
         </div>
 
         {slotLoading ? (
-          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-[#EADCCF] bg-white py-10 text-sm font-bold text-[#8B8178]">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#EADCCF] border-t-[#E86F23]" />
+          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-[#e1e6de] bg-white py-10 text-sm font-bold text-[#7d867f]">
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#e1e6de] border-t-[#5f826a]" />
             空き状況を読み込み中...
           </div>
         ) : (
@@ -341,7 +341,7 @@ export function ReserveForm() {
                     ? "text-sky-600"
                     : dayLabel === "日"
                       ? "text-rose-600"
-                      : "text-[#6D6258]";
+                      : "text-[#5f6862]";
                 return (
                   <button
                     key={dateKey}
@@ -356,8 +356,8 @@ export function ReserveForm() {
                     }}
                     className={`flex min-w-[3.6rem] flex-shrink-0 flex-col items-center rounded-xl border px-2 py-2 transition ${
                       isActive
-                        ? "border-[#E86F23] bg-[#E86F23] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
-                        : "border-[#EADCCF] bg-white hover:border-[#E86F23]/50"
+                        ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
+                        : "border-[#e1e6de] bg-white hover:border-[#5f826a]/50"
                     }`}
                   >
                     <span
@@ -369,7 +369,7 @@ export function ReserveForm() {
                     </span>
                     <span
                       className={`text-base font-black leading-tight ${
-                        isActive ? "text-white" : "text-[#3A342F]"
+                        isActive ? "text-white" : "text-[#3d5547]"
                       }`}
                     >
                       {formatMonthDay(dateObj)}
@@ -379,8 +379,8 @@ export function ReserveForm() {
                         isActive
                           ? "text-white/85"
                           : openCount > 0
-                            ? "text-[#7B9257]"
-                            : "text-[#C4BBB1]"
+                            ? "text-[#779d82]"
+                            : "text-[#aab3ab]"
                       }`}
                     >
                       {openCount > 0 ? `空き${openCount}` : "満"}
@@ -396,13 +396,13 @@ export function ReserveForm() {
               const slots = day?.slots ?? [];
               const hasOpen = slots.some((slot) => slot.available);
               return (
-                <div className="mt-3 rounded-xl border border-[#EADCCF] bg-white p-3 sm:p-4">
+                <div className="mt-3 rounded-xl border border-[#e1e6de] bg-white p-3 sm:p-4">
                   {slots.length === 0 ? (
-                    <p className="py-6 text-center text-sm font-bold text-[#8B8178]">
+                    <p className="py-6 text-center text-sm font-bold text-[#7d867f]">
                       この日は予約枠がありません。
                     </p>
                   ) : !hasOpen ? (
-                    <p className="py-6 text-center text-sm font-bold text-[#8B8178]">
+                    <p className="py-6 text-center text-sm font-bold text-[#7d867f]">
                       この日は満員です。別の日をお選びください。
                     </p>
                   ) : (
@@ -433,20 +433,20 @@ export function ReserveForm() {
                             }}
                             className={`flex min-h-[3rem] flex-col items-center justify-center rounded-xl border text-sm font-black transition ${
                               !slot.available
-                                ? "cursor-not-allowed border-[#EEE7DE] bg-[#F6F2EC] text-[#C4BBB1] line-through"
+                                ? "cursor-not-allowed border-[#f4f7f2] bg-[#f4f7f2] text-[#aab3ab] line-through"
                                 : selected
-                                  ? "border-[#E86F23] bg-[#E86F23] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
-                                  : "border-[#EADCCF] bg-white text-[#3A342F] hover:border-[#E86F23] hover:bg-[#FFF4EA]"
+                                  ? "border-[#5f826a] bg-[#5f826a] text-white shadow-[0_8px_18px_rgba(232,111,35,0.25)]"
+                                  : "border-[#e1e6de] bg-white text-[#3d5547] hover:border-[#5f826a] hover:bg-[#f6f8f3]"
                             }`}
                           >
                             {slot.label}
                             <span
                               className={`mt-0.5 text-[0.6rem] font-bold ${
                                 !slot.available
-                                  ? "text-[#C4BBB1]"
+                                  ? "text-[#aab3ab]"
                                   : selected
                                     ? "text-white/85"
-                                    : "text-[#7B9257]"
+                                    : "text-[#779d82]"
                               }`}
                             >
                               {slot.available ? "空き" : "×"}
@@ -462,12 +462,12 @@ export function ReserveForm() {
           </>
         )}
 
-        <p className="mt-3 text-xs font-bold text-[#8B8178]">
+        <p className="mt-3 text-xs font-bold text-[#7d867f]">
           営業時間: 11:00〜20:00（60分枠）
         </p>
         {selectedSlotStart ? (
           <p
-            className="mt-3 rounded-xl bg-[#EFF3E7] px-4 py-3 text-sm font-black text-[#617544]"
+            className="mt-3 rounded-xl bg-[#f0f3ed] px-4 py-3 text-sm font-black text-[#617544]"
             aria-live="polite"
           >
             ✓ 日時を選択しました。続けて連絡先をご入力ください。
@@ -480,7 +480,7 @@ export function ReserveForm() {
 
       <div id="contact-details" className="scroll-mt-24">
         <label htmlFor="name" className="text-body-sm font-semibold text-slate-700">
-          お名前 <span className="text-[#E07A3A]">必須</span>
+          お名前 <span className="text-[#5f826a]">必須</span>
         </label>
         <input
           id="name"
@@ -489,19 +489,19 @@ export function ReserveForm() {
           required
           autoComplete="name"
           onFocus={trackContactStartIfNeeded}
-          className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+          className="mt-1.5 w-full rounded-xl border border-[#dfe6dd] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#5f826a] focus:ring-2 focus:ring-[#5f826a]/25"
           placeholder="山田 花子"
         />
       </div>
 
       <fieldset
         className={`rounded-2xl border p-4 ${
-          contactError ? "border-rose-400 bg-rose-50/40" : "border-[#E9D8C9] bg-[#FFFDF8]"
+          contactError ? "border-rose-400 bg-rose-50/40" : "border-[#dfe6dd] bg-[#ffffff]"
         }`}
         aria-describedby={contactError ? "contact-error" : "contact-help"}
       >
         <legend className="px-1 text-body-sm font-semibold text-slate-700">
-          ご連絡先 <span className="text-[#E07A3A]">どちらか1つ必須</span>
+          ご連絡先 <span className="text-[#5f826a]">どちらか1つ必須</span>
         </legend>
         <p id="contact-help" className="mb-3 text-xs font-medium text-slate-500">
           電話番号かメールアドレスのどちらかだけで予約できます。
@@ -520,7 +520,7 @@ export function ReserveForm() {
               onFocus={trackContactStartIfNeeded}
               onChange={() => setContactError("")}
               aria-invalid={contactError ? true : undefined}
-              className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+              className="mt-1.5 w-full rounded-xl border border-[#dfe6dd] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#5f826a] focus:ring-2 focus:ring-[#5f826a]/25"
               placeholder="090-1234-5678"
             />
           </div>
@@ -537,7 +537,7 @@ export function ReserveForm() {
               onFocus={trackContactStartIfNeeded}
               onChange={() => setContactError("")}
               aria-invalid={contactError ? true : undefined}
-              className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+              className="mt-1.5 w-full rounded-xl border border-[#dfe6dd] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#5f826a] focus:ring-2 focus:ring-[#5f826a]/25"
               placeholder="example@email.com"
             />
           </div>
@@ -558,19 +558,19 @@ export function ReserveForm() {
           name="note"
           rows={3}
           onFocus={trackContactStartIfNeeded}
-          className="mt-1.5 w-full rounded-xl border border-[#E9D8C9] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#E07A3A] focus:ring-2 focus:ring-[#E07A3A]/25"
+          className="mt-1.5 w-full rounded-xl border border-[#dfe6dd] bg-white px-4 py-3 text-body text-slate-900 outline-none transition focus:border-[#5f826a] focus:ring-2 focus:ring-[#5f826a]/25"
           placeholder="気になることがあればご入力ください"
         />
       </div>
 
-      <div className="rounded-2xl bg-[#EFF3E7] px-4 py-3 text-center text-xs font-bold leading-relaxed text-[#617544]">
+      <div className="rounded-2xl bg-[#f0f3ed] px-4 py-3 text-center text-xs font-bold leading-relaxed text-[#617544]">
         送信後に予約内容をご案内します。変更・キャンセルもご相談いただけます。
       </div>
 
       <button
         type="submit"
         disabled={status === "submitting" || !selectedSlotStart}
-        className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#E07A3A] px-6 py-3 text-body font-semibold text-white shadow-md shadow-[#E07A3A]/35 transition hover:bg-[#cf6d34] disabled:cursor-not-allowed disabled:opacity-70"
+        className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#5f826a] px-6 py-3 text-body font-semibold text-white shadow-md shadow-[#5f826a]/35 transition hover:bg-[#4f735b] disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "submitting" ? "送信中..." : "この内容で体験を予約する"}
       </button>

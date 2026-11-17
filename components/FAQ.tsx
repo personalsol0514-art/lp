@@ -45,7 +45,7 @@ export function FAQ() {
   return (
     <section id="faq" className="scroll-mt-28 bg-slate-50 px-4 pt-14 pb-24 sm:pb-28">
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-label font-semibold uppercase text-[#E07A3A]">
+        <h2 className="text-label font-semibold uppercase text-[#5f826a]">
           FAQ
         </h2>
         <p className="mt-2 text-heading font-bold text-slate-900">
@@ -59,10 +59,10 @@ export function FAQ() {
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-body font-semibold text-slate-900">
                 <span>{item.q}</span>
-                <span className="text-body-sm text-[#E07A3A] group-open:hidden">
+                <span className="text-body-sm text-[#5f826a] group-open:hidden">
                   ＋
                 </span>
-                <span className="hidden text-body-sm text-[#E07A3A] group-open:inline">
+                <span className="hidden text-body-sm text-[#5f826a] group-open:inline">
                   −
                 </span>
               </summary>
