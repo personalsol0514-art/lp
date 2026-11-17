@@ -64,13 +64,13 @@ const options = [
 ];
 
 const headerNavItems = [
-  ["お知らせ", "/#news"],
-  ["特徴", "/#features"],
-  ["悩み別", "/#goals"],
-  ["体験の流れ", "/#trial-flow"],
+  ["お知らせ", "/blog"],
+  ["特徴", "/#training"],
+  ["目的別", "/#purpose"],
+  ["体験の流れ", "/#flow"],
   ["料金", "/price"],
   ["お客様の声", "/#voice"],
-  ["トレーナー", "/#trainer"],
+  ["トレーナー", "/trainer"],
   ["アクセス", "/#access"],
   ["FAQ", "/#faq"],
 ];
@@ -283,7 +283,7 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
 
       <footer className="px-6 pb-28 pt-8 text-center sm:pb-12">
         <a href="/" className="font-black tracking-[0.1em] text-[#4f735b]">NATURAL FITNESS</a>
-        <nav className="mx-auto mt-7 grid max-w-xl grid-cols-2 gap-3 text-left text-sm font-black sm:grid-cols-3"><a href="/">→ トップページ</a><a href="/#features">→ 特徴</a><a href="/price">→ 現在の料金ページ</a><a href="/#trainer">→ トレーナー</a><a href="/#access">→ アクセス</a><a href="/reserve">→ 体験予約</a></nav>
+        <nav className="mx-auto mt-7 grid max-w-xl grid-cols-2 gap-3 text-left text-sm font-black sm:grid-cols-3"><a href="/">→ トップページ</a><a href="/#training">→ 特徴</a><a href="/price">→ 現在の料金ページ</a><a href="/trainer">→ トレーナー</a><a href="/#access">→ アクセス</a><a href="/reserve">→ 体験予約</a></nav>
         <p className="mt-10 text-xs font-bold text-[#7d867f]">© NATURAL FITNESS</p>
       </footer>
 

@@ -27,9 +27,9 @@ export const metadata: Metadata = {
 
 const navItems = [
   ["トップ", "/"],
-  ["特徴", "/#features"],
-  ["悩み別", "/#goals"],
-  ["体験の流れ", "/#trial-flow"],
+  ["特徴", "/#training"],
+  ["目的別", "/#purpose"],
+  ["体験の流れ", "/#flow"],
   ["料金", "/price"],
   ["お客様の声", "/#voice"],
   ["トレーナー", "/trainer"],
@@ -386,7 +386,7 @@ export default function TrainerPage() {
           <nav className="grid gap-3 text-sm font-black text-white/80 sm:grid-cols-2 lg:min-w-[22rem]">
             <a href="/">トップ</a>
             <a href="/price">料金</a>
-            <a href="/#goals">お悩み別</a>
+            <a href="/#purpose">お悩み別</a>
             <a href="/#voice">お客様の声</a>
             <a href="/#access">アクセス</a>
             <a href="/reserve" data-event-label="trainer_footer_reserve">体験予約</a>

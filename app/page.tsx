@@ -101,7 +101,7 @@ export default function HomePage() {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Shippori+Mincho:wght@500;600&display=swap" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
       <div className="nf-home" dangerouslySetInnerHTML={{ __html: homeBody }} />
-      <footer className="nf-home-footer">
+      <footer className="nf-home-footer" id="access">
         <div className="nf-hf-inner">
           <div>
             <p className="nf-hf-logo">NATURAL FITNESS</p>
