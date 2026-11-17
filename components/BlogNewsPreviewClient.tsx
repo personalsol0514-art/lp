@@ -51,6 +51,13 @@ export default function BlogNewsPreviewClient({
           <div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0f3ed] lg:aspect-[16/10]">
             <Image
               src={post.image || "/gallery-studio-interior.png"}
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.dataset.fallback) return;
+                img.dataset.fallback = "1";
+                img.srcset = "";
+                img.src = "/gallery-studio-interior.png";
+              }}
               alt={post.title}
               fill
               className="object-cover transition duration-500 group-hover:scale-105"

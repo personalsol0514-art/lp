@@ -209,7 +209,7 @@ function renderRelatedPosts(slug: string) {
       <div class="related-grid">${relatedPosts
         .map(
           (item) => `<a class="related-card" href="/blog/${escapeHtml(item.slug)}">
-            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy">
+            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.onerror=null;this.src='/gallery-studio-interior.png'">
             <span>${escapeHtml(item.date)} / ${escapeHtml(item.category)}</span>
             <h3>${escapeHtml(item.title)}</h3>
             <p>${escapeHtml(item.excerpt)}</p>
@@ -237,7 +237,7 @@ function paragraphs(content: string) {
       const imageMatch = block.match(IMAGE_LINE);
       if (imageMatch) {
         const [, alt, src] = imageMatch;
-        return `<img class="inline-image" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy">`;
+        return `<img class="inline-image" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" onerror="this.remove()">`;
       }
       if (/^[-*]\s+/m.test(block)) {
         const items = block
@@ -305,28 +305,28 @@ export const onRequestGet = async ({
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MC1E4TKCFG');</script>
   ${renderJsonLd(post)}
   <style>
-    body{margin:0;background:white;color:#3A342F;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;}
-    header{position:sticky;top:0;background:rgba(255,255,255,.94);border-bottom:1px solid #EADCCF;backdrop-filter:blur(12px);z-index:10}
+    body{margin:0;background:white;color:#3d5547;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;}
+    header{position:sticky;top:0;background:rgba(255,255,255,.94);border-bottom:1px solid #e1e6de;backdrop-filter:blur(12px);z-index:10}
     .bar{max-width:1120px;margin:auto;min-height:64px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .logo{font-weight:900;letter-spacing:.08em;color:#D36F31;text-decoration:none}.logo small{display:block;color:#8AA05F;font-size:10px;letter-spacing:.18em}
-    .nav{display:none;align-items:center;gap:22px;font-size:13px;font-weight:900}.nav a{color:#3A342F;text-decoration:none}.nav a:hover{color:#E86F23}
-    .reserve{background:#E86F23;color:white;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:900}
-    main{max-width:960px;margin:auto;padding:42px 20px 72px}.back{color:#7B9257;font-weight:900;text-decoration:none}
+    .logo{font-weight:900;letter-spacing:.08em;color:#4f735b;text-decoration:none}.logo small{display:block;color:#779d82;font-size:10px;letter-spacing:.18em}
+    .nav{display:none;align-items:center;gap:22px;font-size:13px;font-weight:900}.nav a{color:#3d5547;text-decoration:none}.nav a:hover{color:#5f826a}
+    .reserve{background:#5f826a;color:white;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:900}
+    main{max-width:960px;margin:auto;padding:42px 20px 72px}.back{color:#779d82;font-weight:900;text-decoration:none}
     .article-head{max-width:760px;margin:auto}
-    .meta{margin-top:24px;color:#8AA05F;font-weight:900;font-size:13px}.cat{background:#EFF3E7;border-radius:999px;padding:5px 10px;margin-left:8px}
+    .meta{margin-top:24px;color:#779d82;font-weight:900;font-size:13px}.cat{background:#f0f3ed;border-radius:999px;padding:5px 10px;margin-left:8px}
     h1{font-size:clamp(2rem,8vw,3.4rem);line-height:1.15;margin:18px 0 16px;font-weight:900}
-    .lead{color:#6D6258;line-height:1.9;font-weight:600}.hero{width:100%;max-width:860px;margin:34px auto;aspect-ratio:16/9;object-fit:cover;display:block}
-    .toc{max-width:760px;margin:0 auto 40px;border-top:1px solid #EADCCF;border-bottom:1px solid #EADCCF;padding:24px 0}.toc p{margin:0;color:#3A342F;font-size:14px;font-weight:900}.toc ol{display:grid;gap:12px;margin:16px 0 0;padding:0;list-style:none}.toc a{display:grid;grid-template-columns:2.25rem 1fr;gap:8px;color:#5F554D;text-decoration:none;font-weight:800;line-height:1.75}.toc a:hover{color:#E86F23}.toc span{color:#8AA05F;font-weight:900}
+    .lead{color:#5f6862;line-height:1.9;font-weight:600}.hero{width:100%;max-width:860px;margin:34px auto;aspect-ratio:16/9;object-fit:cover;display:block}
+    .toc{max-width:760px;margin:0 auto 40px;border-top:1px solid #e1e6de;border-bottom:1px solid #e1e6de;padding:24px 0}.toc p{margin:0;color:#3d5547;font-size:14px;font-weight:900}.toc ol{display:grid;gap:12px;margin:16px 0 0;padding:0;list-style:none}.toc a{display:grid;grid-template-columns:2.25rem 1fr;gap:8px;color:#4f5a53;text-decoration:none;font-weight:800;line-height:1.75}.toc a:hover{color:#5f826a}.toc span{color:#779d82;font-weight:900}
     .content{max-width:760px;margin:0 auto;padding:clamp(12px,4vw,24px) 0}
-    .content h2{scroll-margin-top:96px;border-left:4px solid #E86F23;padding-left:16px;font-size:1.65rem;line-height:1.35;margin:48px 0 18px;font-weight:900}.content h2:first-child{margin-top:0}
-    .content h3{font-size:1.22rem;line-height:1.55;margin:34px 0 12px;font-weight:900;color:#3A342F}
-    .content p{font-size:1.02rem;line-height:2.05;color:#5F554D;font-weight:600;margin:0 0 20px}
-    .content ul{margin:0 0 24px;padding-left:1.3em;color:#5F554D;font-weight:600;line-height:1.95}.content li+li{margin-top:8px}
-    .content img.inline-image{width:100%;height:auto;border-radius:20px;margin:32px 0;display:block;box-shadow:0 10px 30px rgba(82,67,54,.08)}
-    .author{max-width:760px;margin:56px auto 0;border-top:1px solid #EADCCF;padding-top:32px}.author small{color:#E86F23;font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.author h2{font-size:1.25rem;margin:12px 0 10px}.author p,.author dd{color:#5F554D;font-weight:600;line-height:1.9}.author dl{display:grid;gap:8px;margin:18px 0 0}.author div{display:grid;gap:4px}.author dt{color:#8AA05F;font-weight:900}
-    .cta{display:flex;justify-content:center;margin-top:34px}.cta a{background:#E86F23;color:white;border-radius:999px;padding:16px 34px;text-decoration:none;font-weight:900}
-    .related{background:#FFF7EF;padding:56px 20px 64px}.related-inner{max-width:1040px;margin:auto}.section-label{color:#E86F23;font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin:0}.related h2{font-size:1.65rem;margin:12px 0 26px}.related-grid{display:grid;gap:18px}.related-card{background:white;border:1px solid #EADCCF;border-radius:20px;overflow:hidden;color:#3A342F;text-decoration:none;display:block;box-shadow:0 10px 30px rgba(82,67,54,.07)}.related-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}.related-card span{display:block;color:#8AA05F;font-size:12px;font-weight:900;margin:18px 18px 0}.related-card h3{font-size:1.1rem;line-height:1.45;margin:10px 18px 8px}.related-card p{color:#6D6258;font-size:14px;font-weight:600;line-height:1.8;margin:0 18px 20px}.blog-link{display:inline-flex;margin-top:24px;color:#E86F23;font-weight:900;text-decoration:none}
-    footer{background:#3A342F;color:white;padding:42px 20px}.footer-inner{max-width:1040px;margin:auto;display:grid;gap:28px}.footer-logo{font-size:1.1rem;font-weight:900;letter-spacing:.08em;color:white;text-decoration:none}.footer-logo small{display:block;color:#B8C7A4;font-size:10px;letter-spacing:.18em;margin-top:4px}.footer-text{color:rgba(255,255,255,.78);font-size:14px;line-height:1.9;font-weight:600;max-width:38rem}.footer-nav{display:flex;flex-wrap:wrap;gap:14px 22px}.footer-nav a{color:white;text-decoration:none;font-size:13px;font-weight:900}.footer-nav a:hover{color:#F2B48A}.copyright{color:rgba(255,255,255,.58);font-size:12px;margin:0}
+    .content h2{scroll-margin-top:96px;border-left:4px solid #5f826a;padding-left:16px;font-size:1.65rem;line-height:1.35;margin:48px 0 18px;font-weight:900}.content h2:first-child{margin-top:0}
+    .content h3{font-size:1.22rem;line-height:1.55;margin:34px 0 12px;font-weight:900;color:#3d5547}
+    .content p{font-size:1.02rem;line-height:2.05;color:#4f5a53;font-weight:600;margin:0 0 20px}
+    .content ul{margin:0 0 24px;padding-left:1.3em;color:#4f5a53;font-weight:600;line-height:1.95}.content li+li{margin-top:8px}
+    .content img.inline-image{width:100%;height:auto;border-radius:20px;margin:32px 0;display:block;box-shadow:0 10px 30px rgba(61,85,71,.08)}
+    .author{max-width:760px;margin:56px auto 0;border-top:1px solid #e1e6de;padding-top:32px}.author small{color:#5f826a;font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.author h2{font-size:1.25rem;margin:12px 0 10px}.author p,.author dd{color:#4f5a53;font-weight:600;line-height:1.9}.author dl{display:grid;gap:8px;margin:18px 0 0}.author div{display:grid;gap:4px}.author dt{color:#779d82;font-weight:900}
+    .cta{display:flex;justify-content:center;margin-top:34px}.cta a{background:#5f826a;color:white;border-radius:999px;padding:16px 34px;text-decoration:none;font-weight:900}
+    .related{background:#f6f8f3;padding:56px 20px 64px}.related-inner{max-width:1040px;margin:auto}.section-label{color:#5f826a;font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin:0}.related h2{font-size:1.65rem;margin:12px 0 26px}.related-grid{display:grid;gap:18px}.related-card{background:white;border:1px solid #e1e6de;border-radius:20px;overflow:hidden;color:#3d5547;text-decoration:none;display:block;box-shadow:0 10px 30px rgba(61,85,71,.07)}.related-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}.related-card span{display:block;color:#779d82;font-size:12px;font-weight:900;margin:18px 18px 0}.related-card h3{font-size:1.1rem;line-height:1.45;margin:10px 18px 8px}.related-card p{color:#5f6862;font-size:14px;font-weight:600;line-height:1.8;margin:0 18px 20px}.blog-link{display:inline-flex;margin-top:24px;color:#5f826a;font-weight:900;text-decoration:none}
+    footer{background:#3d5547;color:white;padding:42px 20px}.footer-inner{max-width:1040px;margin:auto;display:grid;gap:28px}.footer-logo{font-size:1.1rem;font-weight:900;letter-spacing:.08em;color:white;text-decoration:none}.footer-logo small{display:block;color:#c9d8cc;font-size:10px;letter-spacing:.18em;margin-top:4px}.footer-text{color:rgba(255,255,255,.78);font-size:14px;line-height:1.9;font-weight:600;max-width:38rem}.footer-nav{display:flex;flex-wrap:wrap;gap:14px 22px}.footer-nav a{color:white;text-decoration:none;font-size:13px;font-weight:900}.footer-nav a:hover{color:#c9d8cc}.copyright{color:rgba(255,255,255,.58);font-size:12px;margin:0}
     @media (min-width: 640px){.author div{grid-template-columns:5rem 1fr}.related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width: 900px){.nav{display:flex}}
   </style>
@@ -340,7 +340,7 @@ export const onRequestGet = async ({
       <h1>${escapeHtml(post.title)}</h1>
       <p class="lead">${escapeHtml(post.excerpt)}</p>
     </div>
-    <img class="hero" src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}">
+    <img class="hero" src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" onerror="this.onerror=null;this.src='/gallery-studio-interior.png'">
     ${renderToc(getTocItems(post.content))}
     <article class="content">${paragraphs(post.content)}</article>
     <section class="author">

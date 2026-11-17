@@ -54,6 +54,13 @@ export default function BlogIndexClient({ initialPosts }: BlogIndexClientProps) 
           <div className="relative aspect-[4/3] bg-[#f0f3ed]">
             <Image
               src={post.image || "/gallery-studio-interior.png"}
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.dataset.fallback) return;
+                img.dataset.fallback = "1";
+                img.srcset = "";
+                img.src = "/gallery-studio-interior.png";
+              }}
               alt={post.title}
               fill
               className="object-cover transition duration-500 group-hover:scale-105"
