@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "../../../lib/blog-posts";
+import { Header } from "../../../components/Header";
 import {
   absoluteUrl,
   businessAddress,
@@ -186,45 +187,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
 
-      <header className="sticky top-0 z-50 border-b border-[#e1e6de] bg-white/92 backdrop-blur-md">
-        <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-5 px-5">
-          <a href="/" className="leading-none">
-            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#4f735b]">
-              NATURAL FITNESS
-            </span>
-            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#779d82]">
-              Private Personal Gym
-            </span>
-          </a>
-          <nav
-            aria-label="主要ナビゲーション"
-            className="hidden items-center gap-6 text-sm font-black text-[#3d5547] lg:flex"
-          >
-            <a href="/" className="transition hover:text-[#5f826a]">
-              トップ
-            </a>
-            <a href="/blog" className="text-[#5f826a]">
-              ブログ
-            </a>
-            <a href="/price" className="transition hover:text-[#5f826a]">
-              料金
-            </a>
-            <a href="/#access" className="transition hover:text-[#5f826a]">
-              アクセス
-            </a>
-            <a href="/#faq" className="transition hover:text-[#5f826a]">
-              FAQ
-            </a>
-          </nav>
-          <a
-            href="/reserve"
-            data-event-label="blog_article_header_reserve"
-            className="rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white"
-          >
-            体験予約
-          </a>
-        </div>
-      </header>
+      <Header position="sticky" />
 
       <article>
         <section className="px-5 py-10 sm:px-8 sm:py-16">

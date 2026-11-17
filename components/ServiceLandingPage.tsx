@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MobileCTA } from "./MobileCTA";
 import { ReserveLink } from "./ReserveLink";
+import { Header } from "./Header";
 
 export type ServicePageConfig = {
   slug: string;
@@ -102,36 +103,7 @@ export function ServiceLandingPage({ config }: { config: ServicePageConfig }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <header className="sticky top-0 z-50 border-b border-[#e1e6de] bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a href="/" className="leading-none" aria-label="NATURAL FITNESS トップページ">
-            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#4f735b]">
-              NATURAL FITNESS
-            </span>
-            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#779d82]">
-              Okazaki Personal Gym
-            </span>
-          </a>
-          <nav className="hidden items-center gap-6 text-sm font-black lg:flex" aria-label="主要メニュー">
-            {navigation.map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                className={href === `/${config.slug}` ? "text-[#5f826a]" : "transition hover:text-[#5f826a]"}
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-          <ReserveLink
-            href="/reserve"
-            eventLabel={`${config.slug}_header_reserve`}
-            className="rounded-full px-4 py-2.5 text-sm font-bold sm:px-6 border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]"
-          >
-            初回体験を予約する
-          </ReserveLink>
-        </div>
-      </header>
+      <Header position="sticky" />
 
       <section className="overflow-hidden bg-[#f4f7f2]">
         <div className="mx-auto grid max-w-7xl lg:min-h-[610px] lg:grid-cols-2">

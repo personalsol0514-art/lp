@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PopularBadge } from "./PopularBadge";
+import { Header } from "./Header";
 
 const plans = [
   {
@@ -97,29 +98,9 @@ export function PricePageContent({ isTest = false }: { isTest?: boolean }) {
     <main className="min-h-screen overflow-hidden bg-[#F5F3EC] pb-20 text-[#2f3e35] sm:pb-28">
       {isTest && <div className="bg-[#2f3e35] px-4 py-2 text-center text-[0.68rem] font-bold text-white/80">確認用テストページ・検索結果には表示されません</div>}
 
-      <header className="fixed inset-x-0 top-0 z-[60] border-b border-[#e1e6de] bg-white/92 shadow-sm backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-8">
-          <a href="/" className="leading-none">
-            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#4f735b] sm:text-[1.1rem]">NATURAL FITNESS</span>
-            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#779d82] sm:text-[0.5rem]">Private Personal Gym</span>
-          </a>
-          <nav className="hidden items-center gap-8 text-sm font-black text-[#3d5547] lg:flex">
-            {headerNavItems.map(([label, href]) => <a key={label} href={href} className="transition hover:text-[#5f826a]">{label}</a>)}
-          </nav>
-          <div className="flex items-center gap-2">
-            <ReserveLink label="price_header_reserve" className="hidden rounded-full px-5 py-2.5 text-sm font-bold sm:inline-flex border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]">初回体験を予約する</ReserveLink>
-            <details className="group relative lg:hidden">
-              <summary className="list-none"><span className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#e1e6de] bg-white text-sm font-black text-[#5f826a] shadow-sm sm:h-11 sm:w-auto sm:px-4"><span className="grid gap-1"><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /><span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" /></span><span className="ml-2 hidden sm:inline">Menu</span></span></summary>
-              <div className="fixed inset-x-4 top-16 z-[80] overflow-hidden rounded-[1.35rem] border border-[#e1e6de] bg-white p-2 shadow-[0_18px_46px_rgba(61,85,71,0.16)] sm:absolute sm:inset-auto sm:right-0 sm:top-auto sm:mt-3 sm:w-64">
-                {headerNavItems.map(([label, href]) => <a key={label} href={href} className="block rounded-xl px-4 py-3 text-sm font-black text-[#3d5547] transition hover:bg-[#f6f8f3] hover:text-[#5f826a]">{label}</a>)}
-                <ReserveLink label="price_header_menu_reserve" className="mt-2 flex items-center justify-center rounded-xl px-4 py-3 text-sm font-bold border border-[#5f826a] bg-[#8db399] text-white shadow-[0_3px_8px_rgba(36,59,51,0.15)] transition hover:bg-[#779d82]">初回体験を予約する</ReserveLink>
-              </div>
-            </details>
-          </div>
-        </div>
-      </header>
+      <Header position="fixed" />
 
-      <section className="relative isolate h-[50svh] min-h-[22rem] max-h-[34rem] overflow-hidden bg-[#779d82] pt-14 sm:pt-[4.5rem]">
+      <section className="relative isolate h-[50svh] min-h-[22rem] max-h-[34rem] overflow-hidden bg-[#779d82] pt-14 lg:pt-[4.5rem]">
         <div className="absolute -left-24 top-24 h-64 w-64 rounded-full bg-white/25 sm:h-[30rem] sm:w-[30rem]" />
         <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-[58%_42%_64%_36%/45%_62%_38%_55%] bg-[#a9c6b2]/60 sm:h-[36rem] sm:w-[36rem]" />
         <div className="relative z-10 flex h-full items-center justify-center px-5 text-center text-white">

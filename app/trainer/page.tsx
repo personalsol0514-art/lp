@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight, Check, Heart, MessageCircle, PersonStanding } from "lucide-react";
+import { Header } from "../../components/Header";
 
 const title = "トレーナー紹介｜岡崎市のパーソナルジム NATURAL FITNESS";
 const description =
@@ -87,78 +88,7 @@ export default function TrainerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <header className="sticky top-0 z-50 border-b border-[#e1e6de] bg-white/92 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a href="/" className="leading-none">
-            <span className="block text-[0.98rem] font-black tracking-[0.08em] text-[#4f735b]">
-              NATURAL FITNESS
-            </span>
-            <span className="mt-1 block text-[0.45rem] font-black uppercase tracking-[0.22em] text-[#779d82]">
-              Private Personal Gym
-            </span>
-          </a>
-
-          <nav className="hidden items-center gap-7 text-sm font-black lg:flex">
-            {navItems.map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                className={`transition hover:text-[#5f826a] ${
-                  href === "/trainer" ? "text-[#5f826a]" : ""
-                }`}
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a
-              href="/reserve"
-              data-event-label="trainer_header_reserve"
-              className="hidden rounded-full bg-[#5f826a] px-5 py-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(61,85,71,0.25)] transition hover:bg-[#3d5547] sm:inline-flex"
-            >
-              体験予約
-            </a>
-            <details className="group relative lg:hidden">
-              <summary className="list-none">
-                <span className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#e1e6de] bg-white shadow-sm sm:h-11 sm:w-auto sm:px-4">
-                  <span className="grid gap-1">
-                    <span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" />
-                    <span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" />
-                    <span className="block h-[2px] w-4 rounded-full bg-[#5f826a]" />
-                  </span>
-                  <span className="ml-2 hidden text-sm font-black text-[#5f826a] sm:inline">
-                    Menu
-                  </span>
-                </span>
-              </summary>
-              <div className="fixed inset-x-4 top-16 z-[80] overflow-hidden rounded-[1.35rem] border border-[#e1e6de] bg-white p-2 shadow-[0_18px_46px_rgba(61,85,71,0.16)] sm:absolute sm:inset-auto sm:right-0 sm:top-auto sm:mt-3 sm:w-64">
-                {navItems.map(([label, href]) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className={`block rounded-xl px-4 py-3 text-sm font-black transition hover:bg-[#f6f8f3] hover:text-[#5f826a] ${
-                      href === "/trainer"
-                        ? "bg-[#f6f8f3] text-[#5f826a]"
-                        : "text-[#3d5547]"
-                    }`}
-                  >
-                    {label}
-                  </a>
-                ))}
-                <a
-                  href="/reserve"
-                  data-event-label="trainer_menu_reserve"
-                  className="mt-2 flex items-center justify-center rounded-xl bg-[#5f826a] px-4 py-3 text-sm font-black text-white"
-                >
-                  体験予約
-                </a>
-              </div>
-            </details>
-          </div>
-        </div>
-      </header>
+      <Header position="sticky" />
 
       <section className="relative isolate flex min-h-[17rem] items-center justify-center overflow-hidden bg-[#3d5547] sm:min-h-[26rem]">
         <Image
